@@ -24,10 +24,12 @@ pub struct KeysSampled {
 }
 
 #[cfg_attr(test, derive(Clone))]
+#[hax_lib::attributes]
 pub struct HeaderSent {
     uc: unchunked::EkSent,
     sending_ek: polynomial::PolyEncoder,
     // `receiving_ct1` only decodes messages of length `incremental_mlkem768::CIPHERTEXT1_SIZE`
+    #[hax_lib::refine(receiving_ct1.pts_needed == incremental_mlkem768::CIPHERTEXT1_SIZE / 2)]
     receiving_ct1: polynomial::PolyDecoder,
 }
 
@@ -38,9 +40,11 @@ pub struct Ct1Received {
 }
 
 #[cfg_attr(test, derive(Clone))]
+#[hax_lib::attributes]
 pub struct EkSentCt1Received {
     uc: unchunked::EkSentCt1Received,
     // `receiving_ct2` only decodes messages of length `incremental_mlkem768::CIPHERTEXT2_SIZE + authenticator::Authenticator::MACSIZE`
+    #[hax_lib::refine(receiving_ct2.pts_needed == (incremental_mlkem768::CIPHERTEXT2_SIZE + authenticator::Authenticator::MACSIZE) / 2)]
     receiving_ct2: polynomial::PolyDecoder,
 }
 
@@ -52,10 +56,9 @@ impl KeysUnsampled {
     }
 
     pub fn send_hdr_chunk<R: Rng + CryptoRng>(self, rng: &mut R) -> (KeysSampled, Chunk) {
-        let (uc, hdr, mac) = self.uc.send_header(rng);
-        let to_send = [hdr, mac].concat();
+        let (uc, mut to_send, mut mac) = self.uc.send_header(rng);
+        to_send.append(&mut mac);
         let encoder = polynomial::PolyEncoder::encode_bytes(&to_send);
-        hax_lib::assume!(encoder.is_ok());
         let mut sending_hdr = encoder.expect("should be able to encode header size");
         let chunk = sending_hdr.next_chunk();
         (KeysSampled { uc, sending_hdr }, chunk)
@@ -81,13 +84,10 @@ impl KeysSampled {
     pub fn recv_ct1_chunk(self, epoch: Epoch, chunk: &Chunk) -> HeaderSent {
         assert_eq!(epoch, self.uc.epoch);
         let decoder = polynomial::PolyDecoder::new(incremental_mlkem768::CIPHERTEXT1_SIZE);
-        hax_lib::assume!(decoder.is_ok());
         let mut receiving_ct1 = decoder.expect("should be able to decode header size");
         receiving_ct1.add_chunk(chunk);
         let (uc, ek) = self.uc.send_ek();
-
         let encoder = polynomial::PolyEncoder::encode_bytes(&ek);
-        hax_lib::assume!(encoder.is_ok());
         let sending_ek = encoder.expect("should be able to send ek");
         HeaderSent {
             uc,
@@ -135,11 +135,7 @@ impl HeaderSent {
             mut receiving_ct1,
         } = self;
         receiving_ct1.add_chunk(chunk);
-        hax_lib::assume!(
-            receiving_ct1.get_pts_needed() <= polynomial::MAX_STORED_POLYNOMIAL_DEGREE_V1
-        );
         if let Some(decoded) = receiving_ct1.decoded_message() {
-            hax_lib::assume!(decoded.len() == 960);
             let uc = uc.recv_ct1(epoch, decoded);
             HeaderSentRecvChunk::Done(Ct1Received { uc, sending_ek })
         } else {
@@ -167,10 +163,13 @@ impl Ct1Received {
     #[hax_lib::requires(epoch == self.uc.epoch)]
     pub fn recv_ct2_chunk(self, epoch: Epoch, chunk: &Chunk) -> EkSentCt1Received {
         assert_eq!(epoch, self.uc.epoch);
+        hax_lib::assert!(
+            (incremental_mlkem768::CIPHERTEXT2_SIZE + authenticator::Authenticator::MACSIZE) % 2
+                == 0
+        );
         let decoder = polynomial::PolyDecoder::new(
             incremental_mlkem768::CIPHERTEXT2_SIZE + authenticator::Authenticator::MACSIZE,
         );
-        hax_lib::assume!(decoder.is_ok());
         let mut receiving_ct2 = decoder.expect("should be able to decode ct2+mac size");
         receiving_ct2.add_chunk(chunk);
         EkSentCt1Received {
@@ -203,22 +202,12 @@ impl EkSentCt1Received {
             mut receiving_ct2,
         } = self;
         receiving_ct2.add_chunk(chunk);
-        hax_lib::assume!(
-            receiving_ct2.get_pts_needed() <= polynomial::MAX_STORED_POLYNOMIAL_DEGREE_V1
-        );
         if let Some(mut ct2) = receiving_ct2.decoded_message() {
-            let mac: authenticator::Mac = ct2
-                .drain(incremental_mlkem768::CIPHERTEXT2_SIZE..)
-                .collect();
-            hax_lib::assume!(
-                ct2.len() == incremental_mlkem768::CIPHERTEXT2_SIZE
-                    && mac.len() == authenticator::Authenticator::MACSIZE
-            );
+            let mac: authenticator::Mac = ct2.split_off(incremental_mlkem768::CIPHERTEXT2_SIZE);
             let (uc, sec) = uc.recv_ct2(ct2, mac)?;
             let decoder = polynomial::PolyDecoder::new(
                 incremental_mlkem768::HEADER_SIZE + authenticator::Authenticator::MACSIZE,
             );
-            hax_lib::assume!(decoder.is_ok());
             Ok(EkSentCt1ReceivedRecvChunk::Done((
                 send_ct::NoHeaderReceived {
                     uc,

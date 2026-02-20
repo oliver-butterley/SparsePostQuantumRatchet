@@ -196,11 +196,15 @@ impl ops::Div<&GF16> for GF16 {
 }
 
 #[inline]
-#[hax_lib::fstar::verification_status(lax)] // proving absence of overflow in loop condition is tricky
+#[hax_lib::requires(into.len() <= usize::MAX - 2)]
+#[hax_lib::ensures(|_| future(into).len() == into.len())]
 pub fn parallel_mult(a: GF16, into: &mut [GF16]) {
-    let mut i = 0;
+    let mut i: usize = 0;
+    #[cfg(hax)]
+    let l = into.len();
     while i + 2 <= into.len() {
-        hax_lib::loop_decreases!(into.len() - i);
+        hax_lib::loop_decreases!(l - i);
+        hax_lib::loop_invariant!(into.len() == l && i <= l);
         (into[i].value, into[i + 1].value) = mul2_u16(a.value, into[i].value, into[i + 1].value);
         i += 2;
     }
@@ -267,7 +271,7 @@ mod accelerated {
     }
 
     #[inline]
-    #[target_feature(enable = "neon")]
+    #[target_feature(enable = "neon,aes")]
     unsafe fn mul2_unreduced(a: u16, b1: u16, b2: u16) -> u128 {
         aarch64::vmull_p64(a as u64, ((b1 as u64) << 32) | (b2 as u64))
     }
@@ -587,8 +591,8 @@ impl GF16 {
 #[cfg(test)]
 mod test {
     use super::*;
-    use galois_field_2pm::gf2::GFu16;
     use galois_field_2pm::GaloisField;
+    use galois_field_2pm::gf2::GFu16;
     use rand::RngCore;
 
     // https://web.eecs.utk.edu/~jplank/plank/papers/CS-07-593/primitive-polynomial-table.txt
