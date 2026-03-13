@@ -9,17 +9,18 @@ charon:
   cargo_args: [] # extra cargo flags
   start_from: # Rust paths to extract (uncomment modules one at a time)
     - "spqr::util" # extracts without errors
-    # - "spqr::kdf" # Charon runs and runs...
+    # - "spqr::kdf" # Charon hangs - not a config issue, see notes
     # - "spqr::chain" # Charon runs and runs...
     - "spqr::encoding" # Charon fine, Aeneas errors
     # - "spqr::authenticator" # Charon runs and runs...
     - "spqr::serialize" # extracts without errors
-    # - "spqr::incremental_mlkem768" # Charon fine, Aeneas errors
+    - "spqr::incremental_mlkem768" # extracts without errors (requires log to be excluded)
     # - "spqr::v1" # Charon runs and runs...
     # - "spqr::proto" # Charon runs and runs...
   exclude: # patterns to skip
     - "spqr::encoding::gf::check_accelerated" # cpufeatures macro: arrow types unsupported by Aeneas
     - "spqr::encoding::gf::accelerated" # platform-specific SIMD intrinsics
+    - "log" # log crate internals cause Aeneas "Internal error" (arrow types in __private_api)
   opaque: # treat as opaque (no body extracted)
     - "spqr::encoding::gf::check_accelerated"
     - "spqr::encoding::gf::accelerated"

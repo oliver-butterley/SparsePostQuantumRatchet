@@ -199,13 +199,31 @@ Current state:
 - Aeneas installed and configured (`aeneas-config.yml`)
 - `spqr::util`, `spqr::serialize`, `spqr::encoding` all extract cleanly (0 sorry)
 - `spqr::kdf`, `chain`, `authenticator`, `v1`, `proto` - Charon hangs (external crypto dependency graphs)
-- `spqr::incremental_mlkem768` - Charon OK, Aeneas partial (similar iterator issues)
+- `spqr::incremental_mlkem768` - Charon OK, Aeneas 2 cosmetic errors, **0 sorry**, 139 transparent functions
+
+### 10. Investigating `spqr::incremental_mlkem768`
+
+**Charon**: Completes successfully (~10s). No hanging — `libcrux_ml_kem` dependency graph is tractable.
+
+**Aeneas errors (2, both from same root cause)**:
+1. `log::__private_api::log` — "Internal error" from `log` crate macros.rs. The `log::info!` and `log::warn!` macros expand to function pointer types (arrow types) that Aeneas doesn't support.
+2. Cascading: body of `potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275` ignored due to error 1.
+
+**Root cause**: The function uses `#[cfg(not(hax))] log::info!(...)` and `log::warn!(...)` (lines 126, 132). Charon doesn't set the `hax` cfg, so these calls are compiled in. The `log` crate's internal `__private_api::log` function uses arrow types.
+
+**Fix**: Added `log` to the `exclude` list in `aeneas-config.yml`. This reduced errors from 3 to 2. The function is already `#[hax_lib::opaque]` in the source, so Aeneas correctly generates an axiom (opaque declaration) instead of a sorry body.
+
+**Result**: 0 sorry, 139 transparent functions, 203 opaque functions. The 2 remaining errors are cosmetic — they don't affect the output quality.
+
+**Warnings** (non-blocking):
+- Unknown types with region parameters: `core::slice::iter::Chunks`, `log::Metadata`, `log::Record`, `core::panic::location::Location`
+- Missing Iterator methods: `map`, `collect` (not used by incremental_mlkem768's transparent functions)
 
 ### Next steps
 1. ~~Refactor the sorry functions in encoding~~ **DONE** - 0 sorry
 2. ~~Clean up opaque list~~ **DONE**
-3. Investigate Charon hanging modules - try adding external crates to `opaque` list
-4. Try `spqr::incremental_mlkem768` with similar refactoring
+3. ~~Investigate Charon hanging modules~~ **BLOCKED** - Charon hangs at the MIR analysis level (inside charon-driver/rustc), before `--opaque`/`--exclude`/`--start-from` flags take effect. Tested with `kdf` (simplest hanging module, only 2 functions). Adding `hkdf::*`, `sha2::*`, etc. to opaque/exclude lists has no effect. Even `--start-from "spqr::kdf::hkdf_to_vec"` with `--exclude "hkdf"` hangs. Root cause: Charon must process the full rustc MIR including all type resolution for generic trait hierarchies (`hkdf::Hkdf<sha2::Sha256>` -> `Digest` -> `CoreWrapper` -> `BlockSizeUser` -> `generic-array` -> `typenum` -> ...). This is a Charon upstream limitation - needs either Charon improvements or `cfg(hax)`-gated alternative code paths that avoid referencing external crypto crates.
+4. ~~Try `spqr::incremental_mlkem768`~~ **DONE** - 0 sorry, excluded `log` crate
 5. Set up a Lean project to actually build/typecheck the generated output
 
 ### Observations

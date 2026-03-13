@@ -78,6 +78,56 @@ structure core.ops.arith.DivAssign (Self : Type) (Rhs : Type) where
 @[reducible, rust_type "core::ops::range::RangeFull"]
 def core.ops.range.RangeFull := Unit
 
+/-- [libcrux_ml_kem::ind_cca::incremental::types::Error]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libcrux-ml-kem-0.0.7/src/ind_cca/incremental/types.rs', lines 14:0-14:14
+    Name pattern: [libcrux_ml_kem::ind_cca::incremental::types::Error] -/
+@[discriminant isize, rust_type
+  "libcrux_ml_kem::ind_cca::incremental::types::Error"]
+inductive libcrux_ml_kem.ind_cca.incremental.types.Error where
+| InvalidInputLength : libcrux_ml_kem.ind_cca.incremental.types.Error
+| InvalidOutputLength : libcrux_ml_kem.ind_cca.incremental.types.Error
+| InvalidPublicKey : libcrux_ml_kem.ind_cca.incremental.types.Error
+| InsufficientRandomness : libcrux_ml_kem.ind_cca.incremental.types.Error
+
+/-- [libcrux_ml_kem::ind_cca::incremental::types::Ciphertext1]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libcrux-ml-kem-0.0.7/src/ind_cca/incremental/types.rs', lines 155:0-155:40
+    Name pattern: [libcrux_ml_kem::ind_cca::incremental::types::Ciphertext1] -/
+@[rust_type "libcrux_ml_kem::ind_cca::incremental::types::Ciphertext1"]
+structure libcrux_ml_kem.ind_cca.incremental.types.Ciphertext1 (LEN :
+  Std.Usize) where
+  value : Array Std.U8 LEN
+
+/-- [libcrux_ml_kem::ind_cca::incremental::types::Ciphertext2]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libcrux-ml-kem-0.0.7/src/ind_cca/incremental/types.rs', lines 168:0-168:40
+    Name pattern: [libcrux_ml_kem::ind_cca::incremental::types::Ciphertext2] -/
+@[rust_type "libcrux_ml_kem::ind_cca::incremental::types::Ciphertext2"]
+structure libcrux_ml_kem.ind_cca.incremental.types.Ciphertext2 (LEN :
+  Std.Usize) where
+  value : Array Std.U8 LEN
+
+/-- Trait declaration: [rand_core::RngCore]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand_core-0.9.3/src/lib.rs', lines 130:0-130:17
+    Name pattern: [rand_core::RngCore] -/
+@[rust_trait "rand_core::RngCore"]
+structure rand_core.RngCore (Self : Type) where
+  next_u32 : Self → Result (Std.U32 × Self)
+  next_u64 : Self → Result (Std.U64 × Self)
+  fill_bytes : Self → Slice Std.U8 → Result (Self × (Slice Std.U8))
+
+/-- Trait declaration: [rand::rng::Rng]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand-0.9.1/src/rng.rs', lines 58:0-58:22
+    Name pattern: [rand::rng::Rng] -/
+@[rust_trait "rand::rng::Rng" (parentClauses := ["rand_coreRngCoreInst"])]
+structure rand.rng.Rng (Self : Type) where
+  rand_coreRngCoreInst : rand_core.RngCore Self
+
+/-- Trait declaration: [rand_core::CryptoRng]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand_core-0.9.3/src/lib.rs', lines 204:0-204:28
+    Name pattern: [rand_core::CryptoRng] -/
+@[rust_trait "rand_core::CryptoRng" (parentClauses := ["RngCoreInst"])]
+structure rand_core.CryptoRng (Self : Type) where
+  RngCoreInst : rand_core.RngCore Self
+
 /-- [spqr::proto::pq_ratchet::PolynomialEncoder]
     Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-026a0a30401f68eb/out/signal.proto.pq_ratchet.rs', lines 3:0-13:1 -/
 structure proto.pq_ratchet.PolynomialEncoder where
@@ -206,6 +256,13 @@ structure encoding.Decoder (Self : Type) where
   new : Std.Usize → Result (core.result.Result Self encoding.EncodingError)
   add_chunk : Self → encoding.Chunk → Result Self
   decoded_message : Self → Result (Option (alloc.vec.Vec Std.U8))
+
+/-- [spqr::incremental_mlkem768::Keys]
+    Source: 'src/incremental_mlkem768.rs', lines 22:0-26:1 -/
+structure incremental_mlkem768.Keys where
+  ek : alloc.vec.Vec Std.U8
+  dk : alloc.vec.Vec Std.U8
+  hdr : alloc.vec.Vec Std.U8
 
 /-- [spqr::serialize::Error]
     Source: 'src/serialize.rs', lines 7:0-12:1 -/

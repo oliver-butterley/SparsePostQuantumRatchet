@@ -56,6 +56,9 @@ def
   next :=
     core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.next
     traitsiteratorIteratorInst
+  step_by :=
+    core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.step_by
+    traitsiteratorIteratorInst
   map := fun {B : Type} {F : Type} (opsfunctionFnMutPTuplePairUsizeFPInst :
     core.ops.function.FnMut F (Std.Usize × Clause0_Item) B) =>
     core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.map
@@ -111,6 +114,16 @@ def core.ops.range.RangeFull.Insts.CoreSliceIndexSliceIndexSliceSlice (T :
     core.ops.range.RangeFull.Insts.CoreSliceIndexSliceIndexSliceSlice.index
   index_mut :=
     core.ops.range.RangeFull.Insts.CoreSliceIndexSliceIndexSliceSlice.index_mut
+}
+
+/-- Trait implementation: [libcrux_ml_kem::ind_cca::incremental::types::{core::fmt::Debug for libcrux_ml_kem::ind_cca::incremental::types::Error}]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libcrux-ml-kem-0.0.7/src/ind_cca/incremental/types.rs', lines 13:9-13:14
+    Name pattern: [core::fmt::Debug<libcrux_ml_kem::ind_cca::incremental::types::Error>] -/
+@[reducible, rust_trait_impl
+  "core::fmt::Debug<libcrux_ml_kem::ind_cca::incremental::types::Error>"]
+def libcrux_ml_kem.ind_cca.incremental.types.Error.Insts.CoreFmtDebug :
+  core.fmt.Debug libcrux_ml_kem.ind_cca.incremental.types.Error := {
+  fmt := libcrux_ml_kem.ind_cca.incremental.types.Error.Insts.CoreFmtDebug.fmt
 }
 
 /-- Trait implementation: [sorted_vec::{core::clone::Clone for sorted_vec::SortedSet<T>[TraitClause@1]}]
@@ -1000,6 +1013,7 @@ def encoding.polynomial.Pt.Insts.CoreCmpPartialOrdPt : core.cmp.PartialOrd
   encoding.polynomial.Pt encoding.polynomial.Pt := {
   partialEqInst := encoding.polynomial.Pt.Insts.CoreCmpPartialEqPt
   partial_cmp := encoding.polynomial.Pt.Insts.CoreCmpPartialOrdPt.partial_cmp
+  le := encoding.polynomial.Pt.Insts.CoreCmpPartialOrdPt.le
 }
 
 /-- [spqr::encoding::polynomial::{core::cmp::Ord for spqr::encoding::polynomial::Pt}::cmp]:
@@ -3964,6 +3978,238 @@ def core.option.Option.Insts.SpqrEncodingDecoder {T : Type} (DecoderInst :
   decoded_message :=
     core.option.Option.Insts.SpqrEncodingDecoder.decoded_message DecoderInst
 }
+
+/-- [spqr::incremental_mlkem768::CIPHERTEXT1_SIZE]
+    Source: 'src/incremental_mlkem768.rs', lines 8:0-8:68 -/
+@[global_simps, irreducible]
+def incremental_mlkem768.CIPHERTEXT1_SIZE : Result Std.Usize :=
+  libcrux_ml_kem.ind_cca.incremental.types.Ciphertext1.len 960#usize
+
+/-- [spqr::incremental_mlkem768::CIPHERTEXT2_SIZE]
+    Source: 'src/incremental_mlkem768.rs', lines 11:0-11:68 -/
+@[global_simps, irreducible]
+def incremental_mlkem768.CIPHERTEXT2_SIZE : Result Std.Usize :=
+  libcrux_ml_kem.ind_cca.incremental.types.Ciphertext2.len 128#usize
+
+/-- [spqr::incremental_mlkem768::HEADER_SIZE]
+    Source: 'src/incremental_mlkem768.rs', lines 13:0-13:54 -/
+@[global_simps, irreducible]
+def incremental_mlkem768.HEADER_SIZE : Result Std.Usize :=
+  libcrux_ml_kem.mlkem768.incremental.pk1_len
+
+/-- [spqr::incremental_mlkem768::ENCAPSULATION_KEY_SIZE]
+    Source: 'src/incremental_mlkem768.rs', lines 15:0-15:65 -/
+@[global_simps, irreducible]
+def incremental_mlkem768.ENCAPSULATION_KEY_SIZE : Result Std.Usize :=
+  libcrux_ml_kem.mlkem768.incremental.pk2_len
+
+/-- [spqr::incremental_mlkem768::ek_matches_header]:
+    Source: 'src/incremental_mlkem768.rs', lines 28:0-30:1 -/
+def incremental_mlkem768.ek_matches_header
+  (ek : alloc.vec.Vec Std.U8) (hdr : alloc.vec.Vec Std.U8) : Result Bool := do
+  let s := alloc.vec.Vec.deref hdr
+  let s1 := alloc.vec.Vec.deref ek
+  let r ← libcrux_ml_kem.mlkem768.incremental.validate_pk_bytes s s1
+  core.result.Result.is_ok r
+
+/-- [spqr::incremental_mlkem768::generate]:
+    Source: 'src/incremental_mlkem768.rs', lines 34:0-43:1 -/
+def incremental_mlkem768.generate
+  {R : Type} (randrngRngInst : rand.rng.Rng R) (rand_coreCryptoRngInst :
+  rand_core.CryptoRng R) (rng : R) :
+  Result (incremental_mlkem768.Keys × R)
+  := do
+  let randomness := Array.repeat 64#usize 0#u8
+  let (s, to_slice_mut_back) ← lift (Array.to_slice_mut randomness)
+  let (rng1, s1) ← randrngRngInst.rand_coreRngCoreInst.fill_bytes rng s
+  let randomness1 := to_slice_mut_back s1
+  let k ←
+    libcrux_ml_kem.mlkem768.incremental.KeyPairCompressedBytes.from_seed
+      randomness1
+  let a ← libcrux_ml_kem.mlkem768.incremental.KeyPairCompressedBytes.pk1 k
+  let s2 ← lift (Array.to_slice a)
+  let v ← alloc.slice.Slice.to_vec core.clone.CloneU8 s2
+  let a1 ← libcrux_ml_kem.mlkem768.incremental.KeyPairCompressedBytes.pk2 k
+  let s3 ← lift (Array.to_slice a1)
+  let v1 ← alloc.slice.Slice.to_vec core.clone.CloneU8 s3
+  let a2 ← libcrux_ml_kem.mlkem768.incremental.KeyPairCompressedBytes.sk k
+  let s4 ← lift (Array.to_slice a2)
+  let v2 ← alloc.slice.Slice.to_vec core.clone.CloneU8 s4
+  ok ({ ek := v1, dk := v2, hdr := v }, rng1)
+
+/-- [spqr::incremental_mlkem768::encaps1]:
+    Source: 'src/incremental_mlkem768.rs', lines 48:0-66:1 -/
+def incremental_mlkem768.encaps1
+  {R : Type} (randrngRngInst : rand.rng.Rng R) (rand_coreCryptoRngInst :
+  rand_core.CryptoRng R) (hdr : alloc.vec.Vec Std.U8) (rng : R) :
+  Result (((alloc.vec.Vec Std.U8) × (alloc.vec.Vec Std.U8) × (alloc.vec.Vec
+    Std.U8)) × R)
+  := do
+  let randomness := Array.repeat 32#usize 0#u8
+  let (s, to_slice_mut_back) ← lift (Array.to_slice_mut randomness)
+  let (rng1, s1) ← randrngRngInst.rand_coreRngCoreInst.fill_bytes rng s
+  let i ← libcrux_ml_kem.mlkem768.incremental.encaps_state_len
+  let state ← alloc.vec.from_elem core.clone.CloneU8 0#u8 i
+  let i1 ← libcrux_ml_kem.constants.SHARED_SECRET_SIZE
+  let ss ← alloc.vec.from_elem core.clone.CloneU8 0#u8 i1
+  let s2 ← alloc.vec.Vec.as_slice Global hdr
+  let randomness1 := to_slice_mut_back s1
+  let (s3, deref_mut_back) ← lift (alloc.vec.Vec.deref_mut state)
+  let (s4, deref_mut_back1) ← lift (alloc.vec.Vec.deref_mut ss)
+  let (ct1, s5, s6) ←
+    libcrux_ml_kem.mlkem768.incremental.encapsulate1 s2 randomness1 s3 s4
+  let c ←
+    core.result.Result.expect
+      libcrux_ml_kem.ind_cca.incremental.types.Error.Insts.CoreFmtDebug ct1
+      (toStr "should only fail based on sizes, all sizes should be correct")
+  let s7 ← lift (Array.to_slice c.value)
+  let v ← alloc.slice.Slice.to_vec core.clone.CloneU8 s7
+  let state1 := deref_mut_back s5
+  let ss1 := deref_mut_back1 s6
+  ok ((v, state1, ss1), rng1)
+
+/-- [spqr::incremental_mlkem768::flip_endianness_of_encapsulation_state]: loop body 0:
+    Source: 'src/incremental_mlkem768.rs', lines 147:4-149:5 -/
+@[rust_loop_body]
+def incremental_mlkem768.flip_endianness_of_encapsulation_state_loop.body
+  (iter : core.iter.adapters.step_by.StepBy (core.ops.range.Range Std.Usize))
+  (fixed_es : alloc.vec.Vec Std.U8) :
+  Result (ControlFlow ((core.iter.adapters.step_by.StepBy (core.ops.range.Range
+    Std.Usize)) × (alloc.vec.Vec Std.U8)) (alloc.vec.Vec Std.U8))
+  := do
+  let (o, iter1) ←
+    core.iter.adapters.step_by.IteratorStepBy.next
+      (core.iter.traits.iterator.IteratorRange core.iter.range.StepUsize) iter
+  match o with
+  | none => ok (done fixed_es)
+  | some i =>
+    let i1 ← i + 1#usize
+    let i2 ←
+      alloc.vec.Vec.index (core.slice.index.SliceIndexUsizeSlice Std.U8)
+        fixed_es i1
+    let i3 ←
+      alloc.vec.Vec.index (core.slice.index.SliceIndexUsizeSlice Std.U8)
+        fixed_es i
+    let (_, index_mut_back) ←
+      alloc.vec.Vec.index_mut (core.slice.index.SliceIndexUsizeSlice Std.U8)
+        fixed_es i
+    let fixed_es1 := index_mut_back i2
+    let (_, index_mut_back1) ←
+      alloc.vec.Vec.index_mut (core.slice.index.SliceIndexUsizeSlice Std.U8)
+        fixed_es1 i1
+    let fixed_es2 := index_mut_back1 i3
+    ok (cont (iter1, fixed_es2))
+
+/-- [spqr::incremental_mlkem768::flip_endianness_of_encapsulation_state]: loop 0:
+    Source: 'src/incremental_mlkem768.rs', lines 147:4-149:5 -/
+@[rust_loop]
+def incremental_mlkem768.flip_endianness_of_encapsulation_state_loop
+  (iter : core.iter.adapters.step_by.StepBy (core.ops.range.Range Std.Usize))
+  (fixed_es : alloc.vec.Vec Std.U8) :
+  Result (alloc.vec.Vec Std.U8)
+  := do
+  loop
+    (fun (iter1, fixed_es1) =>
+      incremental_mlkem768.flip_endianness_of_encapsulation_state_loop.body
+      iter1 fixed_es1)
+    (iter, fixed_es)
+
+/-- [spqr::incremental_mlkem768::flip_endianness_of_encapsulation_state]:
+    Source: 'src/incremental_mlkem768.rs', lines 143:0-151:1 -/
+def incremental_mlkem768.flip_endianness_of_encapsulation_state
+  (es : alloc.vec.Vec Std.U8) : Result (alloc.vec.Vec Std.U8) := do
+  let i := alloc.vec.Vec.len es
+  let i1 ← i % 2#usize
+  massert (i1 = 0#usize)
+  let i2 := alloc.vec.Vec.len es
+  massert (i2 > 32#usize)
+  let fixed_es ← alloc.vec.CloneVec.clone core.clone.CloneU8 es
+  let i3 := alloc.vec.Vec.len fixed_es
+  let i4 ← i3 - 32#usize
+  let iter ←
+    core.iter.range.IteratorRange.step_by core.iter.range.StepUsize
+      { start := 0#usize, «end» := i4 } 2#usize
+  incremental_mlkem768.flip_endianness_of_encapsulation_state_loop iter
+    fixed_es
+
+/-- [spqr::incremental_mlkem768::encaps2]:
+    Source: 'src/incremental_mlkem768.rs', lines 71:0-79:1 -/
+def incremental_mlkem768.encaps2
+  (ek : alloc.vec.Vec Std.U8) (es : alloc.vec.Vec Std.U8) :
+  Result (alloc.vec.Vec Std.U8)
+  := do
+  let maybe_fix ←
+    incremental_mlkem768.potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275
+      es
+  let o ← core.option.Option.as_ref maybe_fix
+  let es1 ← lift (core.option.Option.unwrap_or o es)
+  let s ← alloc.vec.Vec.as_slice Global es1
+  let r ← core.array.TryFromSharedArraySlice.try_from 2080#usize s
+  let a ←
+    core.result.Result.expect core.fmt.DebugTryFromSliceError r (toStr
+      "size should be correct")
+  let s1 ← alloc.vec.Vec.as_slice Global ek
+  let r1 ← core.array.TryFromSharedArraySlice.try_from 1152#usize s1
+  let a1 ←
+    core.result.Result.expect core.fmt.DebugTryFromSliceError r1 (toStr
+      "size should be correct")
+  let ct2 ← libcrux_ml_kem.mlkem768.incremental.encapsulate2 a a1
+  let s2 ← lift (Array.to_slice ct2.value)
+  alloc.slice.Slice.to_vec core.clone.CloneU8 s2
+
+/-- [spqr::incremental_mlkem768::potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275::NEG1_I16]
+    Source: 'src/incremental_mlkem768.rs', lines 113:4-113:43 -/
+@[global_simps, irreducible]
+def
+  incremental_mlkem768.potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275.NEG1_I16
+  : Result Std.I16 :=
+  ok (UScalar.hcast .I16 65535#u16)
+
+/-- [spqr::incremental_mlkem768::potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275::NEG2_I16_GOOD]
+    Source: 'src/incremental_mlkem768.rs', lines 114:4-114:48 -/
+@[global_simps, irreducible]
+def
+  incremental_mlkem768.potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275.NEG2_I16_GOOD
+  : Result Std.I16 :=
+  ok (UScalar.hcast .I16 65534#u16)
+
+/-- [spqr::incremental_mlkem768::potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275::NEG2_I16_BAD]
+    Source: 'src/incremental_mlkem768.rs', lines 115:4-115:47 -/
+@[global_simps, irreducible]
+def
+  incremental_mlkem768.potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275.NEG2_I16_BAD
+  : Result Std.I16 :=
+  ok (UScalar.hcast .I16 65279#u16)
+
+/-- [spqr::incremental_mlkem768::decaps]:
+    Source: 'src/incremental_mlkem768.rs', lines 156:0-169:1 -/
+def incremental_mlkem768.decaps
+  (dk : alloc.vec.Vec Std.U8) (ct1 : alloc.vec.Vec Std.U8)
+  (ct2 : alloc.vec.Vec Std.U8) :
+  Result (alloc.vec.Vec Std.U8)
+  := do
+  let s ← alloc.vec.Vec.as_slice Global ct1
+  let r ←
+    core.array.TryFromArrayCopySlice.try_from 960#usize core.marker.CopyU8 s
+  let a ←
+    core.result.Result.expect core.fmt.DebugTryFromSliceError r (toStr
+      "size should be correct")
+  let s1 ← alloc.vec.Vec.as_slice Global ct2
+  let r1 ←
+    core.array.TryFromArrayCopySlice.try_from 128#usize core.marker.CopyU8 s1
+  let a1 ←
+    core.result.Result.expect core.fmt.DebugTryFromSliceError r1 (toStr
+      "size should be correct")
+  let s2 ← alloc.vec.Vec.as_slice Global dk
+  let r2 ← core.array.TryFromSharedArraySlice.try_from 2400#usize s2
+  let a2 ←
+    core.result.Result.expect core.fmt.DebugTryFromSliceError r2 (toStr
+      "size should be correct")
+  let a3 ←
+    libcrux_ml_kem.mlkem768.incremental.decapsulate_compressed_key a2
+      { value := a } { value := a1 }
+  let s3 ← lift (Array.to_slice a3)
+  alloc.slice.Slice.to_vec core.clone.CloneU8 s3
 
 /-- [spqr::serialize::{core::fmt::Debug for spqr::serialize::Error}::fmt]:
     Source: 'src/serialize.rs', lines 6:9-6:14 -/

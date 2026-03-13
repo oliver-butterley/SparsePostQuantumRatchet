@@ -27,11 +27,23 @@ Modified source (replaced iterator combinators / early returns with index loops)
 - `encoding::polynomial::PolyEncoder::from_pb` -- flatten if/else, remove closure
 - `encoding::polynomial::PolyDecoder::from_pb` -- hoist validation before loop
 
-## Modules not yet extracted
+### `spqr::incremental_mlkem768`
 
-- `spqr::kdf` -- Charon hangs
-- `spqr::chain` -- Charon hangs
-- `spqr::authenticator` -- Charon hangs
-- `spqr::v1` -- Charon hangs
-- `spqr::proto` -- Charon hangs
-- `spqr::incremental_mlkem768` -- Charon OK, Aeneas errors (not yet investigated)
+Excluded:
+- `log` -- log crate internals cause Aeneas internal error (arrow types in `__private_api`)
+
+Opaque (already `#[hax_lib::opaque]` in source):
+- `potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275` -- contains `log::info!`/`log::warn!` via `#[cfg(not(hax))]`
+- `flip_endianness_of_encapsulation_state` -- helper for above
+
+Aeneas reports 2 cosmetic errors (log macro internals) but output is clean: 0 sorry, 139 transparent functions.
+
+## Modules not yet extracted (Charon hangs)
+
+Charon hangs at MIR analysis level due to deep generic trait hierarchies in external crypto crates. Config flags (`--opaque`, `--exclude`, `--start-from`) have no effect since the hang occurs before they are applied. Upstream Charon issue.
+
+- `spqr::kdf` -- Charon hangs (hkdf, sha2)
+- `spqr::chain` -- Charon hangs (depends on kdf)
+- `spqr::authenticator` -- Charon hangs (libcrux_hmac)
+- `spqr::v1` -- Charon hangs (depends on authenticator, kdf, incremental_mlkem768)
+- `spqr::proto` -- Charon hangs (prost-generated code)
