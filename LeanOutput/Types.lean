@@ -78,6 +78,25 @@ structure core.ops.arith.DivAssign (Self : Type) (Rhs : Type) where
 @[reducible, rust_type "core::ops::range::RangeFull"]
 def core.ops.range.RangeFull := Unit
 
+/-- Trait declaration: [bytes::buf::buf_impl::Buf]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bytes-1.10.1/src/buf/buf_impl.rs', lines 117:0-117:13
+    Name pattern: [bytes::buf::buf_impl::Buf] -/
+@[rust_trait "bytes::buf::buf_impl::Buf"]
+structure bytes.buf.buf_impl.Buf (Self : Type) where
+  remaining : Self → Result Std.Usize
+  chunk : Self → Result (Slice Std.U8)
+  advance : Self → Std.Usize → Result Self
+
+/-- Trait declaration: [bytes::buf::buf_mut::BufMut]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bytes-1.10.1/src/buf/buf_mut.rs', lines 30:0-30:23
+    Name pattern: [bytes::buf::buf_mut::BufMut] -/
+@[rust_trait "bytes::buf::buf_mut::BufMut"]
+structure bytes.buf.buf_mut.BufMut (Self : Type) where
+  remaining_mut : Self → Result Std.Usize
+  advance_mut : Self → Std.Usize → Result Self
+  chunk_mut : Self → Result (bytes.buf.uninit_slice.UninitSlice ×
+    (bytes.buf.uninit_slice.UninitSlice → Self))
+
 /-- [libcrux_ml_kem::ind_cca::incremental::types::Error]
     Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libcrux-ml-kem-0.0.7/src/ind_cca/incremental/types.rs', lines 14:0-14:14
     Name pattern: [libcrux_ml_kem::ind_cca::incremental::types::Error] -/
@@ -105,6 +124,39 @@ structure libcrux_ml_kem.ind_cca.incremental.types.Ciphertext2 (LEN :
   Std.Usize) where
   value : Array Std.U8 LEN
 
+/-- [prost::encoding::wire_type::WireType]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/prost-0.14.1/src/encoding/wire_type.rs', lines 9:0-9:17
+    Name pattern: [prost::encoding::wire_type::WireType] -/
+@[discriminant u8, rust_type "prost::encoding::wire_type::WireType"]
+inductive prost.encoding.wire_type.WireType where
+| Varint : prost.encoding.wire_type.WireType
+| SixtyFourBit : prost.encoding.wire_type.WireType
+| LengthDelimited : prost.encoding.wire_type.WireType
+| StartGroup : prost.encoding.wire_type.WireType
+| EndGroup : prost.encoding.wire_type.WireType
+| ThirtyTwoBit : prost.encoding.wire_type.WireType
+
+/-- Trait declaration: [prost::message::Message]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/prost-0.14.1/src/message.rs', lines 15:0-15:30
+    Name pattern: [prost::message::Message] -/
+@[rust_trait "prost::message::Message"]
+structure prost.message.Message (Self : Type) where
+  encode_raw : forall {T1 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T1), Self → T1 → Result T1
+  merge_field : forall {T1 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T1), Self → Std.U32 →
+    prost.encoding.wire_type.WireType → T1 → prost.encoding.DecodeContext
+    → Result ((core.result.Result Unit prost.error.DecodeError) × Self ×
+    T1)
+  encoded_len : Self → Result Std.Usize
+  clear : Self → Result Self
+
+/-- [prost::error::UnknownEnumValue]
+    Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/prost-0.14.1/src/error.rs', lines 141:0-141:27
+    Name pattern: [prost::error::UnknownEnumValue] -/
+@[reducible, rust_type "prost::error::UnknownEnumValue"]
+def prost.error.UnknownEnumValue := Std.I32
+
 /-- Trait declaration: [rand_core::RngCore]
     Source: '/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand_core-0.9.3/src/lib.rs', lines 130:0-130:17
     Name pattern: [rand_core::RngCore] -/
@@ -129,19 +181,427 @@ structure rand_core.CryptoRng (Self : Type) where
   RngCoreInst : rand_core.RngCore Self
 
 /-- [spqr::proto::pq_ratchet::PolynomialEncoder]
-    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-026a0a30401f68eb/out/signal.proto.pq_ratchet.rs', lines 3:0-13:1 -/
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 4:0-14:1 -/
 structure proto.pq_ratchet.PolynomialEncoder where
   idx : Std.U32
   pts : alloc.vec.Vec (alloc.vec.Vec Std.U8)
   polys : alloc.vec.Vec (alloc.vec.Vec Std.U8)
 
 /-- [spqr::proto::pq_ratchet::PolynomialDecoder]
-    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-026a0a30401f68eb/out/signal.proto.pq_ratchet.rs', lines 15:0-24:1 -/
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 16:0-25:1 -/
 structure proto.pq_ratchet.PolynomialDecoder where
   pts_needed : Std.U32
   polys : Std.U32
   pts : alloc.vec.Vec (alloc.vec.Vec Std.U8)
   is_complete : Bool
+
+/-- [spqr::proto::pq_ratchet::ChainParams]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 363:0-373:1 -/
+structure proto.pq_ratchet.ChainParams where
+  max_jump : Std.U32
+  max_ooo_keys : Std.U32
+
+/-- [spqr::proto::pq_ratchet::chain::epoch::EpochDirection]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 352:8-359:9 -/
+structure proto.pq_ratchet.chain.epoch.EpochDirection where
+  ctr : Std.U32
+  next : alloc.vec.Vec Std.U8
+  prev : alloc.vec.Vec Std.U8
+
+/-- [spqr::proto::pq_ratchet::chain::Epoch]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 343:4-348:5 -/
+structure proto.pq_ratchet.chain.Epoch where
+  send : Option proto.pq_ratchet.chain.epoch.EpochDirection
+  recv : Option proto.pq_ratchet.chain.epoch.EpochDirection
+
+/-- [spqr::proto::pq_ratchet::Chain]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 326:0-339:1 -/
+structure proto.pq_ratchet.Chain where
+  direction : Std.I32
+  current_epoch : Std.U64
+  links : alloc.vec.Vec proto.pq_ratchet.chain.Epoch
+  next_root : alloc.vec.Vec Std.U8
+  send_epoch : Std.U64
+  params : Option proto.pq_ratchet.ChainParams
+
+/-- [spqr::proto::pq_ratchet::Authenticator]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 93:0-98:1 -/
+structure proto.pq_ratchet.Authenticator where
+  root_key : alloc.vec.Vec Std.U8
+  mac_key : alloc.vec.Vec Std.U8
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 204:8-209:9 -/
+structure proto.pq_ratchet.v1_state.unchunked.Ct2Sent where
+  epoch : Std.U64
+  auth : Option proto.pq_ratchet.Authenticator
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 290:8-295:9 -/
+structure proto.pq_ratchet.v1_state.chunked.Ct2Sampled where
+  uc : Option proto.pq_ratchet.v1_state.unchunked.Ct2Sent
+  sending_ct2 : Option proto.pq_ratchet.PolynomialEncoder
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 178:8-189:9 -/
+structure proto.pq_ratchet.v1_state.unchunked.Ct1Sent where
+  epoch : Std.U64
+  auth : Option proto.pq_ratchet.Authenticator
+  hdr : alloc.vec.Vec Std.U8
+  es : alloc.vec.Vec Std.U8
+  ct1 : alloc.vec.Vec Std.U8
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 283:8-288:9 -/
+structure proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged where
+  uc : Option proto.pq_ratchet.v1_state.unchunked.Ct1Sent
+  receiving_ek : Option proto.pq_ratchet.PolynomialDecoder
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 191:8-202:9 -/
+structure proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived where
+  epoch : Std.U64
+  auth : Option proto.pq_ratchet.Authenticator
+  es : alloc.vec.Vec Std.U8
+  ek : alloc.vec.Vec Std.U8
+  ct1 : alloc.vec.Vec Std.U8
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 276:8-281:9 -/
+structure proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled where
+  uc : Option proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived
+  sending_ct1 : Option proto.pq_ratchet.PolynomialEncoder
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 267:8-274:9 -/
+structure proto.pq_ratchet.v1_state.chunked.Ct1Sampled where
+  uc : Option proto.pq_ratchet.v1_state.unchunked.Ct1Sent
+  sending_ct1 : Option proto.pq_ratchet.PolynomialEncoder
+  receiving_ek : Option proto.pq_ratchet.PolynomialDecoder
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 158:8-165:9 -/
+structure proto.pq_ratchet.v1_state.unchunked.HeaderReceived where
+  epoch : Std.U64
+  auth : Option proto.pq_ratchet.Authenticator
+  hdr : alloc.vec.Vec Std.U8
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 260:8-265:9 -/
+structure proto.pq_ratchet.v1_state.chunked.HeaderReceived where
+  uc : Option proto.pq_ratchet.v1_state.unchunked.HeaderReceived
+  receiving_ek : Option proto.pq_ratchet.PolynomialDecoder
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 151:8-156:9 -/
+structure proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived where
+  epoch : Std.U64
+  auth : Option proto.pq_ratchet.Authenticator
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 253:8-258:9 -/
+structure proto.pq_ratchet.v1_state.chunked.NoHeaderReceived where
+  uc : Option proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived
+  receiving_hdr : Option proto.pq_ratchet.PolynomialDecoder
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 139:8-148:9 -/
+structure proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received where
+  epoch : Std.U64
+  auth : Option proto.pq_ratchet.Authenticator
+  dk : alloc.vec.Vec Std.U8
+  ct1 : alloc.vec.Vec Std.U8
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 245:8-250:9 -/
+structure proto.pq_ratchet.v1_state.chunked.EkSentCt1Received where
+  uc : Option proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received
+  receiving_ct2 : Option proto.pq_ratchet.PolynomialDecoder
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 238:8-243:9 -/
+structure proto.pq_ratchet.v1_state.chunked.Ct1Received where
+  uc : Option proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received
+  sending_ek : Option proto.pq_ratchet.PolynomialEncoder
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::EkSent]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 130:8-137:9 -/
+structure proto.pq_ratchet.v1_state.unchunked.EkSent where
+  epoch : Std.U64
+  auth : Option proto.pq_ratchet.Authenticator
+  dk : alloc.vec.Vec Std.U8
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 229:8-236:9 -/
+structure proto.pq_ratchet.v1_state.chunked.HeaderSent where
+  uc : Option proto.pq_ratchet.v1_state.unchunked.EkSent
+  sending_ek : Option proto.pq_ratchet.PolynomialEncoder
+  receiving_ct1 : Option proto.pq_ratchet.PolynomialDecoder
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 119:8-128:9 -/
+structure proto.pq_ratchet.v1_state.unchunked.HeaderSent where
+  epoch : Std.U64
+  auth : Option proto.pq_ratchet.Authenticator
+  ek : alloc.vec.Vec Std.U8
+  dk : alloc.vec.Vec Std.U8
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 222:8-227:9 -/
+structure proto.pq_ratchet.v1_state.chunked.KeysSampled where
+  uc : Option proto.pq_ratchet.v1_state.unchunked.HeaderSent
+  sending_hdr : Option proto.pq_ratchet.PolynomialEncoder
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 112:8-117:9 -/
+structure proto.pq_ratchet.v1_state.unchunked.KeysUnsampled where
+  epoch : Std.U64
+  auth : Option proto.pq_ratchet.Authenticator
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 217:8-220:9 -/
+structure proto.pq_ratchet.v1_state.chunked.KeysUnsampled where
+  uc : Option proto.pq_ratchet.v1_state.unchunked.KeysUnsampled
+
+/-- [spqr::proto::pq_ratchet::v1_state::InnerState]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 298:4-323:5 -/
+@[discriminant isize]
+inductive proto.pq_ratchet.v1_state.InnerState where
+| KeysUnsampled :
+  proto.pq_ratchet.v1_state.chunked.KeysUnsampled →
+  proto.pq_ratchet.v1_state.InnerState
+| KeysSampled :
+  proto.pq_ratchet.v1_state.chunked.KeysSampled →
+  proto.pq_ratchet.v1_state.InnerState
+| HeaderSent :
+  proto.pq_ratchet.v1_state.chunked.HeaderSent →
+  proto.pq_ratchet.v1_state.InnerState
+| Ct1Received :
+  proto.pq_ratchet.v1_state.chunked.Ct1Received →
+  proto.pq_ratchet.v1_state.InnerState
+| EkSentCt1Received :
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received →
+  proto.pq_ratchet.v1_state.InnerState
+| NoHeaderReceived :
+  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived →
+  proto.pq_ratchet.v1_state.InnerState
+| HeaderReceived :
+  proto.pq_ratchet.v1_state.chunked.HeaderReceived →
+  proto.pq_ratchet.v1_state.InnerState
+| Ct1Sampled :
+  proto.pq_ratchet.v1_state.chunked.Ct1Sampled →
+  proto.pq_ratchet.v1_state.InnerState
+| EkReceivedCt1Sampled :
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled →
+  proto.pq_ratchet.v1_state.InnerState
+| Ct1Acknowledged :
+  proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged →
+  proto.pq_ratchet.v1_state.InnerState
+| Ct2Sampled :
+  proto.pq_ratchet.v1_state.chunked.Ct2Sampled →
+  proto.pq_ratchet.v1_state.InnerState
+
+/-- [spqr::proto::pq_ratchet::V1State]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 100:0-103:1 -/
+structure proto.pq_ratchet.V1State where
+  inner_state : Option proto.pq_ratchet.v1_state.InnerState
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::Inner]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 51:4-54:5 -/
+@[discriminant isize]
+inductive proto.pq_ratchet.pq_ratchet_state.Inner where
+| V1 : proto.pq_ratchet.V1State → proto.pq_ratchet.pq_ratchet_state.Inner
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 40:4-49:5 -/
+structure proto.pq_ratchet.pq_ratchet_state.VersionNegotiation where
+  auth_key : alloc.vec.Vec Std.U8
+  direction : Std.I32
+  min_version : Std.I32
+  chain_params : Option proto.pq_ratchet.ChainParams
+
+/-- [spqr::proto::pq_ratchet::PqRatchetState]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 27:0-36:1 -/
+structure proto.pq_ratchet.PqRatchetState where
+  version_negotiation : Option
+    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation
+  chain : Option proto.pq_ratchet.Chain
+  inner : Option proto.pq_ratchet.pq_ratchet_state.Inner
+
+/-- [spqr::proto::pq_ratchet::Direction]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 405:0-408:1 -/
+@[discriminant i32]
+inductive proto.pq_ratchet.Direction where
+| A2B : proto.pq_ratchet.Direction
+| B2A : proto.pq_ratchet.Direction
+
+/-- [spqr::proto::pq_ratchet::Version]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 376:0-380:1 -/
+@[discriminant i32]
+inductive proto.pq_ratchet.Version where
+| V0 : proto.pq_ratchet.Version
+| V1 : proto.pq_ratchet.Version
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::merge::closure]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:41-50:55 -/
+def proto.pq_ratchet.pq_ratchet_state.Inner.merge.closure {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.pq_ratchet_state.Inner × proto.pq_ratchet.V1State
+
+/-- [spqr::proto::pq_ratchet::Chunk]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 57:0-62:1 -/
+structure proto.pq_ratchet.Chunk where
+  index : Std.U32
+  data : alloc.vec.Vec Std.U8
+
+/-- [spqr::proto::pq_ratchet::v1_msg::InnerMsg]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 75:4-90:5 -/
+@[discriminant isize]
+inductive proto.pq_ratchet.v1_msg.InnerMsg where
+| Hdr : proto.pq_ratchet.Chunk → proto.pq_ratchet.v1_msg.InnerMsg
+| Ek : proto.pq_ratchet.Chunk → proto.pq_ratchet.v1_msg.InnerMsg
+| EkCt1Ack : proto.pq_ratchet.Chunk → proto.pq_ratchet.v1_msg.InnerMsg
+| Ct1Ack : Bool → proto.pq_ratchet.v1_msg.InnerMsg
+| Ct1 : proto.pq_ratchet.Chunk → proto.pq_ratchet.v1_msg.InnerMsg
+| Ct2 : proto.pq_ratchet.Chunk → proto.pq_ratchet.v1_msg.InnerMsg
+
+/-- [spqr::proto::pq_ratchet::V1Msg]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 64:0-71:1 -/
+structure proto.pq_ratchet.V1Msg where
+  epoch : Std.U64
+  index : Std.U32
+  inner_msg : Option proto.pq_ratchet.v1_msg.InnerMsg
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def proto.pq_ratchet.v1_msg.InnerMsg.merge.closure {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_msg.InnerMsg × proto.pq_ratchet.Chunk
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#1]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_msg.InnerMsg × proto.pq_ratchet.Chunk
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#2]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_msg.InnerMsg × proto.pq_ratchet.Chunk
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#3]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_msg.InnerMsg × Bool
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#4]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_msg.InnerMsg × proto.pq_ratchet.Chunk
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#5]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_msg.InnerMsg × proto.pq_ratchet.Chunk
+
+/-- [spqr::proto::pq_ratchet::v1_state::Unchunked]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 107:4-107:27 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Unchunked := Unit
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 167:8-176:9 -/
+structure proto.pq_ratchet.v1_state.unchunked.EkReceived where
+  epoch : Std.U64
+  auth : Option proto.pq_ratchet.Authenticator
+  hdr : alloc.vec.Vec Std.U8
+  ek : alloc.vec.Vec Std.U8
+
+/-- [spqr::proto::pq_ratchet::v1_state::Chunked]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 212:4-212:25 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Chunked := Unit
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge.closure {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_state.InnerState ×
+  proto.pq_ratchet.v1_state.chunked.KeysUnsampled
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#1]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge.closure_1 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_state.InnerState ×
+  proto.pq_ratchet.v1_state.chunked.KeysSampled
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#2]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge.closure_2 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_state.InnerState ×
+  proto.pq_ratchet.v1_state.chunked.HeaderSent
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#3]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge.closure_3 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_state.InnerState ×
+  proto.pq_ratchet.v1_state.chunked.Ct1Received
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#4]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge.closure_4 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_state.InnerState ×
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#5]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge.closure_5 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_state.InnerState ×
+  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#6]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge.closure_6 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_state.InnerState ×
+  proto.pq_ratchet.v1_state.chunked.HeaderReceived
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#7]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge.closure_7 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_state.InnerState ×
+  proto.pq_ratchet.v1_state.chunked.Ct1Sampled
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#8]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge.closure_8 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_state.InnerState ×
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#9]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge.closure_9 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_state.InnerState ×
+  proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#10]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge.closure_10 {T0 : Type}
+  (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :=
+  Option proto.pq_ratchet.v1_state.InnerState ×
+  proto.pq_ratchet.v1_state.chunked.Ct2Sampled
 
 /-- [spqr::encoding::gf::GF16]
     Source: 'src/encoding/gf.rs', lines 16:0-18:1 -/

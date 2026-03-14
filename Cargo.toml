@@ -42,6 +42,7 @@ prost-build = "0.14.1"
 [features]
 proof = []
 test-utils = []
+extraction = []
 
 [target.'cfg(not(any(windows, target_arch = "x86")))'.dependencies]
 # sha2's asm implementation uses standalone .S files that aren't compiled correctly on Windows,

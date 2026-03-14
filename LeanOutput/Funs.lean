@@ -42,6 +42,14 @@ def Usize.Insts.CoreFmtDisplay : core.fmt.Display Std.Usize := {
   fmt := core.fmt.num.imp.DisplayUsize.fmt
 }
 
+/-- Trait implementation: [core::fmt::num::imp::{core::fmt::Display for u32}]
+    Source: '/rustc/library/core/src/fmt/num.rs', lines 134:8-134:39
+    Name pattern: [core::fmt::Display<u32>] -/
+@[reducible, rust_trait_impl "core::fmt::Display<u32>"]
+def U32.Insts.CoreFmtDisplay : core.fmt.Display Std.U32 := {
+  fmt := core.fmt.num.imp.DisplayU32.fmt
+}
+
 /-- Trait implementation: [core::iter::adapters::enumerate::{core::iter::traits::iterator::Iterator<(usize, Clause0_Item)> for core::iter::adapters::enumerate::Enumerate<I>}]
     Source: '/rustc/library/core/src/iter/adapters/enumerate.rs', lines 62:0-64:16
     Name pattern: [core::iter::traits::iterator::Iterator<core::iter::adapters::enumerate::Enumerate<@I>, (usize, @Clause0_Item)>] -/
@@ -136,6 +144,8024 @@ def sorted_vec.SortedSet.Insts.CoreCloneClone {T : Type} (corecloneCloneInst :
   clone := sorted_vec.SortedSet.Insts.CoreCloneClone.clone corecloneCloneInst
     corecmpOrdInst
 }
+
+/-- [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::PolynomialEncoder}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 3:9-3:14 -/
+def proto.pq_ratchet.PolynomialEncoder.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.PolynomialEncoder) :
+  Result proto.pq_ratchet.PolynomialEncoder
+  := do
+  let i ← lift (core.clone.impls.CloneU32.clone self.idx)
+  let v ←
+    alloc.vec.CloneVec.clone (core.clone.CloneallocvecVec core.clone.CloneU8)
+      self.pts
+  let v1 ←
+    alloc.vec.CloneVec.clone (core.clone.CloneallocvecVec core.clone.CloneU8)
+      self.polys
+  ok { idx := i, pts := v, polys := v1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::PolynomialEncoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 3:9-3:14 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialEncoder.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.PolynomialEncoder := {
+  clone := proto.pq_ratchet.PolynomialEncoder.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::PolynomialEncoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 3:16-3:25 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialEncoder.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.PolynomialEncoder := {
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::PolynomialEncoder> for spqr::proto::pq_ratchet::PolynomialEncoder}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 3:16-3:25 -/
+def
+  proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpPartialEqPolynomialEncoder.eq
+  (self : proto.pq_ratchet.PolynomialEncoder)
+  (other : proto.pq_ratchet.PolynomialEncoder) :
+  Result Bool
+  := do
+  if self.idx = other.idx
+  then
+    let b ←
+      alloc.vec.partial_eq.PartialEqVec.eq (core.cmp.PartialEqVec
+        core.cmp.PartialEqU8) self.pts other.pts
+    if b
+    then
+      alloc.vec.partial_eq.PartialEqVec.eq (core.cmp.PartialEqVec
+        core.cmp.PartialEqU8) self.polys other.polys
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::PolynomialEncoder> for spqr::proto::pq_ratchet::PolynomialEncoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 3:16-3:25 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpPartialEqPolynomialEncoder
+  : core.cmp.PartialEq proto.pq_ratchet.PolynomialEncoder
+  proto.pq_ratchet.PolynomialEncoder := {
+  eq :=
+    proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpPartialEqPolynomialEncoder.eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::PolynomialEncoder}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 3:27-3:29 -/
+def
+  proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.PolynomialEncoder) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::PolynomialEncoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 3:27-3:29 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.PolynomialEncoder := {
+  partialEqInst :=
+    proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpPartialEqPolynomialEncoder
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{prost::message::Message for spqr::proto::pq_ratchet::PolynomialEncoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 3:37-3:53 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialEncoder.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.PolynomialEncoder := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.PolynomialEncoder.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.PolynomialEncoder.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.PolynomialEncoder.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.PolynomialEncoder.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::PolynomialEncoder}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 3:37-3:53 -/
+def proto.pq_ratchet.PolynomialEncoder.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.PolynomialEncoder := do
+  ok
+    {
+      idx := 0#u32,
+      pts := (alloc.vec.Vec.new (alloc.vec.Vec Std.U8)),
+      polys := (alloc.vec.Vec.new (alloc.vec.Vec Std.U8))
+    }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::PolynomialEncoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 3:37-3:53 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialEncoder.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.PolynomialEncoder := {
+  default :=
+    proto.pq_ratchet.PolynomialEncoder.Insts.CoreDefaultDefault.default
+}
+
+/-- [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::PolynomialDecoder}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 15:9-15:14 -/
+def proto.pq_ratchet.PolynomialDecoder.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.PolynomialDecoder) :
+  Result proto.pq_ratchet.PolynomialDecoder
+  := do
+  let i ← lift (core.clone.impls.CloneU32.clone self.pts_needed)
+  let i1 ← lift (core.clone.impls.CloneU32.clone self.polys)
+  let v ←
+    alloc.vec.CloneVec.clone (core.clone.CloneallocvecVec core.clone.CloneU8)
+      self.pts
+  let b ← lift (core.clone.impls.CloneBool.clone self.is_complete)
+  ok { pts_needed := i, polys := i1, pts := v, is_complete := b }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::PolynomialDecoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 15:9-15:14 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialDecoder.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.PolynomialDecoder := {
+  clone := proto.pq_ratchet.PolynomialDecoder.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::PolynomialDecoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 15:16-15:25 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialDecoder.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.PolynomialDecoder := {
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::PolynomialDecoder> for spqr::proto::pq_ratchet::PolynomialDecoder}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 15:16-15:25 -/
+def
+  proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpPartialEqPolynomialDecoder.eq
+  (self : proto.pq_ratchet.PolynomialDecoder)
+  (other : proto.pq_ratchet.PolynomialDecoder) :
+  Result Bool
+  := do
+  if self.pts_needed = other.pts_needed
+  then
+    if self.polys = other.polys
+    then
+      if self.is_complete = other.is_complete
+      then
+        alloc.vec.partial_eq.PartialEqVec.eq (core.cmp.PartialEqVec
+          core.cmp.PartialEqU8) self.pts other.pts
+      else ok false
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::PolynomialDecoder> for spqr::proto::pq_ratchet::PolynomialDecoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 15:16-15:25 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpPartialEqPolynomialDecoder
+  : core.cmp.PartialEq proto.pq_ratchet.PolynomialDecoder
+  proto.pq_ratchet.PolynomialDecoder := {
+  eq :=
+    proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpPartialEqPolynomialDecoder.eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::PolynomialDecoder}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 15:27-15:29 -/
+def
+  proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.PolynomialDecoder) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::PolynomialDecoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 15:27-15:29 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.PolynomialDecoder := {
+  partialEqInst :=
+    proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpPartialEqPolynomialDecoder
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{prost::message::Message for spqr::proto::pq_ratchet::PolynomialDecoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 15:37-15:53 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialDecoder.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.PolynomialDecoder := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.PolynomialDecoder.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.PolynomialDecoder.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.PolynomialDecoder.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.PolynomialDecoder.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::PolynomialDecoder}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 15:37-15:53 -/
+def proto.pq_ratchet.PolynomialDecoder.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.PolynomialDecoder := do
+  ok
+    {
+      pts_needed := 0#u32,
+      polys := 0#u32,
+      pts := (alloc.vec.Vec.new (alloc.vec.Vec Std.U8)),
+      is_complete := false
+    }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::PolynomialDecoder}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 15:37-15:53 -/
+@[reducible]
+def proto.pq_ratchet.PolynomialDecoder.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.PolynomialDecoder := {
+  default :=
+    proto.pq_ratchet.PolynomialDecoder.Insts.CoreDefaultDefault.default
+}
+
+/-- [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::ChainParams}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 362:9-362:14 -/
+def proto.pq_ratchet.ChainParams.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.ChainParams) :
+  Result proto.pq_ratchet.ChainParams
+  := do
+  ok self
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::ChainParams}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 362:9-362:14 -/
+@[reducible]
+def proto.pq_ratchet.ChainParams.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.ChainParams := {
+  clone := proto.pq_ratchet.ChainParams.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::chain::epoch::{core::clone::Clone for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 351:17-351:22 -/
+def proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.chain.epoch.EpochDirection) :
+  Result proto.pq_ratchet.chain.epoch.EpochDirection
+  := do
+  let i ← lift (core.clone.impls.CloneU32.clone self.ctr)
+  let v ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.next
+  let v1 ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.prev
+  ok { ctr := i, next := v, prev := v1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::epoch::{core::clone::Clone for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 351:17-351:22 -/
+@[reducible]
+def proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.chain.epoch.EpochDirection := {
+  clone :=
+    proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::chain::{core::clone::Clone for spqr::proto::pq_ratchet::chain::Epoch}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 342:13-342:18 -/
+def proto.pq_ratchet.chain.Epoch.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.chain.Epoch) :
+  Result proto.pq_ratchet.chain.Epoch
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCloneClone
+      self.send
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCloneClone
+      self.recv
+  ok { send := o, recv := o1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::{core::clone::Clone for spqr::proto::pq_ratchet::chain::Epoch}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 342:13-342:18 -/
+@[reducible]
+def proto.pq_ratchet.chain.Epoch.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.chain.Epoch := {
+  clone := proto.pq_ratchet.chain.Epoch.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::Chain}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 325:9-325:14 -/
+def proto.pq_ratchet.Chain.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.Chain) : Result proto.pq_ratchet.Chain := do
+  let i ← lift (core.clone.impls.CloneI32.clone self.direction)
+  let i1 ← lift (core.clone.impls.CloneU64.clone self.current_epoch)
+  let v ←
+    alloc.vec.CloneVec.clone proto.pq_ratchet.chain.Epoch.Insts.CoreCloneClone
+      self.links
+  let v1 ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.next_root
+  let i2 ← lift (core.clone.impls.CloneU64.clone self.send_epoch)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.ChainParams.Insts.CoreCloneClone self.params
+  ok
+    {
+      direction := i,
+      current_epoch := i1,
+      links := v,
+      next_root := v1,
+      send_epoch := i2,
+      params := o
+    }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::Chain}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 325:9-325:14 -/
+@[reducible]
+def proto.pq_ratchet.Chain.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.Chain := {
+  clone := proto.pq_ratchet.Chain.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::Authenticator}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 92:9-92:14 -/
+def proto.pq_ratchet.Authenticator.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.Authenticator) :
+  Result proto.pq_ratchet.Authenticator
+  := do
+  let v ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.root_key
+  let v1 ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.mac_key
+  ok { root_key := v, mac_key := v1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::Authenticator}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 92:9-92:14 -/
+@[reducible]
+def proto.pq_ratchet.Authenticator.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.Authenticator := {
+  clone := proto.pq_ratchet.Authenticator.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 203:17-203:22 -/
+def proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.unchunked.Ct2Sent) :
+  Result proto.pq_ratchet.v1_state.unchunked.Ct2Sent
+  := do
+  let i ← lift (core.clone.impls.CloneU64.clone self.epoch)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.Authenticator.Insts.CoreCloneClone self.auth
+  ok { epoch := i, auth := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 203:17-203:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.unchunked.Ct2Sent := {
+  clone :=
+    proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 289:17-289:22 -/
+def proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.chunked.Ct2Sampled) :
+  Result proto.pq_ratchet.v1_state.chunked.Ct2Sampled
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCloneClone 
+      self.uc
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialEncoder.Insts.CoreCloneClone self.sending_ct2
+  ok { uc := o, sending_ct2 := o1 }
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 177:17-177:22 -/
+def proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.unchunked.Ct1Sent) :
+  Result proto.pq_ratchet.v1_state.unchunked.Ct1Sent
+  := do
+  let i ← lift (core.clone.impls.CloneU64.clone self.epoch)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.Authenticator.Insts.CoreCloneClone self.auth
+  let v ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.hdr
+  let v1 ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.es
+  let v2 ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.ct1
+  ok { epoch := i, auth := o, hdr := v, es := v1, ct1 := v2 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 177:17-177:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.unchunked.Ct1Sent := {
+  clone :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 282:17-282:22 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged) :
+  Result proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCloneClone 
+      self.uc
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialDecoder.Insts.CoreCloneClone self.receiving_ek
+  ok { uc := o, receiving_ek := o1 }
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 190:17-190:22 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived) :
+  Result proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived
+  := do
+  let i ← lift (core.clone.impls.CloneU64.clone self.epoch)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.Authenticator.Insts.CoreCloneClone self.auth
+  let v ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.es
+  let v1 ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.ek
+  let v2 ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.ct1
+  ok { epoch := i, auth := o, es := v, ek := v1, ct1 := v2 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 190:17-190:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCloneClone
+  : core.clone.Clone proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived := {
+  clone :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 275:17-275:22 -/
+def
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled) :
+  Result proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCloneClone
+      self.uc
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialEncoder.Insts.CoreCloneClone self.sending_ct1
+  ok { uc := o, sending_ct1 := o1 }
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 266:17-266:22 -/
+def proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.chunked.Ct1Sampled) :
+  Result proto.pq_ratchet.v1_state.chunked.Ct1Sampled
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCloneClone 
+      self.uc
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialEncoder.Insts.CoreCloneClone self.sending_ct1
+  let o2 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialDecoder.Insts.CoreCloneClone self.receiving_ek
+  ok { uc := o, sending_ct1 := o1, receiving_ek := o2 }
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 157:17-157:22 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.unchunked.HeaderReceived) :
+  Result proto.pq_ratchet.v1_state.unchunked.HeaderReceived
+  := do
+  let i ← lift (core.clone.impls.CloneU64.clone self.epoch)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.Authenticator.Insts.CoreCloneClone self.auth
+  let v ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.hdr
+  ok { epoch := i, auth := o, hdr := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 157:17-157:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.unchunked.HeaderReceived := {
+  clone :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 259:17-259:22 -/
+def proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.chunked.HeaderReceived) :
+  Result proto.pq_ratchet.v1_state.chunked.HeaderReceived
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCloneClone
+      self.uc
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialDecoder.Insts.CoreCloneClone self.receiving_ek
+  ok { uc := o, receiving_ek := o1 }
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 150:17-150:22 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived) :
+  Result proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived
+  := do
+  let i ← lift (core.clone.impls.CloneU64.clone self.epoch)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.Authenticator.Insts.CoreCloneClone self.auth
+  ok { epoch := i, auth := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 150:17-150:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived := {
+  clone :=
+    proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 252:17-252:22 -/
+def
+  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.chunked.NoHeaderReceived) :
+  Result proto.pq_ratchet.v1_state.chunked.NoHeaderReceived
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCloneClone
+      self.uc
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialDecoder.Insts.CoreCloneClone
+      self.receiving_hdr
+  ok { uc := o, receiving_hdr := o1 }
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 138:17-138:22 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received) :
+  Result proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received
+  := do
+  let i ← lift (core.clone.impls.CloneU64.clone self.epoch)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.Authenticator.Insts.CoreCloneClone self.auth
+  let v ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.dk
+  let v1 ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.ct1
+  ok { epoch := i, auth := o, dk := v, ct1 := v1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 138:17-138:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCloneClone
+  : core.clone.Clone proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received := {
+  clone :=
+    proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 244:17-244:22 -/
+def
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.chunked.EkSentCt1Received) :
+  Result proto.pq_ratchet.v1_state.chunked.EkSentCt1Received
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCloneClone
+      self.uc
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialDecoder.Insts.CoreCloneClone
+      self.receiving_ct2
+  ok { uc := o, receiving_ct2 := o1 }
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 237:17-237:22 -/
+def proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.chunked.Ct1Received) :
+  Result proto.pq_ratchet.v1_state.chunked.Ct1Received
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCloneClone
+      self.uc
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialEncoder.Insts.CoreCloneClone self.sending_ek
+  ok { uc := o, sending_ek := o1 }
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 129:17-129:22 -/
+def proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.unchunked.EkSent) :
+  Result proto.pq_ratchet.v1_state.unchunked.EkSent
+  := do
+  let i ← lift (core.clone.impls.CloneU64.clone self.epoch)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.Authenticator.Insts.CoreCloneClone self.auth
+  let v ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.dk
+  ok { epoch := i, auth := o, dk := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 129:17-129:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.unchunked.EkSent := {
+  clone :=
+    proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 228:17-228:22 -/
+def proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.chunked.HeaderSent) :
+  Result proto.pq_ratchet.v1_state.chunked.HeaderSent
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCloneClone 
+      self.uc
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialEncoder.Insts.CoreCloneClone self.sending_ek
+  let o2 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialDecoder.Insts.CoreCloneClone
+      self.receiving_ct1
+  ok { uc := o, sending_ek := o1, receiving_ct1 := o2 }
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 118:17-118:22 -/
+def proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.unchunked.HeaderSent) :
+  Result proto.pq_ratchet.v1_state.unchunked.HeaderSent
+  := do
+  let i ← lift (core.clone.impls.CloneU64.clone self.epoch)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.Authenticator.Insts.CoreCloneClone self.auth
+  let v ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.ek
+  let v1 ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.dk
+  ok { epoch := i, auth := o, ek := v, dk := v1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 118:17-118:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.unchunked.HeaderSent := {
+  clone :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 221:17-221:22 -/
+def proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.chunked.KeysSampled) :
+  Result proto.pq_ratchet.v1_state.chunked.KeysSampled
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCloneClone
+      self.uc
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.PolynomialEncoder.Insts.CoreCloneClone self.sending_hdr
+  ok { uc := o, sending_hdr := o1 }
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 111:17-111:22 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.unchunked.KeysUnsampled) :
+  Result proto.pq_ratchet.v1_state.unchunked.KeysUnsampled
+  := do
+  let i ← lift (core.clone.impls.CloneU64.clone self.epoch)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.Authenticator.Insts.CoreCloneClone self.auth
+  ok { epoch := i, auth := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 111:17-111:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.unchunked.KeysUnsampled := {
+  clone :=
+    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 216:17-216:22 -/
+def proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.chunked.KeysUnsampled) :
+  Result proto.pq_ratchet.v1_state.chunked.KeysUnsampled
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCloneClone
+      self.uc
+  ok { uc := o }
+
+/-- [spqr::proto::pq_ratchet::v1_state::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::InnerState}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:13-297:18 -/
+def proto.pq_ratchet.v1_state.InnerState.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.InnerState) :
+  Result proto.pq_ratchet.v1_state.InnerState
+  := do
+  match self with
+  | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled __self_0 =>
+    let ku ←
+      proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCloneClone.clone
+        __self_0
+    ok (proto.pq_ratchet.v1_state.InnerState.KeysUnsampled ku)
+  | proto.pq_ratchet.v1_state.InnerState.KeysSampled __self_0 =>
+    let ks ←
+      proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCloneClone.clone
+        __self_0
+    ok (proto.pq_ratchet.v1_state.InnerState.KeysSampled ks)
+  | proto.pq_ratchet.v1_state.InnerState.HeaderSent __self_0 =>
+    let hs ←
+      proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCloneClone.clone
+        __self_0
+    ok (proto.pq_ratchet.v1_state.InnerState.HeaderSent hs)
+  | proto.pq_ratchet.v1_state.InnerState.Ct1Received __self_0 =>
+    let cr ←
+      proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCloneClone.clone
+        __self_0
+    ok (proto.pq_ratchet.v1_state.InnerState.Ct1Received cr)
+  | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received __self_0 =>
+    let escr ←
+      proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCloneClone.clone
+        __self_0
+    ok (proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received escr)
+  | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived __self_0 =>
+    let nhr ←
+      proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCloneClone.clone
+        __self_0
+    ok (proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived nhr)
+  | proto.pq_ratchet.v1_state.InnerState.HeaderReceived __self_0 =>
+    let hr ←
+      proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCloneClone.clone
+        __self_0
+    ok (proto.pq_ratchet.v1_state.InnerState.HeaderReceived hr)
+  | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled __self_0 =>
+    let cs ←
+      proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCloneClone.clone
+        __self_0
+    ok (proto.pq_ratchet.v1_state.InnerState.Ct1Sampled cs)
+  | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled __self_0 =>
+    let ercs ←
+      proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCloneClone.clone
+        __self_0
+    ok (proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled ercs)
+  | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged __self_0 =>
+    let ca ←
+      proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCloneClone.clone
+        __self_0
+    ok (proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged ca)
+  | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled __self_0 =>
+    let cs ←
+      proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCloneClone.clone
+        __self_0
+    ok (proto.pq_ratchet.v1_state.InnerState.Ct2Sampled cs)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::InnerState}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:13-297:18 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.InnerState.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.InnerState := {
+  clone := proto.pq_ratchet.v1_state.InnerState.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::V1State}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 99:9-99:14 -/
+def proto.pq_ratchet.V1State.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.V1State) : Result proto.pq_ratchet.V1State := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_state.InnerState.Insts.CoreCloneClone
+      self.inner_state
+  ok { inner_state := o }
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{core::clone::Clone for spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:13-50:18 -/
+def proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.pq_ratchet_state.Inner) :
+  Result proto.pq_ratchet.pq_ratchet_state.Inner
+  := do
+  let ⟨ __self_0 ⟩ := self
+  let vs ← proto.pq_ratchet.V1State.Insts.CoreCloneClone.clone __self_0
+  ok (proto.pq_ratchet.pq_ratchet_state.Inner.V1 vs)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{core::clone::Clone for spqr::proto::pq_ratchet::pq_ratchet_state::Inner}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:13-50:18 -/
+@[reducible]
+def proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.pq_ratchet_state.Inner := {
+  clone := proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{core::clone::Clone for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:13-39:18 -/
+def
+  proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.pq_ratchet_state.VersionNegotiation) :
+  Result proto.pq_ratchet.pq_ratchet_state.VersionNegotiation
+  := do
+  let v ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.auth_key
+  let i ← lift (core.clone.impls.CloneI32.clone self.direction)
+  let i1 ← lift (core.clone.impls.CloneI32.clone self.min_version)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.ChainParams.Insts.CoreCloneClone self.chain_params
+  ok { auth_key := v, direction := i, min_version := i1, chain_params := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{core::clone::Clone for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:13-39:18 -/
+@[reducible]
+def proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.pq_ratchet_state.VersionNegotiation := {
+  clone :=
+    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::PqRatchetState}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 26:9-26:14 -/
+def proto.pq_ratchet.PqRatchetState.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.PqRatchetState) :
+  Result proto.pq_ratchet.PqRatchetState
+  := do
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCloneClone
+      self.version_negotiation
+  let o1 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.Chain.Insts.CoreCloneClone self.chain
+  let o2 ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCloneClone self.inner
+  ok { version_negotiation := o, chain := o1, inner := o2 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::PqRatchetState}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 26:9-26:14 -/
+@[reducible]
+def proto.pq_ratchet.PqRatchetState.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.PqRatchetState := {
+  clone := proto.pq_ratchet.PqRatchetState.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::PqRatchetState}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 26:16-26:25 -/
+@[reducible]
+def proto.pq_ratchet.PqRatchetState.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.PqRatchetState := {
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::ChainParams> for spqr::proto::pq_ratchet::ChainParams}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 362:22-362:31 -/
+def proto.pq_ratchet.ChainParams.Insts.CoreCmpPartialEqChainParams.eq
+  (self : proto.pq_ratchet.ChainParams) (other : proto.pq_ratchet.ChainParams)
+  :
+  Result Bool
+  := do
+  if self.max_jump = other.max_jump
+  then ok (self.max_ooo_keys = other.max_ooo_keys)
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::ChainParams> for spqr::proto::pq_ratchet::ChainParams}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 362:22-362:31 -/
+@[reducible]
+def proto.pq_ratchet.ChainParams.Insts.CoreCmpPartialEqChainParams :
+  core.cmp.PartialEq proto.pq_ratchet.ChainParams proto.pq_ratchet.ChainParams
+  := {
+  eq := proto.pq_ratchet.ChainParams.Insts.CoreCmpPartialEqChainParams.eq
+}
+
+/-- [spqr::proto::pq_ratchet::chain::epoch::{core::cmp::PartialEq<spqr::proto::pq_ratchet::chain::epoch::EpochDirection> for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 351:24-351:33 -/
+def
+  proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpPartialEqEpochDirection.eq
+  (self : proto.pq_ratchet.chain.epoch.EpochDirection)
+  (other : proto.pq_ratchet.chain.epoch.EpochDirection) :
+  Result Bool
+  := do
+  if self.ctr = other.ctr
+  then
+    let b ←
+      alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.next
+        other.next
+    if b
+    then
+      alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.prev
+        other.prev
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::epoch::{core::cmp::PartialEq<spqr::proto::pq_ratchet::chain::epoch::EpochDirection> for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 351:24-351:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpPartialEqEpochDirection
+  : core.cmp.PartialEq proto.pq_ratchet.chain.epoch.EpochDirection
+  proto.pq_ratchet.chain.epoch.EpochDirection := {
+  eq :=
+    proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpPartialEqEpochDirection.eq
+}
+
+/-- [spqr::proto::pq_ratchet::chain::{core::cmp::PartialEq<spqr::proto::pq_ratchet::chain::Epoch> for spqr::proto::pq_ratchet::chain::Epoch}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 342:20-342:29 -/
+def proto.pq_ratchet.chain.Epoch.Insts.CoreCmpPartialEqEpoch.eq
+  (self : proto.pq_ratchet.chain.Epoch) (other : proto.pq_ratchet.chain.Epoch)
+  :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpPartialEqEpochDirection
+      self.send other.send
+  if b
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpPartialEqEpochDirection
+      self.recv other.recv
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::{core::cmp::PartialEq<spqr::proto::pq_ratchet::chain::Epoch> for spqr::proto::pq_ratchet::chain::Epoch}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 342:20-342:29 -/
+@[reducible]
+def proto.pq_ratchet.chain.Epoch.Insts.CoreCmpPartialEqEpoch :
+  core.cmp.PartialEq proto.pq_ratchet.chain.Epoch proto.pq_ratchet.chain.Epoch
+  := {
+  eq := proto.pq_ratchet.chain.Epoch.Insts.CoreCmpPartialEqEpoch.eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::Chain> for spqr::proto::pq_ratchet::Chain}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 325:16-325:25 -/
+def proto.pq_ratchet.Chain.Insts.CoreCmpPartialEqChain.eq
+  (self : proto.pq_ratchet.Chain) (other : proto.pq_ratchet.Chain) :
+  Result Bool
+  := do
+  if self.direction = other.direction
+  then
+    if self.current_epoch = other.current_epoch
+    then
+      if self.send_epoch = other.send_epoch
+      then
+        let b ←
+          alloc.vec.partial_eq.PartialEqVec.eq
+            proto.pq_ratchet.chain.Epoch.Insts.CoreCmpPartialEqEpoch 
+            self.links other.links
+        if b
+        then
+          let b1 ←
+            alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8
+              self.next_root other.next_root
+          if b1
+          then
+            core.option.Option.Insts.CoreCmpPartialEqOption.eq
+              proto.pq_ratchet.ChainParams.Insts.CoreCmpPartialEqChainParams
+              self.params other.params
+          else ok false
+        else ok false
+      else ok false
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::Chain> for spqr::proto::pq_ratchet::Chain}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 325:16-325:25 -/
+@[reducible]
+def proto.pq_ratchet.Chain.Insts.CoreCmpPartialEqChain : core.cmp.PartialEq
+  proto.pq_ratchet.Chain proto.pq_ratchet.Chain := {
+  eq := proto.pq_ratchet.Chain.Insts.CoreCmpPartialEqChain.eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::Authenticator> for spqr::proto::pq_ratchet::Authenticator}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 92:16-92:25 -/
+def proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator.eq
+  (self : proto.pq_ratchet.Authenticator)
+  (other : proto.pq_ratchet.Authenticator) :
+  Result Bool
+  := do
+  let b ←
+    alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.root_key
+      other.root_key
+  if b
+  then
+    alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.mac_key
+      other.mac_key
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::Authenticator> for spqr::proto::pq_ratchet::Authenticator}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 92:16-92:25 -/
+@[reducible]
+def proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator :
+  core.cmp.PartialEq proto.pq_ratchet.Authenticator
+  proto.pq_ratchet.Authenticator := {
+  eq := proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent> for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 203:24-203:33 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpPartialEqCt2Sent.eq
+  (self : proto.pq_ratchet.v1_state.unchunked.Ct2Sent)
+  (other : proto.pq_ratchet.v1_state.unchunked.Ct2Sent) :
+  Result Bool
+  := do
+  if self.epoch = other.epoch
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator
+      self.auth other.auth
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent> for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 203:24-203:33 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpPartialEqCt2Sent :
+  core.cmp.PartialEq proto.pq_ratchet.v1_state.unchunked.Ct2Sent
+  proto.pq_ratchet.v1_state.unchunked.Ct2Sent := {
+  eq :=
+    proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpPartialEqCt2Sent.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled> for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 289:24-289:33 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpPartialEqCt2Sampled.eq
+  (self : proto.pq_ratchet.v1_state.chunked.Ct2Sampled)
+  (other : proto.pq_ratchet.v1_state.chunked.Ct2Sampled) :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpPartialEqCt2Sent
+      self.uc other.uc
+  if b
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpPartialEqPolynomialEncoder
+      self.sending_ct2 other.sending_ct2
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled> for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 289:24-289:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpPartialEqCt2Sampled
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.chunked.Ct2Sampled
+  proto.pq_ratchet.v1_state.chunked.Ct2Sampled := {
+  eq :=
+    proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpPartialEqCt2Sampled.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent> for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 177:24-177:33 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpPartialEqCt1Sent.eq
+  (self : proto.pq_ratchet.v1_state.unchunked.Ct1Sent)
+  (other : proto.pq_ratchet.v1_state.unchunked.Ct1Sent) :
+  Result Bool
+  := do
+  if self.epoch = other.epoch
+  then
+    let b ←
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator
+        self.auth other.auth
+    if b
+    then
+      let b1 ←
+        alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.hdr
+          other.hdr
+      if b1
+      then
+        let b2 ←
+          alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.es
+            other.es
+        if b2
+        then
+          alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.ct1
+            other.ct1
+        else ok false
+      else ok false
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent> for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 177:24-177:33 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpPartialEqCt1Sent :
+  core.cmp.PartialEq proto.pq_ratchet.v1_state.unchunked.Ct1Sent
+  proto.pq_ratchet.v1_state.unchunked.Ct1Sent := {
+  eq :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpPartialEqCt1Sent.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged> for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 282:24-282:33 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpPartialEqCt1Acknowledged.eq
+  (self : proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged)
+  (other : proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged) :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpPartialEqCt1Sent
+      self.uc other.uc
+  if b
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpPartialEqPolynomialDecoder
+      self.receiving_ek other.receiving_ek
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged> for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 282:24-282:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpPartialEqCt1Acknowledged
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged
+  proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged := {
+  eq :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpPartialEqCt1Acknowledged.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived> for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 190:24-190:33 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpPartialEqCt1SentEkReceived.eq
+  (self : proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived)
+  (other : proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived) :
+  Result Bool
+  := do
+  if self.epoch = other.epoch
+  then
+    let b ←
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator
+        self.auth other.auth
+    if b
+    then
+      let b1 ←
+        alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.es
+          other.es
+      if b1
+      then
+        let b2 ←
+          alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.ek
+            other.ek
+        if b2
+        then
+          alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.ct1
+            other.ct1
+        else ok false
+      else ok false
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived> for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 190:24-190:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpPartialEqCt1SentEkReceived
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived
+  proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived := {
+  eq :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpPartialEqCt1SentEkReceived.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled> for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 275:24-275:33 -/
+def
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpPartialEqEkReceivedCt1Sampled.eq
+  (self : proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled)
+  (other : proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled) :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpPartialEqCt1SentEkReceived
+      self.uc other.uc
+  if b
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpPartialEqPolynomialEncoder
+      self.sending_ct1 other.sending_ct1
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled> for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 275:24-275:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpPartialEqEkReceivedCt1Sampled
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled := {
+  eq :=
+    proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpPartialEqEkReceivedCt1Sampled.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled> for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 266:24-266:33 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpPartialEqCt1Sampled.eq
+  (self : proto.pq_ratchet.v1_state.chunked.Ct1Sampled)
+  (other : proto.pq_ratchet.v1_state.chunked.Ct1Sampled) :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpPartialEqCt1Sent
+      self.uc other.uc
+  if b
+  then
+    let b1 ←
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpPartialEqPolynomialEncoder
+        self.sending_ct1 other.sending_ct1
+    if b1
+    then
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpPartialEqPolynomialDecoder
+        self.receiving_ek other.receiving_ek
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled> for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 266:24-266:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpPartialEqCt1Sampled
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.chunked.Ct1Sampled
+  proto.pq_ratchet.v1_state.chunked.Ct1Sampled := {
+  eq :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpPartialEqCt1Sampled.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived> for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 157:24-157:33 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived.eq
+  (self : proto.pq_ratchet.v1_state.unchunked.HeaderReceived)
+  (other : proto.pq_ratchet.v1_state.unchunked.HeaderReceived) :
+  Result Bool
+  := do
+  if self.epoch = other.epoch
+  then
+    let b ←
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator
+        self.auth other.auth
+    if b
+    then
+      alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.hdr
+        other.hdr
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived> for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 157:24-157:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.unchunked.HeaderReceived
+  proto.pq_ratchet.v1_state.unchunked.HeaderReceived := {
+  eq :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived> for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 259:24-259:33 -/
+def
+  proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived.eq
+  (self : proto.pq_ratchet.v1_state.chunked.HeaderReceived)
+  (other : proto.pq_ratchet.v1_state.chunked.HeaderReceived) :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived
+      self.uc other.uc
+  if b
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpPartialEqPolynomialDecoder
+      self.receiving_ek other.receiving_ek
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived> for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 259:24-259:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.chunked.HeaderReceived
+  proto.pq_ratchet.v1_state.chunked.HeaderReceived := {
+  eq :=
+    proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived> for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 150:24-150:33 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived.eq
+  (self : proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived)
+  (other : proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived) :
+  Result Bool
+  := do
+  if self.epoch = other.epoch
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator
+      self.auth other.auth
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived> for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 150:24-150:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived
+  proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived := {
+  eq :=
+    proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived> for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 252:24-252:33 -/
+def
+  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived.eq
+  (self : proto.pq_ratchet.v1_state.chunked.NoHeaderReceived)
+  (other : proto.pq_ratchet.v1_state.chunked.NoHeaderReceived) :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived
+      self.uc other.uc
+  if b
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpPartialEqPolynomialDecoder
+      self.receiving_hdr other.receiving_hdr
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived> for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 252:24-252:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.chunked.NoHeaderReceived
+  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived := {
+  eq :=
+    proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received> for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 138:24-138:33 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received.eq
+  (self : proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received)
+  (other : proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received) :
+  Result Bool
+  := do
+  if self.epoch = other.epoch
+  then
+    let b ←
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator
+        self.auth other.auth
+    if b
+    then
+      let b1 ←
+        alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.dk
+          other.dk
+      if b1
+      then
+        alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.ct1
+          other.ct1
+      else ok false
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received> for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 138:24-138:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received
+  proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received := {
+  eq :=
+    proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received> for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 244:24-244:33 -/
+def
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received.eq
+  (self : proto.pq_ratchet.v1_state.chunked.EkSentCt1Received)
+  (other : proto.pq_ratchet.v1_state.chunked.EkSentCt1Received) :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received
+      self.uc other.uc
+  if b
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpPartialEqPolynomialDecoder
+      self.receiving_ct2 other.receiving_ct2
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received> for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 244:24-244:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.chunked.EkSentCt1Received
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received := {
+  eq :=
+    proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received> for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 237:24-237:33 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpPartialEqCt1Received.eq
+  (self : proto.pq_ratchet.v1_state.chunked.Ct1Received)
+  (other : proto.pq_ratchet.v1_state.chunked.Ct1Received) :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received
+      self.uc other.uc
+  if b
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpPartialEqPolynomialEncoder
+      self.sending_ek other.sending_ek
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received> for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 237:24-237:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpPartialEqCt1Received
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.chunked.Ct1Received
+  proto.pq_ratchet.v1_state.chunked.Ct1Received := {
+  eq :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpPartialEqCt1Received.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::EkSent> for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 129:24-129:33 -/
+def proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpPartialEqEkSent.eq
+  (self : proto.pq_ratchet.v1_state.unchunked.EkSent)
+  (other : proto.pq_ratchet.v1_state.unchunked.EkSent) :
+  Result Bool
+  := do
+  if self.epoch = other.epoch
+  then
+    let b ←
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator
+        self.auth other.auth
+    if b
+    then
+      alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.dk
+        other.dk
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::EkSent> for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 129:24-129:33 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpPartialEqEkSent :
+  core.cmp.PartialEq proto.pq_ratchet.v1_state.unchunked.EkSent
+  proto.pq_ratchet.v1_state.unchunked.EkSent := {
+  eq :=
+    proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpPartialEqEkSent.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent> for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 228:24-228:33 -/
+def
+  proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent.eq
+  (self : proto.pq_ratchet.v1_state.chunked.HeaderSent)
+  (other : proto.pq_ratchet.v1_state.chunked.HeaderSent) :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpPartialEqEkSent
+      self.uc other.uc
+  if b
+  then
+    let b1 ←
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpPartialEqPolynomialEncoder
+        self.sending_ek other.sending_ek
+    if b1
+    then
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.PolynomialDecoder.Insts.CoreCmpPartialEqPolynomialDecoder
+        self.receiving_ct1 other.receiving_ct1
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent> for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 228:24-228:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.chunked.HeaderSent
+  proto.pq_ratchet.v1_state.chunked.HeaderSent := {
+  eq :=
+    proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent> for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 118:24-118:33 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent.eq
+  (self : proto.pq_ratchet.v1_state.unchunked.HeaderSent)
+  (other : proto.pq_ratchet.v1_state.unchunked.HeaderSent) :
+  Result Bool
+  := do
+  if self.epoch = other.epoch
+  then
+    let b ←
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator
+        self.auth other.auth
+    if b
+    then
+      let b1 ←
+        alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.ek
+          other.ek
+      if b1
+      then
+        alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.dk
+          other.dk
+      else ok false
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent> for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 118:24-118:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.unchunked.HeaderSent
+  proto.pq_ratchet.v1_state.unchunked.HeaderSent := {
+  eq :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled> for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 221:24-221:33 -/
+def
+  proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpPartialEqKeysSampled.eq
+  (self : proto.pq_ratchet.v1_state.chunked.KeysSampled)
+  (other : proto.pq_ratchet.v1_state.chunked.KeysSampled) :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent
+      self.uc other.uc
+  if b
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.PolynomialEncoder.Insts.CoreCmpPartialEqPolynomialEncoder
+      self.sending_hdr other.sending_hdr
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled> for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 221:24-221:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpPartialEqKeysSampled
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.chunked.KeysSampled
+  proto.pq_ratchet.v1_state.chunked.KeysSampled := {
+  eq :=
+    proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpPartialEqKeysSampled.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled> for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 111:24-111:33 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled.eq
+  (self : proto.pq_ratchet.v1_state.unchunked.KeysUnsampled)
+  (other : proto.pq_ratchet.v1_state.unchunked.KeysUnsampled) :
+  Result Bool
+  := do
+  if self.epoch = other.epoch
+  then
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator
+      self.auth other.auth
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled> for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 111:24-111:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.unchunked.KeysUnsampled
+  proto.pq_ratchet.v1_state.unchunked.KeysUnsampled := {
+  eq :=
+    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled> for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 216:24-216:33 -/
+def
+  proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled.eq
+  (self : proto.pq_ratchet.v1_state.chunked.KeysUnsampled)
+  (other : proto.pq_ratchet.v1_state.chunked.KeysUnsampled) :
+  Result Bool
+  := do
+  core.option.Option.Insts.CoreCmpPartialEqOption.eq
+    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled
+    self.uc other.uc
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled> for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 216:24-216:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.chunked.KeysUnsampled
+  proto.pq_ratchet.v1_state.chunked.KeysUnsampled := {
+  eq :=
+    proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::InnerState> for spqr::proto::pq_ratchet::v1_state::InnerState}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:20-297:29 -/
+def proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpPartialEqInnerState.eq
+  (self : proto.pq_ratchet.v1_state.InnerState)
+  (other : proto.pq_ratchet.v1_state.InnerState) :
+  Result Bool
+  := do
+  let self1 := read_discriminant self
+  let other1 := read_discriminant other
+  if self1 = other1
+  then
+    match self with
+    | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled __arg1_0 =>
+        proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled.eq
+          __self_0 __arg1_0
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ => fail panic
+    | proto.pq_ratchet.v1_state.InnerState.KeysSampled __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled __arg1_0 =>
+        proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpPartialEqKeysSampled.eq
+          __self_0 __arg1_0
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ => fail panic
+    | proto.pq_ratchet.v1_state.InnerState.HeaderSent __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent __arg1_0 =>
+        proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent.eq
+          __self_0 __arg1_0
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ => fail panic
+    | proto.pq_ratchet.v1_state.InnerState.Ct1Received __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received __arg1_0 =>
+        proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpPartialEqCt1Received.eq
+          __self_0 __arg1_0
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ => fail panic
+    | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received __arg1_0 =>
+        proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received.eq
+          __self_0 __arg1_0
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ => fail panic
+    | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived __arg1_0 =>
+        proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived.eq
+          __self_0 __arg1_0
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ => fail panic
+    | proto.pq_ratchet.v1_state.InnerState.HeaderReceived __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived __arg1_0 =>
+        proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived.eq
+          __self_0 __arg1_0
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ => fail panic
+    | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled __arg1_0 =>
+        proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpPartialEqCt1Sampled.eq
+          __self_0 __arg1_0
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ => fail panic
+    | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled __arg1_0 =>
+        proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpPartialEqEkReceivedCt1Sampled.eq
+          __self_0 __arg1_0
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ => fail panic
+    | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged __arg1_0 =>
+        proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpPartialEqCt1Acknowledged.eq
+          __self_0 __arg1_0
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ => fail panic
+    | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ => fail panic
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled __arg1_0 =>
+        proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpPartialEqCt2Sampled.eq
+          __self_0 __arg1_0
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::InnerState> for spqr::proto::pq_ratchet::v1_state::InnerState}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:20-297:29 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpPartialEqInnerState :
+  core.cmp.PartialEq proto.pq_ratchet.v1_state.InnerState
+  proto.pq_ratchet.v1_state.InnerState := {
+  eq :=
+    proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpPartialEqInnerState.eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::V1State> for spqr::proto::pq_ratchet::V1State}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 99:16-99:25 -/
+def proto.pq_ratchet.V1State.Insts.CoreCmpPartialEqV1State.eq
+  (self : proto.pq_ratchet.V1State) (other : proto.pq_ratchet.V1State) :
+  Result Bool
+  := do
+  core.option.Option.Insts.CoreCmpPartialEqOption.eq
+    proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpPartialEqInnerState
+    self.inner_state other.inner_state
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::V1State> for spqr::proto::pq_ratchet::V1State}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 99:16-99:25 -/
+@[reducible]
+def proto.pq_ratchet.V1State.Insts.CoreCmpPartialEqV1State : core.cmp.PartialEq
+  proto.pq_ratchet.V1State proto.pq_ratchet.V1State := {
+  eq := proto.pq_ratchet.V1State.Insts.CoreCmpPartialEqV1State.eq
+}
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::PartialEq<spqr::proto::pq_ratchet::pq_ratchet_state::Inner> for spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:20-50:29 -/
+def proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpPartialEqInner.eq
+  (self : proto.pq_ratchet.pq_ratchet_state.Inner)
+  (other : proto.pq_ratchet.pq_ratchet_state.Inner) :
+  Result Bool
+  := do
+  let ⟨ __self_0 ⟩ := self
+  let ⟨ __arg1_0 ⟩ := other
+  proto.pq_ratchet.V1State.Insts.CoreCmpPartialEqV1State.eq __self_0 __arg1_0
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::PartialEq<spqr::proto::pq_ratchet::pq_ratchet_state::Inner> for spqr::proto::pq_ratchet::pq_ratchet_state::Inner}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:20-50:29 -/
+@[reducible]
+def proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpPartialEqInner :
+  core.cmp.PartialEq proto.pq_ratchet.pq_ratchet_state.Inner
+  proto.pq_ratchet.pq_ratchet_state.Inner := {
+  eq := proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpPartialEqInner.eq
+}
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::PartialEq<spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation> for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:20-39:29 -/
+def
+  proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpPartialEqVersionNegotiation.eq
+  (self : proto.pq_ratchet.pq_ratchet_state.VersionNegotiation)
+  (other : proto.pq_ratchet.pq_ratchet_state.VersionNegotiation) :
+  Result Bool
+  := do
+  if self.direction = other.direction
+  then
+    if self.min_version = other.min_version
+    then
+      let b ←
+        alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.auth_key
+          other.auth_key
+      if b
+      then
+        core.option.Option.Insts.CoreCmpPartialEqOption.eq
+          proto.pq_ratchet.ChainParams.Insts.CoreCmpPartialEqChainParams
+          self.chain_params other.chain_params
+      else ok false
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::PartialEq<spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation> for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:20-39:29 -/
+@[reducible]
+def
+  proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpPartialEqVersionNegotiation
+  : core.cmp.PartialEq proto.pq_ratchet.pq_ratchet_state.VersionNegotiation
+  proto.pq_ratchet.pq_ratchet_state.VersionNegotiation := {
+  eq :=
+    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpPartialEqVersionNegotiation.eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::PqRatchetState> for spqr::proto::pq_ratchet::PqRatchetState}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 26:16-26:25 -/
+def proto.pq_ratchet.PqRatchetState.Insts.CoreCmpPartialEqPqRatchetState.eq
+  (self : proto.pq_ratchet.PqRatchetState)
+  (other : proto.pq_ratchet.PqRatchetState) :
+  Result Bool
+  := do
+  let b ←
+    core.option.Option.Insts.CoreCmpPartialEqOption.eq
+      proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpPartialEqVersionNegotiation
+      self.version_negotiation other.version_negotiation
+  if b
+  then
+    let b1 ←
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.Chain.Insts.CoreCmpPartialEqChain self.chain
+        other.chain
+    if b1
+    then
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpPartialEqInner
+        self.inner other.inner
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::PqRatchetState> for spqr::proto::pq_ratchet::PqRatchetState}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 26:16-26:25 -/
+@[reducible]
+def proto.pq_ratchet.PqRatchetState.Insts.CoreCmpPartialEqPqRatchetState :
+  core.cmp.PartialEq proto.pq_ratchet.PqRatchetState
+  proto.pq_ratchet.PqRatchetState := {
+  eq := proto.pq_ratchet.PqRatchetState.Insts.CoreCmpPartialEqPqRatchetState.eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{prost::message::Message for spqr::proto::pq_ratchet::PqRatchetState}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 26:27-26:43 -/
+@[reducible]
+def proto.pq_ratchet.PqRatchetState.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.PqRatchetState := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.PqRatchetState.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.PqRatchetState.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.PqRatchetState.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.PqRatchetState.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::PqRatchetState}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 26:27-26:43 -/
+def proto.pq_ratchet.PqRatchetState.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.PqRatchetState := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.pq_ratchet_state.VersionNegotiation
+  let o1 ←
+    core.option.Option.Insts.CoreDefaultDefault.default proto.pq_ratchet.Chain
+  let o2 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.pq_ratchet_state.Inner
+  ok { version_negotiation := o, chain := o1, inner := o2 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::PqRatchetState}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 26:27-26:43 -/
+@[reducible]
+def proto.pq_ratchet.PqRatchetState.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.PqRatchetState := {
+  default := proto.pq_ratchet.PqRatchetState.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:20-39:29 -/
+@[reducible]
+def
+  proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.pq_ratchet_state.VersionNegotiation := {
+}
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::Eq for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:31-39:33 -/
+def
+  proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.pq_ratchet_state.VersionNegotiation) :
+  Result Unit
+  := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::Eq for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:31-39:33 -/
+@[reducible]
+def proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.pq_ratchet_state.VersionNegotiation := {
+  partialEqInst :=
+    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpPartialEqVersionNegotiation
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{prost::message::Message for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:41-39:57 -/
+@[reducible]
+def
+  proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.ProstMessageMessage
+  : prost.message.Message proto.pq_ratchet.pq_ratchet_state.VersionNegotiation
+  := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::Direction}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:67-403:87 -/
+def proto.pq_ratchet.Direction.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.Direction := do
+  ok proto.pq_ratchet.Direction.A2B
+
+/-- [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::Version}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:67-374:87 -/
+def proto.pq_ratchet.Version.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.Version := do
+  ok proto.pq_ratchet.Version.V0
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{core::default::Default for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:41-39:57 -/
+def
+  proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.pq_ratchet_state.VersionNegotiation := do
+  let v ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  let d ← proto.pq_ratchet.Direction.Insts.CoreDefaultDefault.default
+  let i := read_discriminant d
+  let i1 ← lift (IScalar.cast .I32 i)
+  let v1 ← proto.pq_ratchet.Version.Insts.CoreDefaultDefault.default
+  let i2 := read_discriminant v1
+  let i3 ← lift (IScalar.cast .I32 i2)
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.ChainParams
+  ok { auth_key := v, direction := i1, min_version := i3, chain_params := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{core::default::Default for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:41-39:57 -/
+@[reducible]
+def
+  proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreDefaultDefault
+  : core.default.Default proto.pq_ratchet.pq_ratchet_state.VersionNegotiation
+  := {
+  default :=
+    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreDefaultDefault.default
+}
+
+/-- [spqr::proto::pq_ratchet::{core::convert::TryFrom<i32, prost::error::UnknownEnumValue> for spqr::proto::pq_ratchet::Direction}::try_from]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:67-403:87 -/
+def
+  proto.pq_ratchet.Direction.Insts.CoreConvertTryFromI32UnknownEnumValue.try_from
+  (value : Std.I32) :
+  Result (core.result.Result proto.pq_ratchet.Direction
+    prost.error.UnknownEnumValue)
+  := do
+  match value with
+  | 0#iscalar => ok (core.result.Result.Ok proto.pq_ratchet.Direction.A2B)
+  | 1#iscalar => ok (core.result.Result.Ok proto.pq_ratchet.Direction.B2A)
+  | _ => ok (core.result.Result.Err value)
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}::direction]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:41-39:57 -/
+def proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.impl.direction
+  (self : proto.pq_ratchet.pq_ratchet_state.VersionNegotiation) :
+  Result proto.pq_ratchet.Direction
+  := do
+  let r ←
+    proto.pq_ratchet.Direction.Insts.CoreConvertTryFromI32UnknownEnumValue.try_from
+      self.direction
+  let d ← proto.pq_ratchet.Direction.Insts.CoreDefaultDefault.default
+  core.result.Result.unwrap_or r d
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}::set_direction]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:41-39:57 -/
+def proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.set_direction
+  (self : proto.pq_ratchet.pq_ratchet_state.VersionNegotiation)
+  (value : proto.pq_ratchet.Direction) :
+  Result proto.pq_ratchet.pq_ratchet_state.VersionNegotiation
+  := do
+  let value1 := read_discriminant value
+  let i ← lift (IScalar.cast .I32 value1)
+  ok { self with direction := i }
+
+/-- [spqr::proto::pq_ratchet::{core::convert::TryFrom<i32, prost::error::UnknownEnumValue> for spqr::proto::pq_ratchet::Version}::try_from]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:67-374:87 -/
+def
+  proto.pq_ratchet.Version.Insts.CoreConvertTryFromI32UnknownEnumValue.try_from
+  (value : Std.I32) :
+  Result (core.result.Result proto.pq_ratchet.Version
+    prost.error.UnknownEnumValue)
+  := do
+  match value with
+  | 0#iscalar => ok (core.result.Result.Ok proto.pq_ratchet.Version.V0)
+  | 1#iscalar => ok (core.result.Result.Ok proto.pq_ratchet.Version.V1)
+  | _ => ok (core.result.Result.Err value)
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}::min_version]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:41-39:57 -/
+def proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.impl.min_version
+  (self : proto.pq_ratchet.pq_ratchet_state.VersionNegotiation) :
+  Result proto.pq_ratchet.Version
+  := do
+  let r ←
+    proto.pq_ratchet.Version.Insts.CoreConvertTryFromI32UnknownEnumValue.try_from
+      self.min_version
+  let v ← proto.pq_ratchet.Version.Insts.CoreDefaultDefault.default
+  core.result.Result.unwrap_or r v
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}::set_min_version]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 39:41-39:57 -/
+def proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.set_min_version
+  (self : proto.pq_ratchet.pq_ratchet_state.VersionNegotiation)
+  (value : proto.pq_ratchet.Version) :
+  Result proto.pq_ratchet.pq_ratchet_state.VersionNegotiation
+  := do
+  let value1 := read_discriminant value
+  let i ← lift (IScalar.cast .I32 value1)
+  ok { self with min_version := i }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::pq_ratchet_state::Inner}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:20-50:29 -/
+@[reducible]
+def proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq proto.pq_ratchet.pq_ratchet_state.Inner
+  := {
+}
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::Eq for spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:31-50:33 -/
+def
+  proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.pq_ratchet_state.Inner) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::Eq for spqr::proto::pq_ratchet::pq_ratchet_state::Inner}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:31-50:33 -/
+@[reducible]
+def proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.pq_ratchet_state.Inner := {
+  partialEqInst :=
+    proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpPartialEqInner
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::merge::closure<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:41-50:55 -/
+def
+  proto.pq_ratchet.pq_ratchet_state.Inner.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.pq_ratchet_state.Inner.merge.closure
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.pq_ratchet_state.Inner.merge.closure
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, vs) := c
+  ok (some (proto.pq_ratchet.pq_ratchet_state.Inner.V1 vs), vs)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::merge::closure<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:41-50:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.pq_ratchet_state.Inner.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce
+  (proto.pq_ratchet.pq_ratchet_state.Inner.merge.closure
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.pq_ratchet_state.Inner.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{prost::message::Message for spqr::proto::pq_ratchet::V1State}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 99:37-99:53 -/
+@[reducible]
+def proto.pq_ratchet.V1State.Insts.ProstMessageMessage : prost.message.Message
+  proto.pq_ratchet.V1State := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.V1State.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.V1State.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len := proto.pq_ratchet.V1State.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.V1State.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::encode]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:41-50:55 -/
+def proto.pq_ratchet.pq_ratchet_state.Inner.encode
+  {T0 : Type} (bytesbufbuf_mutBufMutInst : bytes.buf.buf_mut.BufMut T0)
+  (self : proto.pq_ratchet.pq_ratchet_state.Inner) (buf : T0) :
+  Result T0
+  := do
+  let ⟨ value ⟩ := self
+  prost.encoding.message.encode
+    proto.pq_ratchet.V1State.Insts.ProstMessageMessage
+    bytesbufbuf_mutBufMutInst 3#u32 value buf
+
+/-- [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::V1State}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 99:37-99:53 -/
+def proto.pq_ratchet.V1State.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.V1State := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.InnerState
+  ok { inner_state := o }
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::merge]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:41-50:55 -/
+def proto.pq_ratchet.pq_ratchet_state.Inner.merge
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (field : Option proto.pq_ratchet.pq_ratchet_state.Inner) (tag : Std.U32)
+  (wire_type : prost.encoding.wire_type.WireType) (buf : T0)
+  (ctx : prost.encoding.DecodeContext) :
+  Result ((core.result.Result Unit prost.error.DecodeError) × (Option
+    proto.pq_ratchet.pq_ratchet_state.Inner) × T0)
+  := do
+  match tag with
+  | 3#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.V1State.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.V1State.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.pq_ratchet_state.Inner.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some i =>
+      let ⟨ value ⟩ := i
+      let (r, value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.V1State.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type value buf ctx
+      ok (r, some (proto.pq_ratchet.pq_ratchet_state.Inner.V1 value1), buf1)
+  | _ =>
+    let a ← core.fmt.rt.Argument.new_display U32.Insts.CoreFmtDisplay tag
+    let _ ←
+      core.fmt.Arguments.new
+        (Array.make 64#usize [
+          61#u8, 105#u8, 110#u8, 116#u8, 101#u8, 114#u8, 110#u8, 97#u8, 108#u8,
+          32#u8, 101#u8, 114#u8, 114#u8, 111#u8, 114#u8, 58#u8, 32#u8, 101#u8,
+          110#u8, 116#u8, 101#u8, 114#u8, 101#u8, 100#u8, 32#u8, 117#u8,
+          110#u8, 114#u8, 101#u8, 97#u8, 99#u8, 104#u8, 97#u8, 98#u8, 108#u8,
+          101#u8, 32#u8, 99#u8, 111#u8, 100#u8, 101#u8, 58#u8, 32#u8, 105#u8,
+          110#u8, 118#u8, 97#u8, 108#u8, 105#u8, 100#u8, 32#u8, 73#u8, 110#u8,
+          110#u8, 101#u8, 114#u8, 32#u8, 116#u8, 97#u8, 103#u8, 58#u8, 32#u8,
+          192#u8, 0#u8
+          ]) (Array.make 1#usize [ a ])
+    fail panic
+
+/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::encoded_len]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 50:41-50:55 -/
+def proto.pq_ratchet.pq_ratchet_state.Inner.encoded_len
+  (self : proto.pq_ratchet.pq_ratchet_state.Inner) : Result Std.Usize := do
+  let ⟨ value ⟩ := self
+  prost.encoding.message.encoded_len
+    proto.pq_ratchet.V1State.Insts.ProstMessageMessage 3#u32 value
+
+/-- [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::Chunk}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 56:9-56:14 -/
+def proto.pq_ratchet.Chunk.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.Chunk) : Result proto.pq_ratchet.Chunk := do
+  let i ← lift (core.clone.impls.CloneU32.clone self.index)
+  let v ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.data
+  ok { index := i, data := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::Chunk}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 56:9-56:14 -/
+@[reducible]
+def proto.pq_ratchet.Chunk.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.Chunk := {
+  clone := proto.pq_ratchet.Chunk.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::Chunk}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 56:16-56:25 -/
+@[reducible]
+def proto.pq_ratchet.Chunk.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.Chunk := {
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::Chunk> for spqr::proto::pq_ratchet::Chunk}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 56:16-56:25 -/
+def proto.pq_ratchet.Chunk.Insts.CoreCmpPartialEqChunk.eq
+  (self : proto.pq_ratchet.Chunk) (other : proto.pq_ratchet.Chunk) :
+  Result Bool
+  := do
+  if self.index = other.index
+  then
+    alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.data
+      other.data
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::Chunk> for spqr::proto::pq_ratchet::Chunk}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 56:16-56:25 -/
+@[reducible]
+def proto.pq_ratchet.Chunk.Insts.CoreCmpPartialEqChunk : core.cmp.PartialEq
+  proto.pq_ratchet.Chunk proto.pq_ratchet.Chunk := {
+  eq := proto.pq_ratchet.Chunk.Insts.CoreCmpPartialEqChunk.eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::Chunk}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 56:27-56:29 -/
+def proto.pq_ratchet.Chunk.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.Chunk) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::Chunk}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 56:27-56:29 -/
+@[reducible]
+def proto.pq_ratchet.Chunk.Insts.CoreCmpEq : core.cmp.Eq proto.pq_ratchet.Chunk
+  := {
+  partialEqInst := proto.pq_ratchet.Chunk.Insts.CoreCmpPartialEqChunk
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.Chunk.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{prost::message::Message for spqr::proto::pq_ratchet::Chunk}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 56:37-56:53 -/
+@[reducible]
+def proto.pq_ratchet.Chunk.Insts.ProstMessageMessage : prost.message.Message
+  proto.pq_ratchet.Chunk := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.Chunk.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.Chunk.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len := proto.pq_ratchet.Chunk.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.Chunk.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::Chunk}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 56:37-56:53 -/
+def proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.Chunk := do
+  let v ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  ok { index := 0#u32, data := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::Chunk}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 56:37-56:53 -/
+@[reducible]
+def proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault : core.default.Default
+  proto.pq_ratchet.Chunk := {
+  default := proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+}
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{core::clone::Clone for spqr::proto::pq_ratchet::v1_msg::InnerMsg}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:13-74:18 -/
+def proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_msg.InnerMsg) :
+  Result proto.pq_ratchet.v1_msg.InnerMsg
+  := do
+  match self with
+  | proto.pq_ratchet.v1_msg.InnerMsg.Hdr __self_0 =>
+    let c ← proto.pq_ratchet.Chunk.Insts.CoreCloneClone.clone __self_0
+    ok (proto.pq_ratchet.v1_msg.InnerMsg.Hdr c)
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ek __self_0 =>
+    let c ← proto.pq_ratchet.Chunk.Insts.CoreCloneClone.clone __self_0
+    ok (proto.pq_ratchet.v1_msg.InnerMsg.Ek c)
+  | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack __self_0 =>
+    let c ← proto.pq_ratchet.Chunk.Insts.CoreCloneClone.clone __self_0
+    ok (proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack c)
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack __self_0 =>
+    let b ← lift (core.clone.impls.CloneBool.clone __self_0)
+    ok (proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack b)
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 __self_0 =>
+    let c ← proto.pq_ratchet.Chunk.Insts.CoreCloneClone.clone __self_0
+    ok (proto.pq_ratchet.v1_msg.InnerMsg.Ct1 c)
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 __self_0 =>
+    let c ← proto.pq_ratchet.Chunk.Insts.CoreCloneClone.clone __self_0
+    ok (proto.pq_ratchet.v1_msg.InnerMsg.Ct2 c)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_msg::{core::clone::Clone for spqr::proto::pq_ratchet::v1_msg::InnerMsg}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:13-74:18 -/
+@[reducible]
+def proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.v1_msg.InnerMsg := {
+  clone := proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCloneClone.clone
+}
+
+/-- [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::V1Msg}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 63:9-63:14 -/
+def proto.pq_ratchet.V1Msg.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.V1Msg) : Result proto.pq_ratchet.V1Msg := do
+  let i ← lift (core.clone.impls.CloneU64.clone self.epoch)
+  let i1 ← lift (core.clone.impls.CloneU32.clone self.index)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCloneClone self.inner_msg
+  ok { epoch := i, index := i1, inner_msg := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::V1Msg}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 63:9-63:14 -/
+@[reducible]
+def proto.pq_ratchet.V1Msg.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.V1Msg := {
+  clone := proto.pq_ratchet.V1Msg.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::V1Msg}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 63:16-63:25 -/
+@[reducible]
+def proto.pq_ratchet.V1Msg.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.V1Msg := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_msg::InnerMsg> for spqr::proto::pq_ratchet::v1_msg::InnerMsg}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:20-74:29 -/
+def proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpPartialEqInnerMsg.eq
+  (self : proto.pq_ratchet.v1_msg.InnerMsg)
+  (other : proto.pq_ratchet.v1_msg.InnerMsg) :
+  Result Bool
+  := do
+  let self1 := read_discriminant self
+  let other1 := read_discriminant other
+  if self1 = other1
+  then
+    match self with
+    | proto.pq_ratchet.v1_msg.InnerMsg.Hdr __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr __arg1_0 =>
+        proto.pq_ratchet.Chunk.Insts.CoreCmpPartialEqChunk.eq __self_0 __arg1_0
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 _ => fail panic
+    | proto.pq_ratchet.v1_msg.InnerMsg.Ek __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek __arg1_0 =>
+        proto.pq_ratchet.Chunk.Insts.CoreCmpPartialEqChunk.eq __self_0 __arg1_0
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 _ => fail panic
+    | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack __arg1_0 =>
+        proto.pq_ratchet.Chunk.Insts.CoreCmpPartialEqChunk.eq __self_0 __arg1_0
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 _ => fail panic
+    | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack __arg1_0 =>
+        core.cmp.impls.PartialEqBool.eq __self_0 __arg1_0
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 _ => fail panic
+    | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 __arg1_0 =>
+        proto.pq_ratchet.Chunk.Insts.CoreCmpPartialEqChunk.eq __self_0 __arg1_0
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 _ => fail panic
+    | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 __self_0 =>
+      match other with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 _ => fail panic
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 __arg1_0 =>
+        proto.pq_ratchet.Chunk.Insts.CoreCmpPartialEqChunk.eq __self_0 __arg1_0
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_msg::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_msg::InnerMsg> for spqr::proto::pq_ratchet::v1_msg::InnerMsg}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:20-74:29 -/
+@[reducible]
+def proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpPartialEqInnerMsg :
+  core.cmp.PartialEq proto.pq_ratchet.v1_msg.InnerMsg
+  proto.pq_ratchet.v1_msg.InnerMsg := {
+  eq := proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpPartialEqInnerMsg.eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::V1Msg> for spqr::proto::pq_ratchet::V1Msg}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 63:16-63:25 -/
+def proto.pq_ratchet.V1Msg.Insts.CoreCmpPartialEqV1Msg.eq
+  (self : proto.pq_ratchet.V1Msg) (other : proto.pq_ratchet.V1Msg) :
+  Result Bool
+  := do
+  if self.epoch = other.epoch
+  then
+    if self.index = other.index
+    then
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpPartialEqInnerMsg
+        self.inner_msg other.inner_msg
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::V1Msg> for spqr::proto::pq_ratchet::V1Msg}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 63:16-63:25 -/
+@[reducible]
+def proto.pq_ratchet.V1Msg.Insts.CoreCmpPartialEqV1Msg : core.cmp.PartialEq
+  proto.pq_ratchet.V1Msg proto.pq_ratchet.V1Msg := {
+  eq := proto.pq_ratchet.V1Msg.Insts.CoreCmpPartialEqV1Msg.eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::V1Msg}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 63:27-63:29 -/
+def proto.pq_ratchet.V1Msg.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.V1Msg) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::V1Msg}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 63:27-63:29 -/
+@[reducible]
+def proto.pq_ratchet.V1Msg.Insts.CoreCmpEq : core.cmp.Eq proto.pq_ratchet.V1Msg
+  := {
+  partialEqInst := proto.pq_ratchet.V1Msg.Insts.CoreCmpPartialEqV1Msg
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.V1Msg.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{prost::message::Message for spqr::proto::pq_ratchet::V1Msg}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 63:37-63:53 -/
+@[reducible]
+def proto.pq_ratchet.V1Msg.Insts.ProstMessageMessage : prost.message.Message
+  proto.pq_ratchet.V1Msg := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.V1Msg.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.V1Msg.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len := proto.pq_ratchet.V1Msg.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.V1Msg.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::V1Msg}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 63:37-63:53 -/
+def proto.pq_ratchet.V1Msg.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.V1Msg := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_msg.InnerMsg
+  ok { epoch := 0#u64, index := 0#u32, inner_msg := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::V1Msg}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 63:37-63:53 -/
+@[reducible]
+def proto.pq_ratchet.V1Msg.Insts.CoreDefaultDefault : core.default.Default
+  proto.pq_ratchet.V1Msg := {
+  default := proto.pq_ratchet.V1Msg.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_msg::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_msg::InnerMsg}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:20-74:29 -/
+@[reducible]
+def proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.v1_msg.InnerMsg := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_msg::InnerMsg}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:31-74:33 -/
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_msg.InnerMsg) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_msg::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_msg::InnerMsg}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:31-74:33 -/
+@[reducible]
+def proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_msg.InnerMsg := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpPartialEqInnerMsg
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_msg.InnerMsg.merge.closure bytesbufbuf_implBufInst)
+  (_ : Unit) :
+  Result (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, c1) := c
+  ok (some (proto.pq_ratchet.v1_msg.InnerMsg.Hdr c1), c1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_msg.InnerMsg.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#1<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, c1) := c
+  ok (some (proto.pq_ratchet.v1_msg.InnerMsg.Ek c1), c1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#1<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#2<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, c1) := c
+  ok (some (proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack c1), c1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#2<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#3<0, 1, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, b) := c
+  ok (some (proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack b), b)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#3<0, 1, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#4<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, c1) := c
+  ok (some (proto.pq_ratchet.v1_msg.InnerMsg.Ct1 c1), c1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#4<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#5<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, c1) := c
+  ok (some (proto.pq_ratchet.v1_msg.InnerMsg.Ct2 c1), c1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure#5<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::encode]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def proto.pq_ratchet.v1_msg.InnerMsg.encode
+  {T0 : Type} (bytesbufbuf_mutBufMutInst : bytes.buf.buf_mut.BufMut T0)
+  (self : proto.pq_ratchet.v1_msg.InnerMsg) (buf : T0) :
+  Result T0
+  := do
+  match self with
+  | proto.pq_ratchet.v1_msg.InnerMsg.Hdr value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 3#u32 value buf
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ek value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 4#u32 value buf
+  | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 5#u32 value buf
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack value =>
+    prost.encoding.bool.encode bytesbufbuf_mutBufMutInst 6#u32 value buf
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 7#u32 value buf
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 8#u32 value buf
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def proto.pq_ratchet.v1_msg.InnerMsg.merge
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (field : Option proto.pq_ratchet.v1_msg.InnerMsg) (tag : Std.U32)
+  (wire_type : prost.encoding.wire_type.WireType) (buf : T0)
+  (ctx : prost.encoding.DecodeContext) :
+  Result ((core.result.Result Unit prost.error.DecodeError) × (Option
+    proto.pq_ratchet.v1_msg.InnerMsg) × T0)
+  := do
+  match tag with
+  | 3#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some im =>
+      match im with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_msg.InnerMsg.Hdr value1), buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 4#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some im =>
+      match im with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_msg.InnerMsg.Ek value1), buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 5#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some im =>
+      match im with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack value1), buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 6#uscalar =>
+    match field with
+    | none =>
+      let owned_value ← core.default.DefaultBool.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.bool.merge bytesbufbuf_implBufInst wire_type owned_value
+          buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some im =>
+      match im with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr _ =>
+        let owned_value ← core.default.DefaultBool.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.bool.merge bytesbufbuf_implBufInst wire_type
+            owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek _ =>
+        let owned_value ← core.default.DefaultBool.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.bool.merge bytesbufbuf_implBufInst wire_type
+            owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack _ =>
+        let owned_value ← core.default.DefaultBool.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.bool.merge bytesbufbuf_implBufInst wire_type
+            owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack value =>
+        let (r, value1, buf1) ←
+          prost.encoding.bool.merge bytesbufbuf_implBufInst wire_type value buf
+            ctx
+        ok (r, some (proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack value1), buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 _ =>
+        let owned_value ← core.default.DefaultBool.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.bool.merge bytesbufbuf_implBufInst wire_type
+            owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 _ =>
+        let owned_value ← core.default.DefaultBool.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.bool.merge bytesbufbuf_implBufInst wire_type
+            owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 7#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some im =>
+      match im with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_msg.InnerMsg.Ct1 value1), buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 8#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some im =>
+      match im with
+      | proto.pq_ratchet.v1_msg.InnerMsg.Hdr _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ek _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 _ =>
+        let owned_value ←
+          proto.pq_ratchet.Chunk.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_msg.InnerMsg.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.Chunk.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_msg.InnerMsg.Ct2 value1), buf1)
+  | _ =>
+    let a ← core.fmt.rt.Argument.new_display U32.Insts.CoreFmtDisplay tag
+    let _ ←
+      core.fmt.Arguments.new
+        (Array.make 67#usize [
+          64#u8, 105#u8, 110#u8, 116#u8, 101#u8, 114#u8, 110#u8, 97#u8, 108#u8,
+          32#u8, 101#u8, 114#u8, 114#u8, 111#u8, 114#u8, 58#u8, 32#u8, 101#u8,
+          110#u8, 116#u8, 101#u8, 114#u8, 101#u8, 100#u8, 32#u8, 117#u8,
+          110#u8, 114#u8, 101#u8, 97#u8, 99#u8, 104#u8, 97#u8, 98#u8, 108#u8,
+          101#u8, 32#u8, 99#u8, 111#u8, 100#u8, 101#u8, 58#u8, 32#u8, 105#u8,
+          110#u8, 118#u8, 97#u8, 108#u8, 105#u8, 100#u8, 32#u8, 73#u8, 110#u8,
+          110#u8, 101#u8, 114#u8, 77#u8, 115#u8, 103#u8, 32#u8, 116#u8, 97#u8,
+          103#u8, 58#u8, 32#u8, 192#u8, 0#u8
+          ]) (Array.make 1#usize [ a ])
+    fail panic
+
+/-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::encoded_len]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 74:41-74:55 -/
+def proto.pq_ratchet.v1_msg.InnerMsg.encoded_len
+  (self : proto.pq_ratchet.v1_msg.InnerMsg) : Result Std.Usize := do
+  match self with
+  | proto.pq_ratchet.v1_msg.InnerMsg.Hdr value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.Chunk.Insts.ProstMessageMessage 3#u32 value
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ek value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.Chunk.Insts.ProstMessageMessage 4#u32 value
+  | proto.pq_ratchet.v1_msg.InnerMsg.EkCt1Ack value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.Chunk.Insts.ProstMessageMessage 5#u32 value
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ct1Ack value =>
+    prost.encoding.bool.encoded_len 6#u32 value
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ct1 value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.Chunk.Insts.ProstMessageMessage 7#u32 value
+  | proto.pq_ratchet.v1_msg.InnerMsg.Ct2 value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.Chunk.Insts.ProstMessageMessage 8#u32 value
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::Authenticator}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 92:16-92:25 -/
+@[reducible]
+def proto.pq_ratchet.Authenticator.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.Authenticator := {
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::Authenticator}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 92:27-92:29 -/
+def proto.pq_ratchet.Authenticator.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.Authenticator) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::Authenticator}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 92:27-92:29 -/
+@[reducible]
+def proto.pq_ratchet.Authenticator.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.Authenticator := {
+  partialEqInst :=
+    proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.Authenticator.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{prost::message::Message for spqr::proto::pq_ratchet::Authenticator}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 92:37-92:53 -/
+@[reducible]
+def proto.pq_ratchet.Authenticator.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.Authenticator := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.Authenticator.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.Authenticator.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.Authenticator.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.Authenticator.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::Authenticator}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 92:37-92:53 -/
+def proto.pq_ratchet.Authenticator.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.Authenticator := do
+  let v ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  ok { root_key := v, mac_key := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::Authenticator}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 92:37-92:53 -/
+@[reducible]
+def proto.pq_ratchet.Authenticator.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.Authenticator := {
+  default := proto.pq_ratchet.Authenticator.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::V1State}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 99:9-99:14 -/
+@[reducible]
+def proto.pq_ratchet.V1State.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.V1State := {
+  clone := proto.pq_ratchet.V1State.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::V1State}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 99:16-99:25 -/
+@[reducible]
+def proto.pq_ratchet.V1State.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.V1State := {
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::V1State}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 99:27-99:29 -/
+def proto.pq_ratchet.V1State.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.V1State) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::V1State}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 99:27-99:29 -/
+@[reducible]
+def proto.pq_ratchet.V1State.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.V1State := {
+  partialEqInst := proto.pq_ratchet.V1State.Insts.CoreCmpPartialEqV1State
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.V1State.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::V1State}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 99:37-99:53 -/
+@[reducible]
+def proto.pq_ratchet.V1State.Insts.CoreDefaultDefault : core.default.Default
+  proto.pq_ratchet.V1State := {
+  default := proto.pq_ratchet.V1State.Insts.CoreDefaultDefault.default
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::Unchunked}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 106:13-106:18 -/
+def proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.Unchunked) :
+  Result proto.pq_ratchet.v1_state.Unchunked
+  := do
+  ok self
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::Unchunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 106:13-106:18 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.v1_state.Unchunked := {
+  clone := proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::marker::Copy for spqr::proto::pq_ratchet::v1_state::Unchunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 106:20-106:24 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Unchunked.Insts.CoreMarkerCopy : core.marker.Copy
+  proto.pq_ratchet.v1_state.Unchunked := {
+  cloneInst := proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCloneClone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::Unchunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 106:26-106:35 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Unchunked.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.v1_state.Unchunked := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::Unchunked> for spqr::proto::pq_ratchet::v1_state::Unchunked}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 106:26-106:35 -/
+def proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpPartialEqUnchunked.eq
+  (self : proto.pq_ratchet.v1_state.Unchunked)
+  (other : proto.pq_ratchet.v1_state.Unchunked) :
+  Result Bool
+  := do
+  ok true
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::Unchunked> for spqr::proto::pq_ratchet::v1_state::Unchunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 106:26-106:35 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpPartialEqUnchunked :
+  core.cmp.PartialEq proto.pq_ratchet.v1_state.Unchunked
+  proto.pq_ratchet.v1_state.Unchunked := {
+  eq := proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpPartialEqUnchunked.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::Unchunked}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 106:37-106:39 -/
+def
+  proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.Unchunked) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::Unchunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 106:37-106:39 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_state.Unchunked := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpPartialEqUnchunked
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::Unchunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 106:47-106:63 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Unchunked.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.Unchunked := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.Unchunked.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.Unchunked.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.Unchunked.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.v1_state.Unchunked.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{core::default::Default for spqr::proto::pq_ratchet::v1_state::Unchunked}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 106:47-106:63 -/
+def proto.pq_ratchet.v1_state.Unchunked.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.Unchunked := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::default::Default for spqr::proto::pq_ratchet::v1_state::Unchunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 106:47-106:63 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Unchunked.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.Unchunked := {
+  default :=
+    proto.pq_ratchet.v1_state.Unchunked.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 111:24-111:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.unchunked.KeysUnsampled := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 111:35-111:37 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.unchunked.KeysUnsampled) :
+  Result Unit
+  := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 111:35-111:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.KeysUnsampled := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 111:45-111:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.ProstMessageMessage
+  : prost.message.Message proto.pq_ratchet.v1_state.unchunked.KeysUnsampled
+  := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 111:45-111:61 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.unchunked.KeysUnsampled := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.Authenticator
+  ok { epoch := 0#u64, auth := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 111:45-111:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreDefaultDefault
+  : core.default.Default proto.pq_ratchet.v1_state.unchunked.KeysUnsampled := {
+  default :=
+    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 118:24-118:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.unchunked.HeaderSent := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 118:35-118:37 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.unchunked.HeaderSent) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 118:35-118:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.HeaderSent := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 118:45-118:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.unchunked.HeaderSent := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 118:45-118:61 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.unchunked.HeaderSent := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.Authenticator
+  let v ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  ok { epoch := 0#u64, auth := o, ek := v, dk := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 118:45-118:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.unchunked.HeaderSent := {
+  default :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 129:24-129:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq proto.pq_ratchet.v1_state.unchunked.EkSent
+  := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 129:35-129:37 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.unchunked.EkSent) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 129:35-129:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_state.unchunked.EkSent := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpPartialEqEkSent
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 129:45-129:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.unchunked.EkSent := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 129:45-129:61 -/
+def proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.unchunked.EkSent := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.Authenticator
+  let v ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  ok { epoch := 0#u64, auth := o, dk := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 129:45-129:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.unchunked.EkSent := {
+  default :=
+    proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 138:24-138:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 138:35-138:37 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received) :
+  Result Unit
+  := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 138:35-138:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 138:45-138:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.ProstMessageMessage
+  : prost.message.Message proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received
+  := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 138:45-138:61 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.Authenticator
+  let v ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  ok { epoch := 0#u64, auth := o, dk := v, ct1 := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 138:45-138:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreDefaultDefault
+  : core.default.Default proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received
+  := {
+  default :=
+    proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 150:24-150:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 150:35-150:37 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived) :
+  Result Unit
+  := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 150:35-150:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 150:45-150:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.ProstMessageMessage
+  : prost.message.Message proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived
+  := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 150:45-150:61 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.Authenticator
+  ok { epoch := 0#u64, auth := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 150:45-150:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreDefaultDefault
+  : core.default.Default proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived
+  := {
+  default :=
+    proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 157:24-157:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.unchunked.HeaderReceived := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 157:35-157:37 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.unchunked.HeaderReceived) :
+  Result Unit
+  := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 157:35-157:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.HeaderReceived := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 157:45-157:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.ProstMessageMessage
+  : prost.message.Message proto.pq_ratchet.v1_state.unchunked.HeaderReceived
+  := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 157:45-157:61 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.unchunked.HeaderReceived := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.Authenticator
+  let v ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  ok { epoch := 0#u64, auth := o, hdr := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 157:45-157:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreDefaultDefault
+  : core.default.Default proto.pq_ratchet.v1_state.unchunked.HeaderReceived
+  := {
+  default :=
+    proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreDefaultDefault.default
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 166:17-166:22 -/
+def proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.unchunked.EkReceived) :
+  Result proto.pq_ratchet.v1_state.unchunked.EkReceived
+  := do
+  let i ← lift (core.clone.impls.CloneU64.clone self.epoch)
+  let o ←
+    core.option.Option.Insts.CoreCloneClone.clone
+      proto.pq_ratchet.Authenticator.Insts.CoreCloneClone self.auth
+  let v ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.hdr
+  let v1 ← alloc.vec.CloneVec.clone core.clone.CloneU8 self.ek
+  ok { epoch := i, auth := o, hdr := v, ek := v1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 166:17-166:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.unchunked.EkReceived := {
+  clone :=
+    proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 166:24-166:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.unchunked.EkReceived := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived> for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 166:24-166:33 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpPartialEqEkReceived.eq
+  (self : proto.pq_ratchet.v1_state.unchunked.EkReceived)
+  (other : proto.pq_ratchet.v1_state.unchunked.EkReceived) :
+  Result Bool
+  := do
+  if self.epoch = other.epoch
+  then
+    let b ←
+      core.option.Option.Insts.CoreCmpPartialEqOption.eq
+        proto.pq_ratchet.Authenticator.Insts.CoreCmpPartialEqAuthenticator
+        self.auth other.auth
+    if b
+    then
+      let b1 ←
+        alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.hdr
+          other.hdr
+      if b1
+      then
+        alloc.vec.partial_eq.PartialEqVec.eq core.cmp.PartialEqU8 self.ek
+          other.ek
+      else ok false
+    else ok false
+  else ok false
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived> for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 166:24-166:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpPartialEqEkReceived
+  : core.cmp.PartialEq proto.pq_ratchet.v1_state.unchunked.EkReceived
+  proto.pq_ratchet.v1_state.unchunked.EkReceived := {
+  eq :=
+    proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpPartialEqEkReceived.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 166:35-166:37 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.unchunked.EkReceived) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 166:35-166:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.EkReceived := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpPartialEqEkReceived
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 166:45-166:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.unchunked.EkReceived := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 166:45-166:61 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.unchunked.EkReceived := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.Authenticator
+  let v ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  ok { epoch := 0#u64, auth := o, hdr := v, ek := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 166:45-166:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.unchunked.EkReceived := {
+  default :=
+    proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 177:24-177:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq proto.pq_ratchet.v1_state.unchunked.Ct1Sent
+  := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 177:35-177:37 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.unchunked.Ct1Sent) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 177:35-177:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_state.unchunked.Ct1Sent := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpPartialEqCt1Sent
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 177:45-177:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.unchunked.Ct1Sent := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 177:45-177:61 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.unchunked.Ct1Sent := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.Authenticator
+  let v ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  ok { epoch := 0#u64, auth := o, hdr := v, es := v, ct1 := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 177:45-177:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.unchunked.Ct1Sent := {
+  default :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 190:24-190:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 190:35-190:37 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived) :
+  Result Unit
+  := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 190:35-190:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpPartialEqCt1SentEkReceived
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 190:45-190:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.ProstMessageMessage
+  : prost.message.Message proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived
+  := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 190:45-190:61 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.Authenticator
+  let v ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  ok { epoch := 0#u64, auth := o, es := v, ek := v, ct1 := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 190:45-190:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreDefaultDefault
+  : core.default.Default proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived
+  := {
+  default :=
+    proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 203:24-203:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq proto.pq_ratchet.v1_state.unchunked.Ct2Sent
+  := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 203:35-203:37 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.unchunked.Ct2Sent) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 203:35-203:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_state.unchunked.Ct2Sent := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpPartialEqCt2Sent
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 203:45-203:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.unchunked.Ct2Sent := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 203:45-203:61 -/
+def
+  proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.unchunked.Ct2Sent := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.Authenticator
+  ok { epoch := 0#u64, auth := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 203:45-203:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.unchunked.Ct2Sent := {
+  default :=
+    proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreDefaultDefault.default
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::Chunked}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 211:13-211:18 -/
+def proto.pq_ratchet.v1_state.Chunked.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.v1_state.Chunked) :
+  Result proto.pq_ratchet.v1_state.Chunked
+  := do
+  ok self
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::Chunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 211:13-211:18 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Chunked.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.v1_state.Chunked := {
+  clone := proto.pq_ratchet.v1_state.Chunked.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::marker::Copy for spqr::proto::pq_ratchet::v1_state::Chunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 211:20-211:24 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Chunked.Insts.CoreMarkerCopy : core.marker.Copy
+  proto.pq_ratchet.v1_state.Chunked := {
+  cloneInst := proto.pq_ratchet.v1_state.Chunked.Insts.CoreCloneClone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::Chunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 211:26-211:35 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Chunked.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.v1_state.Chunked := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::Chunked> for spqr::proto::pq_ratchet::v1_state::Chunked}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 211:26-211:35 -/
+def proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpPartialEqChunked.eq
+  (self : proto.pq_ratchet.v1_state.Chunked)
+  (other : proto.pq_ratchet.v1_state.Chunked) :
+  Result Bool
+  := do
+  ok true
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::cmp::PartialEq<spqr::proto::pq_ratchet::v1_state::Chunked> for spqr::proto::pq_ratchet::v1_state::Chunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 211:26-211:35 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpPartialEqChunked :
+  core.cmp.PartialEq proto.pq_ratchet.v1_state.Chunked
+  proto.pq_ratchet.v1_state.Chunked := {
+  eq := proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpPartialEqChunked.eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::Chunked}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 211:37-211:39 -/
+def
+  proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.Chunked) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::Chunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 211:37-211:39 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_state.Chunked := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpPartialEqChunked
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::Chunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 211:47-211:63 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Chunked.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.Chunked := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.Chunked.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.Chunked.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.Chunked.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.v1_state.Chunked.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{core::default::Default for spqr::proto::pq_ratchet::v1_state::Chunked}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 211:47-211:63 -/
+def proto.pq_ratchet.v1_state.Chunked.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.Chunked := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::default::Default for spqr::proto::pq_ratchet::v1_state::Chunked}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 211:47-211:63 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.Chunked.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.Chunked := {
+  default := proto.pq_ratchet.v1_state.Chunked.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 216:17-216:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.chunked.KeysUnsampled := {
+  clone :=
+    proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 216:24-216:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.chunked.KeysUnsampled := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 216:35-216:37 -/
+def
+  proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.chunked.KeysUnsampled) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 216:35-216:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.KeysUnsampled := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 216:45-216:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.chunked.KeysUnsampled := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 216:45-216:61 -/
+def
+  proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.chunked.KeysUnsampled := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.unchunked.KeysUnsampled
+  ok { uc := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 216:45-216:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.chunked.KeysUnsampled := {
+  default :=
+    proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 221:17-221:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.chunked.KeysSampled := {
+  clone :=
+    proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 221:24-221:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.chunked.KeysSampled := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 221:35-221:37 -/
+def
+  proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.chunked.KeysSampled) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 221:35-221:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_state.chunked.KeysSampled := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpPartialEqKeysSampled
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 221:45-221:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.chunked.KeysSampled := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 221:45-221:61 -/
+def
+  proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.chunked.KeysSampled := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.unchunked.HeaderSent
+  let o1 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialEncoder
+  ok { uc := o, sending_hdr := o1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 221:45-221:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.chunked.KeysSampled := {
+  default :=
+    proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 228:17-228:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.chunked.HeaderSent := {
+  clone :=
+    proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 228:24-228:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.chunked.HeaderSent := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 228:35-228:37 -/
+def
+  proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.chunked.HeaderSent) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 228:35-228:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_state.chunked.HeaderSent := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 228:45-228:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.chunked.HeaderSent := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 228:45-228:61 -/
+def
+  proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.chunked.HeaderSent := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.unchunked.EkSent
+  let o1 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialEncoder
+  let o2 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialDecoder
+  ok { uc := o, sending_ek := o1, receiving_ct1 := o2 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 228:45-228:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.chunked.HeaderSent := {
+  default :=
+    proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 237:17-237:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.chunked.Ct1Received := {
+  clone :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 237:24-237:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.chunked.Ct1Received := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 237:35-237:37 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.chunked.Ct1Received) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 237:35-237:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_state.chunked.Ct1Received := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpPartialEqCt1Received
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 237:45-237:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.chunked.Ct1Received := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 237:45-237:61 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.chunked.Ct1Received := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received
+  let o1 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialEncoder
+  ok { uc := o, sending_ek := o1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 237:45-237:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.chunked.Ct1Received := {
+  default :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 244:17-244:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.chunked.EkSentCt1Received := {
+  clone :=
+    proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 244:24-244:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 244:35-244:37 -/
+def
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.chunked.EkSentCt1Received) :
+  Result Unit
+  := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 244:35-244:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.EkSentCt1Received := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 244:45-244:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+  : prost.message.Message proto.pq_ratchet.v1_state.chunked.EkSentCt1Received
+  := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 244:45-244:61 -/
+def
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.chunked.EkSentCt1Received := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received
+  let o1 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialDecoder
+  ok { uc := o, receiving_ct2 := o1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 244:45-244:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault
+  : core.default.Default proto.pq_ratchet.v1_state.chunked.EkSentCt1Received
+  := {
+  default :=
+    proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 252:17-252:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.chunked.NoHeaderReceived := {
+  clone :=
+    proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 252:24-252:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 252:35-252:37 -/
+def
+  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.chunked.NoHeaderReceived) :
+  Result Unit
+  := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 252:35-252:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.NoHeaderReceived := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 252:45-252:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+  : prost.message.Message proto.pq_ratchet.v1_state.chunked.NoHeaderReceived
+  := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 252:45-252:61 -/
+def
+  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.chunked.NoHeaderReceived := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived
+  let o1 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialDecoder
+  ok { uc := o, receiving_hdr := o1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 252:45-252:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault
+  : core.default.Default proto.pq_ratchet.v1_state.chunked.NoHeaderReceived
+  := {
+  default :=
+    proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 259:17-259:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.chunked.HeaderReceived := {
+  clone :=
+    proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 259:24-259:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.chunked.HeaderReceived := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 259:35-259:37 -/
+def
+  proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.chunked.HeaderReceived) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 259:35-259:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.HeaderReceived := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 259:45-259:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+  : prost.message.Message proto.pq_ratchet.v1_state.chunked.HeaderReceived := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 259:45-259:61 -/
+def
+  proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.chunked.HeaderReceived := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.unchunked.HeaderReceived
+  let o1 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialDecoder
+  ok { uc := o, receiving_ek := o1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 259:45-259:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.chunked.HeaderReceived := {
+  default :=
+    proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 266:17-266:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.chunked.Ct1Sampled := {
+  clone :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 266:24-266:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.chunked.Ct1Sampled := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 266:35-266:37 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.chunked.Ct1Sampled) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 266:35-266:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_state.chunked.Ct1Sampled := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpPartialEqCt1Sampled
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 266:45-266:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.chunked.Ct1Sampled := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 266:45-266:61 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.chunked.Ct1Sampled := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.unchunked.Ct1Sent
+  let o1 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialEncoder
+  let o2 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialDecoder
+  ok { uc := o, sending_ct1 := o1, receiving_ek := o2 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 266:45-266:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.chunked.Ct1Sampled := {
+  default :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 275:17-275:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCloneClone
+  : core.clone.Clone proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled
+  := {
+  clone :=
+    proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 275:24-275:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 275:35-275:37 -/
+def
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled) :
+  Result Unit
+  := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 275:35-275:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpPartialEqEkReceivedCt1Sampled
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 275:45-275:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+  : prost.message.Message
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 275:45-275:61 -/
+def
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived
+  let o1 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialEncoder
+  ok { uc := o, sending_ct1 := o1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 275:45-275:61 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault
+  : core.default.Default proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled
+  := {
+  default :=
+    proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 282:17-282:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged := {
+  clone :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 282:24-282:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 282:35-282:37 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged) :
+  Result Unit
+  := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 282:35-282:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpEq :
+  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpPartialEqCt1Acknowledged
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 282:45-282:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+  : prost.message.Message proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged
+  := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 282:45-282:61 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.unchunked.Ct1Sent
+  let o1 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialDecoder
+  ok { uc := o, receiving_ek := o1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 282:45-282:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault
+  : core.default.Default proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged := {
+  default :=
+    proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::clone::Clone for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 289:17-289:22 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCloneClone :
+  core.clone.Clone proto.pq_ratchet.v1_state.chunked.Ct2Sampled := {
+  clone :=
+    proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 289:24-289:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq
+  proto.pq_ratchet.v1_state.chunked.Ct2Sampled := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 289:35-289:37 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.chunked.Ct2Sampled) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 289:35-289:37 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_state.chunked.Ct2Sampled := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpPartialEqCt2Sampled
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 289:45-289:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.v1_state.chunked.Ct2Sampled := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 289:45-289:61 -/
+def
+  proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.v1_state.chunked.Ct2Sampled := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.v1_state.unchunked.Ct2Sent
+  let o1 ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.PolynomialEncoder
+  ok { uc := o, sending_ct2 := o1 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::default::Default for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 289:45-289:61 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.v1_state.chunked.Ct2Sampled := {
+  default :=
+    proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::v1_state::InnerState}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:20-297:29 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.InnerState.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.v1_state.InnerState := {
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::InnerState}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:31-297:33 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.v1_state.InnerState) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::InnerState}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:31-297:33 -/
+@[reducible]
+def proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.v1_state.InnerState := {
+  partialEqInst :=
+    proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpPartialEqInnerState
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_state.InnerState.merge.closure
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_state.InnerState.merge.closure
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, ku) := c
+  ok (some (proto.pq_ratchet.v1_state.InnerState.KeysUnsampled ku), ku)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce (proto.pq_ratchet.v1_state.InnerState.merge.closure
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#1<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_state.InnerState.merge.closure_1
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_state.InnerState.merge.closure_1
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, ks) := c
+  ok (some (proto.pq_ratchet.v1_state.InnerState.KeysSampled ks), ks)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#1<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce
+  (proto.pq_ratchet.v1_state.InnerState.merge.closure_1
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#2<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_state.InnerState.merge.closure_2
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_state.InnerState.merge.closure_2
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, hs) := c
+  ok (some (proto.pq_ratchet.v1_state.InnerState.HeaderSent hs), hs)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#2<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce
+  (proto.pq_ratchet.v1_state.InnerState.merge.closure_2
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#3<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_state.InnerState.merge.closure_3
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_state.InnerState.merge.closure_3
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, cr) := c
+  ok (some (proto.pq_ratchet.v1_state.InnerState.Ct1Received cr), cr)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#3<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce
+  (proto.pq_ratchet.v1_state.InnerState.merge.closure_3
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#4<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_state.InnerState.merge.closure_4
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_state.InnerState.merge.closure_4
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, escr) := c
+  ok (some (proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received escr), escr)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#4<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce
+  (proto.pq_ratchet.v1_state.InnerState.merge.closure_4
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#5<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_state.InnerState.merge.closure_5
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_state.InnerState.merge.closure_5
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, nhr) := c
+  ok (some (proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived nhr), nhr)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#5<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce
+  (proto.pq_ratchet.v1_state.InnerState.merge.closure_5
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#6<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_state.InnerState.merge.closure_6
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_state.InnerState.merge.closure_6
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, hr) := c
+  ok (some (proto.pq_ratchet.v1_state.InnerState.HeaderReceived hr), hr)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#6<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce
+  (proto.pq_ratchet.v1_state.InnerState.merge.closure_6
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#7<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_state.InnerState.merge.closure_7
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_state.InnerState.merge.closure_7
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, cs) := c
+  ok (some (proto.pq_ratchet.v1_state.InnerState.Ct1Sampled cs), cs)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#7<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce
+  (proto.pq_ratchet.v1_state.InnerState.merge.closure_7
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#8<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_state.InnerState.merge.closure_8
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_state.InnerState.merge.closure_8
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, ercs) := c
+  ok (some (proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled ercs),
+    ercs)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#8<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce
+  (proto.pq_ratchet.v1_state.InnerState.merge.closure_8
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#9<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_state.InnerState.merge.closure_9
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_state.InnerState.merge.closure_9
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, ca) := c
+  ok (some (proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged ca), ca)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#9<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce
+  (proto.pq_ratchet.v1_state.InnerState.merge.closure_9
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#10<0, T0>[TraitClause@0]}::call_once]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (c : proto.pq_ratchet.v1_state.InnerState.merge.closure_10
+  bytesbufbuf_implBufInst) (_ : Unit) :
+  Result (proto.pq_ratchet.v1_state.InnerState.merge.closure_10
+    bytesbufbuf_implBufInst)
+  := do
+  let (_, cs) := c
+  ok (some (proto.pq_ratchet.v1_state.InnerState.Ct2Sampled cs), cs)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure#10<0, T0>[TraitClause@0]}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+@[reducible]
+def
+  proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0) :
+  core.ops.function.FnOnce
+  (proto.pq_ratchet.v1_state.InnerState.merge.closure_10
+  bytesbufbuf_implBufInst) Unit Unit := {
+  call_once :=
+    proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple.call_once
+    bytesbufbuf_implBufInst
+}
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::encode]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.encode
+  {T0 : Type} (bytesbufbuf_mutBufMutInst : bytes.buf.buf_mut.BufMut T0)
+  (self : proto.pq_ratchet.v1_state.InnerState) (buf : T0) :
+  Result T0
+  := do
+  match self with
+  | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 1#u32 value buf
+  | proto.pq_ratchet.v1_state.InnerState.KeysSampled value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 2#u32 value buf
+  | proto.pq_ratchet.v1_state.InnerState.HeaderSent value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 3#u32 value buf
+  | proto.pq_ratchet.v1_state.InnerState.Ct1Received value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 4#u32 value buf
+  | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 5#u32 value buf
+  | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 6#u32 value buf
+  | proto.pq_ratchet.v1_state.InnerState.HeaderReceived value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 7#u32 value buf
+  | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 8#u32 value buf
+  | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 9#u32 value buf
+  | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 10#u32 value buf
+  | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled value =>
+    prost.encoding.message.encode
+      proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+      bytesbufbuf_mutBufMutInst 11#u32 value buf
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.merge
+  {T0 : Type} (bytesbufbuf_implBufInst : bytes.buf.buf_impl.Buf T0)
+  (field : Option proto.pq_ratchet.v1_state.InnerState) (tag : Std.U32)
+  (wire_type : prost.encoding.wire_type.WireType) (buf : T0)
+  (ctx : prost.encoding.DecodeContext) :
+  Result ((core.result.Result Unit prost.error.DecodeError) × (Option
+    proto.pq_ratchet.v1_state.InnerState) × T0)
+  := do
+  match tag with
+  | 1#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some is =>
+      match is with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_state.InnerState.KeysUnsampled
+          value1), buf1)
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 2#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some is =>
+      match is with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_state.InnerState.KeysSampled value1),
+          buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_1.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 3#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some is =>
+      match is with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_state.InnerState.HeaderSent value1),
+          buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_2.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 4#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some is =>
+      match is with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_state.InnerState.Ct1Received value1),
+          buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_3.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 5#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some is =>
+      match is with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received
+          value1), buf1)
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_4.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 6#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some is =>
+      match is with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived
+          value1), buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_5.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 7#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some is =>
+      match is with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_state.InnerState.HeaderReceived
+          value1), buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_6.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 8#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some is =>
+      match is with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_state.InnerState.Ct1Sampled value1),
+          buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_7.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 9#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some is =>
+      match is with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled
+          value1), buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_8.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 10#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some is =>
+      match is with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged
+          value1), buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_9.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+  | 11#uscalar =>
+    match field with
+    | none =>
+      let owned_value ←
+        proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+      let (r, owned_value1, buf1) ←
+        prost.encoding.message.merge
+          proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+          bytesbufbuf_implBufInst wire_type owned_value buf ctx
+      let (r1, c) ←
+        core.result.Result.map
+          (proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+          bytesbufbuf_implBufInst) r (none, owned_value1)
+      let (field1, _) := c
+      ok (r1, field1, buf1)
+    | some is =>
+      match is with
+      | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.KeysSampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderSent _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.HeaderReceived _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged _ =>
+        let owned_value ←
+          proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault.default
+        let (r, owned_value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type owned_value buf ctx
+        let (r1, c) ←
+          core.result.Result.map
+            (proto.pq_ratchet.v1_state.InnerState.merge.closure_10.Insts.CoreOpsFunctionFnOnceTupleTupleTuple
+            bytesbufbuf_implBufInst) r (field, owned_value1)
+        let (field1, _) := c
+        ok (r1, field1, buf1)
+      | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled value =>
+        let (r, value1, buf1) ←
+          prost.encoding.message.merge
+            proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+            bytesbufbuf_implBufInst wire_type value buf ctx
+        ok (r, some (proto.pq_ratchet.v1_state.InnerState.Ct2Sampled value1),
+          buf1)
+  | _ =>
+    let a ← core.fmt.rt.Argument.new_display U32.Insts.CoreFmtDisplay tag
+    let _ ←
+      core.fmt.Arguments.new
+        (Array.make 69#usize [
+          66#u8, 105#u8, 110#u8, 116#u8, 101#u8, 114#u8, 110#u8, 97#u8, 108#u8,
+          32#u8, 101#u8, 114#u8, 114#u8, 111#u8, 114#u8, 58#u8, 32#u8, 101#u8,
+          110#u8, 116#u8, 101#u8, 114#u8, 101#u8, 100#u8, 32#u8, 117#u8,
+          110#u8, 114#u8, 101#u8, 97#u8, 99#u8, 104#u8, 97#u8, 98#u8, 108#u8,
+          101#u8, 32#u8, 99#u8, 111#u8, 100#u8, 101#u8, 58#u8, 32#u8, 105#u8,
+          110#u8, 118#u8, 97#u8, 108#u8, 105#u8, 100#u8, 32#u8, 73#u8, 110#u8,
+          110#u8, 101#u8, 114#u8, 83#u8, 116#u8, 97#u8, 116#u8, 101#u8, 32#u8,
+          116#u8, 97#u8, 103#u8, 58#u8, 32#u8, 192#u8, 0#u8
+          ]) (Array.make 1#usize [ a ])
+    fail panic
+
+/-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::encoded_len]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 297:41-297:55 -/
+def proto.pq_ratchet.v1_state.InnerState.encoded_len
+  (self : proto.pq_ratchet.v1_state.InnerState) : Result Std.Usize := do
+  match self with
+  | proto.pq_ratchet.v1_state.InnerState.KeysUnsampled value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.ProstMessageMessage
+      1#u32 value
+  | proto.pq_ratchet.v1_state.InnerState.KeysSampled value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.ProstMessageMessage
+      2#u32 value
+  | proto.pq_ratchet.v1_state.InnerState.HeaderSent value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.ProstMessageMessage
+      3#u32 value
+  | proto.pq_ratchet.v1_state.InnerState.Ct1Received value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.ProstMessageMessage
+      4#u32 value
+  | proto.pq_ratchet.v1_state.InnerState.EkSentCt1Received value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.ProstMessageMessage
+      5#u32 value
+  | proto.pq_ratchet.v1_state.InnerState.NoHeaderReceived value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.ProstMessageMessage
+      6#u32 value
+  | proto.pq_ratchet.v1_state.InnerState.HeaderReceived value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.ProstMessageMessage
+      7#u32 value
+  | proto.pq_ratchet.v1_state.InnerState.Ct1Sampled value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.ProstMessageMessage
+      8#u32 value
+  | proto.pq_ratchet.v1_state.InnerState.EkReceivedCt1Sampled value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.ProstMessageMessage
+      9#u32 value
+  | proto.pq_ratchet.v1_state.InnerState.Ct1Acknowledged value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.ProstMessageMessage
+      10#u32 value
+  | proto.pq_ratchet.v1_state.InnerState.Ct2Sampled value =>
+    prost.encoding.message.encoded_len
+      proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.ProstMessageMessage
+      11#u32 value
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::Chain}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 325:16-325:25 -/
+@[reducible]
+def proto.pq_ratchet.Chain.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.Chain := {
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{prost::message::Message for spqr::proto::pq_ratchet::Chain}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 325:27-325:43 -/
+@[reducible]
+def proto.pq_ratchet.Chain.Insts.ProstMessageMessage : prost.message.Message
+  proto.pq_ratchet.Chain := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.Chain.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.Chain.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len := proto.pq_ratchet.Chain.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.Chain.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::Chain}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 325:27-325:43 -/
+def proto.pq_ratchet.Chain.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.Chain := do
+  let d ← proto.pq_ratchet.Direction.Insts.CoreDefaultDefault.default
+  let i := read_discriminant d
+  let i1 ← lift (IScalar.cast .I32 i)
+  let v ←
+    alloc.vec.Vec.Insts.CoreDefaultDefault.default proto.pq_ratchet.chain.Epoch
+  let v1 ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.ChainParams
+  ok
+    {
+      direction := i1,
+      current_epoch := 0#u64,
+      links := v,
+      next_root := v1,
+      send_epoch := 0#u64,
+      params := o
+    }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::Chain}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 325:27-325:43 -/
+@[reducible]
+def proto.pq_ratchet.Chain.Insts.CoreDefaultDefault : core.default.Default
+  proto.pq_ratchet.Chain := {
+  default := proto.pq_ratchet.Chain.Insts.CoreDefaultDefault.default
+}
+
+/-- [spqr::proto::pq_ratchet::{spqr::proto::pq_ratchet::Chain}::direction]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 325:27-325:43 -/
+def proto.pq_ratchet.Chain.impl.direction
+  (self : proto.pq_ratchet.Chain) : Result proto.pq_ratchet.Direction := do
+  let r ←
+    proto.pq_ratchet.Direction.Insts.CoreConvertTryFromI32UnknownEnumValue.try_from
+      self.direction
+  let d ← proto.pq_ratchet.Direction.Insts.CoreDefaultDefault.default
+  core.result.Result.unwrap_or r d
+
+/-- [spqr::proto::pq_ratchet::{spqr::proto::pq_ratchet::Chain}::set_direction]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 325:27-325:43 -/
+def proto.pq_ratchet.Chain.set_direction
+  (self : proto.pq_ratchet.Chain) (value : proto.pq_ratchet.Direction) :
+  Result proto.pq_ratchet.Chain
+  := do
+  let value1 := read_discriminant value
+  let i ← lift (IScalar.cast .I32 value1)
+  ok { self with direction := i }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::chain::Epoch}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 342:20-342:29 -/
+@[reducible]
+def proto.pq_ratchet.chain.Epoch.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.chain.Epoch := {
+}
+
+/-- [spqr::proto::pq_ratchet::chain::{core::cmp::Eq for spqr::proto::pq_ratchet::chain::Epoch}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 342:31-342:33 -/
+def proto.pq_ratchet.chain.Epoch.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.chain.Epoch) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::{core::cmp::Eq for spqr::proto::pq_ratchet::chain::Epoch}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 342:31-342:33 -/
+@[reducible]
+def proto.pq_ratchet.chain.Epoch.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.chain.Epoch := {
+  partialEqInst := proto.pq_ratchet.chain.Epoch.Insts.CoreCmpPartialEqEpoch
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.chain.Epoch.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::{prost::message::Message for spqr::proto::pq_ratchet::chain::Epoch}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 342:41-342:57 -/
+@[reducible]
+def proto.pq_ratchet.chain.Epoch.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.chain.Epoch := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.chain.Epoch.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.chain.Epoch.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.chain.Epoch.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.chain.Epoch.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::chain::{core::default::Default for spqr::proto::pq_ratchet::chain::Epoch}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 342:41-342:57 -/
+def proto.pq_ratchet.chain.Epoch.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.chain.Epoch := do
+  let o ←
+    core.option.Option.Insts.CoreDefaultDefault.default
+      proto.pq_ratchet.chain.epoch.EpochDirection
+  ok { send := o, recv := o }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::{core::default::Default for spqr::proto::pq_ratchet::chain::Epoch}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 342:41-342:57 -/
+@[reducible]
+def proto.pq_ratchet.chain.Epoch.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.chain.Epoch := {
+  default := proto.pq_ratchet.chain.Epoch.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::epoch::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 351:24-351:33 -/
+@[reducible]
+def
+  proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreMarkerStructuralPartialEq
+  : core.marker.StructuralPartialEq proto.pq_ratchet.chain.epoch.EpochDirection
+  := {
+}
+
+/-- [spqr::proto::pq_ratchet::chain::epoch::{core::cmp::Eq for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 351:35-351:37 -/
+def
+  proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.chain.epoch.EpochDirection) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::epoch::{core::cmp::Eq for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 351:35-351:37 -/
+@[reducible]
+def proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.chain.epoch.EpochDirection := {
+  partialEqInst :=
+    proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpPartialEqEpochDirection
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::epoch::{prost::message::Message for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 351:45-351:61 -/
+@[reducible]
+def proto.pq_ratchet.chain.epoch.EpochDirection.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.chain.epoch.EpochDirection := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.chain.epoch.EpochDirection.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.chain.epoch.EpochDirection.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.chain.epoch.EpochDirection.Insts.ProstMessageMessage.encoded_len
+  clear :=
+    proto.pq_ratchet.chain.epoch.EpochDirection.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::chain::epoch::{core::default::Default for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 351:45-351:61 -/
+def
+  proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.chain.epoch.EpochDirection := do
+  let v ← alloc.vec.Vec.Insts.CoreDefaultDefault.default Std.U8
+  ok { ctr := 0#u32, next := v, prev := v }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::chain::epoch::{core::default::Default for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 351:45-351:61 -/
+@[reducible]
+def proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.chain.epoch.EpochDirection := {
+  default :=
+    proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreDefaultDefault.default
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::Copy for spqr::proto::pq_ratchet::ChainParams}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 362:16-362:20 -/
+@[reducible]
+def proto.pq_ratchet.ChainParams.Insts.CoreMarkerCopy : core.marker.Copy
+  proto.pq_ratchet.ChainParams := {
+  cloneInst := proto.pq_ratchet.ChainParams.Insts.CoreCloneClone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::ChainParams}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 362:22-362:31 -/
+@[reducible]
+def proto.pq_ratchet.ChainParams.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.ChainParams := {
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::ChainParams}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 362:33-362:35 -/
+def proto.pq_ratchet.ChainParams.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.ChainParams) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::ChainParams}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 362:33-362:35 -/
+@[reducible]
+def proto.pq_ratchet.ChainParams.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.ChainParams := {
+  partialEqInst :=
+    proto.pq_ratchet.ChainParams.Insts.CoreCmpPartialEqChainParams
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.ChainParams.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{prost::message::Message for spqr::proto::pq_ratchet::ChainParams}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 362:43-362:59 -/
+@[reducible]
+def proto.pq_ratchet.ChainParams.Insts.ProstMessageMessage :
+  prost.message.Message proto.pq_ratchet.ChainParams := {
+  encode_raw := fun {T0 : Type} (bytesbufbuf_mutBufMutInst :
+    bytes.buf.buf_mut.BufMut T0) =>
+    proto.pq_ratchet.ChainParams.Insts.ProstMessageMessage.encode_raw
+    bytesbufbuf_mutBufMutInst
+  merge_field := fun {T0 : Type} (bytesbufbuf_implBufInst :
+    bytes.buf.buf_impl.Buf T0) =>
+    proto.pq_ratchet.ChainParams.Insts.ProstMessageMessage.merge_field
+    bytesbufbuf_implBufInst
+  encoded_len :=
+    proto.pq_ratchet.ChainParams.Insts.ProstMessageMessage.encoded_len
+  clear := proto.pq_ratchet.ChainParams.Insts.ProstMessageMessage.clear
+}
+
+/-- [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::ChainParams}::default]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 362:43-362:59 -/
+def proto.pq_ratchet.ChainParams.Insts.CoreDefaultDefault.default
+  : Result proto.pq_ratchet.ChainParams := do
+  ok { max_jump := 0#u32, max_ooo_keys := 0#u32 }
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::ChainParams}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 362:43-362:59 -/
+@[reducible]
+def proto.pq_ratchet.ChainParams.Insts.CoreDefaultDefault :
+  core.default.Default proto.pq_ratchet.ChainParams := {
+  default := proto.pq_ratchet.ChainParams.Insts.CoreDefaultDefault.default
+}
+
+/-- [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::Version}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:9-374:14 -/
+def proto.pq_ratchet.Version.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.Version) : Result proto.pq_ratchet.Version := do
+  ok self
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::Version}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:9-374:14 -/
+@[reducible]
+def proto.pq_ratchet.Version.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.Version := {
+  clone := proto.pq_ratchet.Version.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::Copy for spqr::proto::pq_ratchet::Version}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:16-374:20 -/
+@[reducible]
+def proto.pq_ratchet.Version.Insts.CoreMarkerCopy : core.marker.Copy
+  proto.pq_ratchet.Version := {
+  cloneInst := proto.pq_ratchet.Version.Insts.CoreCloneClone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::Version}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:29-374:38 -/
+@[reducible]
+def proto.pq_ratchet.Version.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.Version := {
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::Version> for spqr::proto::pq_ratchet::Version}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:29-374:38 -/
+def proto.pq_ratchet.Version.Insts.CoreCmpPartialEqVersion.eq
+  (self : proto.pq_ratchet.Version) (other : proto.pq_ratchet.Version) :
+  Result Bool
+  := do
+  let self1 := read_discriminant self
+  let other1 := read_discriminant other
+  ok (self1 = other1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::Version> for spqr::proto::pq_ratchet::Version}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:29-374:38 -/
+@[reducible]
+def proto.pq_ratchet.Version.Insts.CoreCmpPartialEqVersion : core.cmp.PartialEq
+  proto.pq_ratchet.Version proto.pq_ratchet.Version := {
+  eq := proto.pq_ratchet.Version.Insts.CoreCmpPartialEqVersion.eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::Version}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:40-374:42 -/
+def proto.pq_ratchet.Version.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.Version) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::Version}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:40-374:42 -/
+@[reducible]
+def proto.pq_ratchet.Version.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.Version := {
+  partialEqInst := proto.pq_ratchet.Version.Insts.CoreCmpPartialEqVersion
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.Version.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialOrd<spqr::proto::pq_ratchet::Version> for spqr::proto::pq_ratchet::Version}::partial_cmp]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:50-374:60 -/
+def proto.pq_ratchet.Version.Insts.CoreCmpPartialOrdVersion.partial_cmp
+  (self : proto.pq_ratchet.Version) (other : proto.pq_ratchet.Version) :
+  Result (Option Ordering)
+  := do
+  let self1 := read_discriminant self
+  let other1 := read_discriminant other
+  ok (core.cmp.impls.PartialCmpI32.partial_cmp self1 other1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialOrd<spqr::proto::pq_ratchet::Version> for spqr::proto::pq_ratchet::Version}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:50-374:60 -/
+@[reducible]
+def proto.pq_ratchet.Version.Insts.CoreCmpPartialOrdVersion :
+  core.cmp.PartialOrd proto.pq_ratchet.Version proto.pq_ratchet.Version := {
+  partialEqInst := proto.pq_ratchet.Version.Insts.CoreCmpPartialEqVersion
+  partial_cmp :=
+    proto.pq_ratchet.Version.Insts.CoreCmpPartialOrdVersion.partial_cmp
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::Ord for spqr::proto::pq_ratchet::Version}::cmp]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:62-374:65 -/
+def proto.pq_ratchet.Version.Insts.CoreCmpOrd.cmp
+  (self : proto.pq_ratchet.Version) (other : proto.pq_ratchet.Version) :
+  Result Ordering
+  := do
+  let self1 := read_discriminant self
+  let other1 := read_discriminant other
+  ok (core.cmp.impls.OrdI32.cmp self1 other1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::Ord for spqr::proto::pq_ratchet::Version}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:62-374:65 -/
+@[reducible]
+def proto.pq_ratchet.Version.Insts.CoreCmpOrd : core.cmp.Ord
+  proto.pq_ratchet.Version := {
+  eqInst := proto.pq_ratchet.Version.Insts.CoreCmpEq
+  partialOrdInst := proto.pq_ratchet.Version.Insts.CoreCmpPartialOrdVersion
+  cmp := proto.pq_ratchet.Version.Insts.CoreCmpOrd.cmp
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::Version}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:67-374:87 -/
+@[reducible]
+def proto.pq_ratchet.Version.Insts.CoreDefaultDefault : core.default.Default
+  proto.pq_ratchet.Version := {
+  default := proto.pq_ratchet.Version.Insts.CoreDefaultDefault.default
+}
+
+/-- [spqr::proto::pq_ratchet::{core::convert::From<spqr::proto::pq_ratchet::Version> for i32}::from]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:67-374:87 -/
+def I32.Insts.CoreConvertFromVersion.from
+  (value : proto.pq_ratchet.Version) : Result Std.I32 := do
+  let value1 := read_discriminant value
+  ok (IScalar.cast .I32 value1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::convert::From<spqr::proto::pq_ratchet::Version> for i32}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:67-374:87 -/
+@[reducible]
+def I32.Insts.CoreConvertFromVersion : core.convert.From Std.I32
+  proto.pq_ratchet.Version := {
+  from_ := I32.Insts.CoreConvertFromVersion.from
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::convert::TryFrom<i32, prost::error::UnknownEnumValue> for spqr::proto::pq_ratchet::Version}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:67-374:87 -/
+@[reducible]
+def proto.pq_ratchet.Version.Insts.CoreConvertTryFromI32UnknownEnumValue :
+  core.convert.TryFrom proto.pq_ratchet.Version Std.I32
+  prost.error.UnknownEnumValue := {
+  try_from :=
+    proto.pq_ratchet.Version.Insts.CoreConvertTryFromI32UnknownEnumValue.try_from
+}
+
+/-- [spqr::proto::pq_ratchet::{spqr::proto::pq_ratchet::Version}::is_valid]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:67-374:87 -/
+def proto.pq_ratchet.Version.is_valid (value : Std.I32) : Result Bool := do
+  match value with
+  | 0#iscalar => ok true
+  | 1#iscalar => ok true
+  | _ => ok false
+
+/-- [spqr::proto::pq_ratchet::{spqr::proto::pq_ratchet::Version}::from_i32]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 374:67-374:87 -/
+def proto.pq_ratchet.Version.from_i32
+  (value : Std.I32) : Result (Option proto.pq_ratchet.Version) := do
+  match value with
+  | 0#iscalar => ok (some proto.pq_ratchet.Version.V0)
+  | 1#iscalar => ok (some proto.pq_ratchet.Version.V1)
+  | _ => ok none
+
+/-- [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::Direction}::clone]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:9-403:14 -/
+def proto.pq_ratchet.Direction.Insts.CoreCloneClone.clone
+  (self : proto.pq_ratchet.Direction) : Result proto.pq_ratchet.Direction := do
+  ok self
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::clone::Clone for spqr::proto::pq_ratchet::Direction}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:9-403:14 -/
+@[reducible]
+def proto.pq_ratchet.Direction.Insts.CoreCloneClone : core.clone.Clone
+  proto.pq_ratchet.Direction := {
+  clone := proto.pq_ratchet.Direction.Insts.CoreCloneClone.clone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::Copy for spqr::proto::pq_ratchet::Direction}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:16-403:20 -/
+@[reducible]
+def proto.pq_ratchet.Direction.Insts.CoreMarkerCopy : core.marker.Copy
+  proto.pq_ratchet.Direction := {
+  cloneInst := proto.pq_ratchet.Direction.Insts.CoreCloneClone
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::marker::StructuralPartialEq for spqr::proto::pq_ratchet::Direction}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:29-403:38 -/
+@[reducible]
+def proto.pq_ratchet.Direction.Insts.CoreMarkerStructuralPartialEq :
+  core.marker.StructuralPartialEq proto.pq_ratchet.Direction := {
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::Direction> for spqr::proto::pq_ratchet::Direction}::eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:29-403:38 -/
+def proto.pq_ratchet.Direction.Insts.CoreCmpPartialEqDirection.eq
+  (self : proto.pq_ratchet.Direction) (other : proto.pq_ratchet.Direction) :
+  Result Bool
+  := do
+  let self1 := read_discriminant self
+  let other1 := read_discriminant other
+  ok (self1 = other1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialEq<spqr::proto::pq_ratchet::Direction> for spqr::proto::pq_ratchet::Direction}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:29-403:38 -/
+@[reducible]
+def proto.pq_ratchet.Direction.Insts.CoreCmpPartialEqDirection :
+  core.cmp.PartialEq proto.pq_ratchet.Direction proto.pq_ratchet.Direction := {
+  eq := proto.pq_ratchet.Direction.Insts.CoreCmpPartialEqDirection.eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::Direction}::assert_receiver_is_total_eq]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:40-403:42 -/
+def proto.pq_ratchet.Direction.Insts.CoreCmpEq.assert_receiver_is_total_eq
+  (self : proto.pq_ratchet.Direction) : Result Unit := do
+  ok ()
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::Eq for spqr::proto::pq_ratchet::Direction}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:40-403:42 -/
+@[reducible]
+def proto.pq_ratchet.Direction.Insts.CoreCmpEq : core.cmp.Eq
+  proto.pq_ratchet.Direction := {
+  partialEqInst := proto.pq_ratchet.Direction.Insts.CoreCmpPartialEqDirection
+  assert_receiver_is_total_eq :=
+    proto.pq_ratchet.Direction.Insts.CoreCmpEq.assert_receiver_is_total_eq
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::PartialOrd<spqr::proto::pq_ratchet::Direction> for spqr::proto::pq_ratchet::Direction}::partial_cmp]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:50-403:60 -/
+def proto.pq_ratchet.Direction.Insts.CoreCmpPartialOrdDirection.partial_cmp
+  (self : proto.pq_ratchet.Direction) (other : proto.pq_ratchet.Direction) :
+  Result (Option Ordering)
+  := do
+  let self1 := read_discriminant self
+  let other1 := read_discriminant other
+  ok (core.cmp.impls.PartialCmpI32.partial_cmp self1 other1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::PartialOrd<spqr::proto::pq_ratchet::Direction> for spqr::proto::pq_ratchet::Direction}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:50-403:60 -/
+@[reducible]
+def proto.pq_ratchet.Direction.Insts.CoreCmpPartialOrdDirection :
+  core.cmp.PartialOrd proto.pq_ratchet.Direction proto.pq_ratchet.Direction
+  := {
+  partialEqInst := proto.pq_ratchet.Direction.Insts.CoreCmpPartialEqDirection
+  partial_cmp :=
+    proto.pq_ratchet.Direction.Insts.CoreCmpPartialOrdDirection.partial_cmp
+}
+
+/-- [spqr::proto::pq_ratchet::{core::cmp::Ord for spqr::proto::pq_ratchet::Direction}::cmp]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:62-403:65 -/
+def proto.pq_ratchet.Direction.Insts.CoreCmpOrd.cmp
+  (self : proto.pq_ratchet.Direction) (other : proto.pq_ratchet.Direction) :
+  Result Ordering
+  := do
+  let self1 := read_discriminant self
+  let other1 := read_discriminant other
+  ok (core.cmp.impls.OrdI32.cmp self1 other1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::cmp::Ord for spqr::proto::pq_ratchet::Direction}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:62-403:65 -/
+@[reducible]
+def proto.pq_ratchet.Direction.Insts.CoreCmpOrd : core.cmp.Ord
+  proto.pq_ratchet.Direction := {
+  eqInst := proto.pq_ratchet.Direction.Insts.CoreCmpEq
+  partialOrdInst := proto.pq_ratchet.Direction.Insts.CoreCmpPartialOrdDirection
+  cmp := proto.pq_ratchet.Direction.Insts.CoreCmpOrd.cmp
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::default::Default for spqr::proto::pq_ratchet::Direction}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:67-403:87 -/
+@[reducible]
+def proto.pq_ratchet.Direction.Insts.CoreDefaultDefault : core.default.Default
+  proto.pq_ratchet.Direction := {
+  default := proto.pq_ratchet.Direction.Insts.CoreDefaultDefault.default
+}
+
+/-- [spqr::proto::pq_ratchet::{core::convert::From<spqr::proto::pq_ratchet::Direction> for i32}::from]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:67-403:87 -/
+def I32.Insts.CoreConvertFromDirection.from
+  (value : proto.pq_ratchet.Direction) : Result Std.I32 := do
+  let value1 := read_discriminant value
+  ok (IScalar.cast .I32 value1)
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::convert::From<spqr::proto::pq_ratchet::Direction> for i32}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:67-403:87 -/
+@[reducible]
+def I32.Insts.CoreConvertFromDirection : core.convert.From Std.I32
+  proto.pq_ratchet.Direction := {
+  from_ := I32.Insts.CoreConvertFromDirection.from
+}
+
+/-- Trait implementation: [spqr::proto::pq_ratchet::{core::convert::TryFrom<i32, prost::error::UnknownEnumValue> for spqr::proto::pq_ratchet::Direction}]
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:67-403:87 -/
+@[reducible]
+def proto.pq_ratchet.Direction.Insts.CoreConvertTryFromI32UnknownEnumValue :
+  core.convert.TryFrom proto.pq_ratchet.Direction Std.I32
+  prost.error.UnknownEnumValue := {
+  try_from :=
+    proto.pq_ratchet.Direction.Insts.CoreConvertTryFromI32UnknownEnumValue.try_from
+}
+
+/-- [spqr::proto::pq_ratchet::{spqr::proto::pq_ratchet::Direction}::is_valid]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:67-403:87 -/
+def proto.pq_ratchet.Direction.is_valid (value : Std.I32) : Result Bool := do
+  match value with
+  | 0#iscalar => ok true
+  | 1#iscalar => ok true
+  | _ => ok false
+
+/-- [spqr::proto::pq_ratchet::{spqr::proto::pq_ratchet::Direction}::from_i32]:
+    Source: '/home/oliver/Projects/Verification/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 403:67-403:87 -/
+def proto.pq_ratchet.Direction.from_i32
+  (value : Std.I32) : Result (Option proto.pq_ratchet.Direction) := do
+  match value with
+  | 0#iscalar => ok (some proto.pq_ratchet.Direction.A2B)
+  | 1#iscalar => ok (some proto.pq_ratchet.Direction.B2A)
+  | _ => ok none
 
 /-- [spqr::encoding::gf::POLY]
     Source: 'src/encoding/gf.rs', lines 7:0-7:30 -/
@@ -1013,7 +9039,6 @@ def encoding.polynomial.Pt.Insts.CoreCmpPartialOrdPt : core.cmp.PartialOrd
   encoding.polynomial.Pt encoding.polynomial.Pt := {
   partialEqInst := encoding.polynomial.Pt.Insts.CoreCmpPartialEqPt
   partial_cmp := encoding.polynomial.Pt.Insts.CoreCmpPartialOrdPt.partial_cmp
-  le := encoding.polynomial.Pt.Insts.CoreCmpPartialOrdPt.le
 }
 
 /-- [spqr::encoding::polynomial::{core::cmp::Ord for spqr::encoding::polynomial::Pt}::cmp]:
@@ -4131,55 +12156,6 @@ def incremental_mlkem768.flip_endianness_of_encapsulation_state
       { start := 0#usize, «end» := i4 } 2#usize
   incremental_mlkem768.flip_endianness_of_encapsulation_state_loop iter
     fixed_es
-
-/-- [spqr::incremental_mlkem768::encaps2]:
-    Source: 'src/incremental_mlkem768.rs', lines 71:0-79:1 -/
-def incremental_mlkem768.encaps2
-  (ek : alloc.vec.Vec Std.U8) (es : alloc.vec.Vec Std.U8) :
-  Result (alloc.vec.Vec Std.U8)
-  := do
-  let maybe_fix ←
-    incremental_mlkem768.potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275
-      es
-  let o ← core.option.Option.as_ref maybe_fix
-  let es1 ← lift (core.option.Option.unwrap_or o es)
-  let s ← alloc.vec.Vec.as_slice Global es1
-  let r ← core.array.TryFromSharedArraySlice.try_from 2080#usize s
-  let a ←
-    core.result.Result.expect core.fmt.DebugTryFromSliceError r (toStr
-      "size should be correct")
-  let s1 ← alloc.vec.Vec.as_slice Global ek
-  let r1 ← core.array.TryFromSharedArraySlice.try_from 1152#usize s1
-  let a1 ←
-    core.result.Result.expect core.fmt.DebugTryFromSliceError r1 (toStr
-      "size should be correct")
-  let ct2 ← libcrux_ml_kem.mlkem768.incremental.encapsulate2 a a1
-  let s2 ← lift (Array.to_slice ct2.value)
-  alloc.slice.Slice.to_vec core.clone.CloneU8 s2
-
-/-- [spqr::incremental_mlkem768::potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275::NEG1_I16]
-    Source: 'src/incremental_mlkem768.rs', lines 113:4-113:43 -/
-@[global_simps, irreducible]
-def
-  incremental_mlkem768.potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275.NEG1_I16
-  : Result Std.I16 :=
-  ok (UScalar.hcast .I16 65535#u16)
-
-/-- [spqr::incremental_mlkem768::potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275::NEG2_I16_GOOD]
-    Source: 'src/incremental_mlkem768.rs', lines 114:4-114:48 -/
-@[global_simps, irreducible]
-def
-  incremental_mlkem768.potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275.NEG2_I16_GOOD
-  : Result Std.I16 :=
-  ok (UScalar.hcast .I16 65534#u16)
-
-/-- [spqr::incremental_mlkem768::potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275::NEG2_I16_BAD]
-    Source: 'src/incremental_mlkem768.rs', lines 115:4-115:47 -/
-@[global_simps, irreducible]
-def
-  incremental_mlkem768.potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275.NEG2_I16_BAD
-  : Result Std.I16 :=
-  ok (UScalar.hcast .I16 65279#u16)
 
 /-- [spqr::incremental_mlkem768::decaps]:
     Source: 'src/incremental_mlkem768.rs', lines 156:0-169:1 -/

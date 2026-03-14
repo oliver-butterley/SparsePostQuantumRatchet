@@ -6,21 +6,33 @@ aeneas:
   repo: "https://github.com/AeneasVerif/aeneas.git"
 
 charon:
-  cargo_args: [] # extra cargo flags
+  cargo_args: ["--features", "extraction"] # gate out as_str_name/from_str_name via feature flag
   start_from: # Rust paths to extract (uncomment modules one at a time)
     - "spqr::util" # extracts without errors
-    # - "spqr::kdf" # Charon hangs - not a config issue, see notes
-    # - "spqr::chain" # Charon runs and runs...
+    # - "spqr::kdf" # Charon exponential slowdown (generic-array/typenum), >10min
+    # - "spqr::chain" # blocked by kdf
     - "spqr::encoding" # Charon fine, Aeneas errors
-    # - "spqr::authenticator" # Charon runs and runs...
+    # - "spqr::authenticator" # blocked by kdf
     - "spqr::serialize" # extracts without errors
     - "spqr::incremental_mlkem768" # extracts without errors (requires log to be excluded)
-    # - "spqr::v1" # Charon runs and runs...
-    # - "spqr::proto" # Charon runs and runs...
+    # - "spqr::v1" # blocked by kdf + authenticator
+    - "spqr::proto" # extracts without errors (requires excluding Debug/Hash, opaque Message impls, feature-gated as_str_name/from_str_name)
   exclude: # patterns to skip
     - "spqr::encoding::gf::check_accelerated" # cpufeatures macro: arrow types unsupported by Aeneas
     - "spqr::encoding::gf::accelerated" # platform-specific SIMD intrinsics
     - "log" # log crate internals cause Aeneas "Internal error" (arrow types in __private_api)
+    # encaps2 calls potentially_fix_state... which uses log macros → Aeneas error. Both excluded.
+    - "spqr::incremental_mlkem768::encaps2"
+    - "spqr::incremental_mlkem768::potentially_fix_state_incorrectly_encoded_by_libcrux_issue_1275"
+    # Proto: exclude Debug (ScalarWrapper name clashes) and Hash impls
+    - "spqr::proto::_::{impl core::fmt::Debug for _}"
+    - "spqr::proto::_::_::{impl core::fmt::Debug for _}"
+    - "spqr::proto::_::_::_::{impl core::fmt::Debug for _}"
+    - "spqr::proto::_::{impl core::hash::Hash for _}"
+    - "spqr::proto::_::_::{impl core::hash::Hash for _}"
+    - "spqr::proto::_::_::_::{impl core::hash::Hash for _}"
+    # Proto: as_str_name/from_str_name gated out via #[cfg(not(feature = "extraction"))] in build.rs
+    # (Charon --exclude cannot match inherent impl methods; Aeneas "no bottoms" from &'static str)
   opaque: # treat as opaque (no body extracted)
     - "spqr::encoding::gf::check_accelerated"
     - "spqr::encoding::gf::accelerated"
@@ -30,6 +42,10 @@ charon:
     # functions (div_impl, compute_at, from_complete_points, PolyEncoder::from_pb, PolyDecoder::from_pb)
     # produce sorry regardless of opaque status - they need Rust refactoring.
     - "spqr::encoding::polynomial::{spqr::encoding::Decoder for spqr::encoding::polynomial::PolyDecoder}::decoded_message"
+    # Proto: make prost Message impls opaque (excluding them causes dangling trait_impl_id errors)
+    - "spqr::proto::_::{impl prost::message::Message for _}"
+    - "spqr::proto::_::_::{impl prost::message::Message for _}"
+    - "spqr::proto::_::_::_::{impl prost::message::Message for _}"
 
 aeneas_args:
   options:
