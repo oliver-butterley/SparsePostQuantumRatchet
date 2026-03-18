@@ -78,17 +78,10 @@ def
   step_by :=
     core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.step_by
     traitsiteratorIteratorInst
-  map := fun {B : Type} {F : Type} (opsfunctionFnMutPTuplePairUsizeFPInst :
-    core.ops.function.FnMut F (Std.Usize × Clause0_Item) B) =>
-    core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.map
-    traitsiteratorIteratorInst opsfunctionFnMutPTuplePairUsizeFPInst
   enumerate :=
     core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.enumerate
     traitsiteratorIteratorInst
-  collect := fun {B : Type} (traitscollectFromIteratorPPairUsizePInst :
-    core.iter.traits.collect.FromIterator B (Std.Usize × Clause0_Item)) =>
-    core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.collect
-    traitsiteratorIteratorInst traitscollectFromIteratorPPairUsizePInst
+  take := sorry
 }
 
 /-- Trait implementation: [core::iter::range::{core::iter::range::Step for i32}]
@@ -178,16 +171,9 @@ def
     alloc.collections.vec_deque.into_iter.IntoIter.Insts.CoreIterTraitsIteratorIterator.next
   step_by :=
     alloc.collections.vec_deque.into_iter.IntoIter.Insts.CoreIterTraitsIteratorIterator.step_by
-  map := fun {B : Type} {F : Type} (coreopsfunctionFnMutPTupleBPInst :
-    core.ops.function.FnMut F T B) =>
-    alloc.collections.vec_deque.into_iter.IntoIter.Insts.CoreIterTraitsIteratorIterator.map
-    coreopsfunctionFnMutPTupleBPInst
   enumerate :=
     alloc.collections.vec_deque.into_iter.IntoIter.Insts.CoreIterTraitsIteratorIterator.enumerate
-  collect := fun {B : Type} (coreitertraitscollectFromIteratorInst :
-    core.iter.traits.collect.FromIterator B T) =>
-    alloc.collections.vec_deque.into_iter.IntoIter.Insts.CoreIterTraitsIteratorIterator.collect
-    coreitertraitscollectFromIteratorInst
+  take := sorry
 }
 
 /-- Trait implementation: [alloc::collections::vec_deque::{core::iter::traits::collect::FromIterator<T> for alloc::collections::vec_deque::VecDeque<T, alloc::alloc::Global>}]
@@ -2255,26 +2241,6 @@ def
   proto.pq_ratchet.pq_ratchet_state.VersionNegotiation := {
 }
 
-/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::Eq for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 38:31-38:33 -/
-def
-  proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.pq_ratchet_state.VersionNegotiation) :
-  Result Unit
-  := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::Eq for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 38:31-38:33 -/
-@[reducible]
-def proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.pq_ratchet_state.VersionNegotiation := {
-  partialEqInst :=
-    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpPartialEqVersionNegotiation
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{prost::message::Message for spqr::proto::pq_ratchet::pq_ratchet_state::VersionNegotiation}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 38:41-38:57 -/
 @[reducible]
@@ -2414,24 +2380,6 @@ def proto.pq_ratchet.pq_ratchet_state.VersionNegotiation.set_min_version
 def proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq proto.pq_ratchet.pq_ratchet_state.Inner
   := {
-}
-
-/-- [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::Eq for spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 49:31-49:33 -/
-def
-  proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.pq_ratchet_state.Inner) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::pq_ratchet_state::{core::cmp::Eq for spqr::proto::pq_ratchet::pq_ratchet_state::Inner}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 49:31-49:33 -/
-@[reducible]
-def proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.pq_ratchet_state.Inner := {
-  partialEqInst :=
-    proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpPartialEqInner
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.pq_ratchet_state.Inner.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- [spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::pq_ratchet_state::{spqr::proto::pq_ratchet::pq_ratchet_state::Inner}::merge::closure<0, T0>[TraitClause@0]}::call_once]:
@@ -2863,24 +2811,6 @@ def proto.pq_ratchet.V1Msg.Insts.CoreDefaultDefault : core.default.Default
 @[reducible]
 def proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreMarkerStructuralPartialEq :
   core.marker.StructuralPartialEq proto.pq_ratchet.v1_msg.InnerMsg := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_msg::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_msg::InnerMsg}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 73:31-73:33 -/
-def
-  proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_msg.InnerMsg) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_msg::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_msg::InnerMsg}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 73:31-73:33 -/
-@[reducible]
-def proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_msg.InnerMsg := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpPartialEqInnerMsg
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_msg.InnerMsg.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- [spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_msg::{spqr::proto::pq_ratchet::v1_msg::InnerMsg}::merge::closure<0, T0>[TraitClause@0]}::call_once]:
@@ -3780,24 +3710,6 @@ def proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpPartialEqUnchunked :
   eq := proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpPartialEqUnchunked.eq
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::Unchunked}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 105:37-105:39 -/
-def
-  proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.Unchunked) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::Unchunked}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 105:37-105:39 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_state.Unchunked := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpPartialEqUnchunked
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.Unchunked.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::Unchunked}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 105:47-105:63 -/
 @[reducible]
@@ -3838,26 +3750,6 @@ def
   proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq
   proto.pq_ratchet.v1_state.unchunked.KeysUnsampled := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 110:35-110:37 -/
-def
-  proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.unchunked.KeysUnsampled) :
-  Result Unit
-  := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 110:35-110:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.KeysUnsampled := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.unchunked.KeysUnsampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::KeysUnsampled}]
@@ -3908,24 +3800,6 @@ def
   proto.pq_ratchet.v1_state.unchunked.HeaderSent := {
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 117:35-117:37 -/
-def
-  proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.unchunked.HeaderSent) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 117:35-117:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.HeaderSent := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.unchunked.HeaderSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderSent}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 117:45-117:61 -/
 @[reducible]
@@ -3974,24 +3848,6 @@ def
   := {
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 128:35-128:37 -/
-def
-  proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.unchunked.EkSent) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 128:35-128:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_state.unchunked.EkSent := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpPartialEqEkSent
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.unchunked.EkSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::EkSent}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 128:45-128:61 -/
 @[reducible]
@@ -4037,26 +3893,6 @@ def
   proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq
   proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 137:35-137:37 -/
-def
-  proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received) :
-  Result Unit
-  := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 137:35-137:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.unchunked.EkSentCt1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::EkSentCt1Received}]
@@ -4111,26 +3947,6 @@ def
   proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived := {
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 149:35-149:37 -/
-def
-  proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived) :
-  Result Unit
-  := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 149:35-149:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.unchunked.NoHeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::NoHeaderReceived}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 149:45-149:61 -/
 @[reducible]
@@ -4180,26 +3996,6 @@ def
   proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq
   proto.pq_ratchet.v1_state.unchunked.HeaderReceived := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 156:35-156:37 -/
-def
-  proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.unchunked.HeaderReceived) :
-  Result Unit
-  := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 156:35-156:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.HeaderReceived := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.unchunked.HeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::HeaderReceived}]
@@ -4314,24 +4110,6 @@ def
     proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpPartialEqEkReceived.eq
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 165:35-165:37 -/
-def
-  proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.unchunked.EkReceived) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 165:35-165:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.EkReceived := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpPartialEqEkReceived
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.unchunked.EkReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::EkReceived}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 165:45-165:61 -/
 @[reducible]
@@ -4380,24 +4158,6 @@ def
   := {
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 176:35-176:37 -/
-def
-  proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.unchunked.Ct1Sent) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 176:35-176:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_state.unchunked.Ct1Sent := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpPartialEqCt1Sent
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.unchunked.Ct1Sent.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1Sent}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 176:45-176:61 -/
 @[reducible]
@@ -4444,26 +4204,6 @@ def
   proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq
   proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 189:35-189:37 -/
-def
-  proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived) :
-  Result Unit
-  := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 189:35-189:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpPartialEqCt1SentEkReceived
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.unchunked.Ct1SentEkReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::Ct1SentEkReceived}]
@@ -4516,24 +4256,6 @@ def
   proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq proto.pq_ratchet.v1_state.unchunked.Ct2Sent
   := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 202:35-202:37 -/
-def
-  proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.unchunked.Ct2Sent) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 202:35-202:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_state.unchunked.Ct2Sent := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpPartialEqCt2Sent
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.unchunked.Ct2Sent.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::unchunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::unchunked::Ct2Sent}]
@@ -4623,24 +4345,6 @@ def proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpPartialEqChunked :
   eq := proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpPartialEqChunked.eq
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::Chunked}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 210:37-210:39 -/
-def
-  proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.Chunked) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::Chunked}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 210:37-210:39 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_state.Chunked := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpPartialEqChunked
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.Chunked.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::Chunked}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 210:47-210:63 -/
 @[reducible]
@@ -4689,24 +4393,6 @@ def
   proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq
   proto.pq_ratchet.v1_state.chunked.KeysUnsampled := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 215:35-215:37 -/
-def
-  proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.chunked.KeysUnsampled) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 215:35-215:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.KeysUnsampled := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpPartialEqKeysUnsampled
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.chunked.KeysUnsampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::KeysUnsampled}]
@@ -4763,24 +4449,6 @@ def
   proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq
   proto.pq_ratchet.v1_state.chunked.KeysSampled := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 220:35-220:37 -/
-def
-  proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.chunked.KeysSampled) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 220:35-220:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_state.chunked.KeysSampled := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpPartialEqKeysSampled
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.chunked.KeysSampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::KeysSampled}]
@@ -4840,24 +4508,6 @@ def
   proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq
   proto.pq_ratchet.v1_state.chunked.HeaderSent := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 227:35-227:37 -/
-def
-  proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.chunked.HeaderSent) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 227:35-227:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_state.chunked.HeaderSent := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpPartialEqHeaderSent
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.chunked.HeaderSent.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::HeaderSent}]
@@ -4922,24 +4572,6 @@ def
   proto.pq_ratchet.v1_state.chunked.Ct1Received := {
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 236:35-236:37 -/
-def
-  proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.chunked.Ct1Received) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 236:35-236:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_state.chunked.Ct1Received := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpPartialEqCt1Received
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.chunked.Ct1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Received}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 236:45-236:61 -/
 @[reducible]
@@ -4997,26 +4629,6 @@ def
   proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq
   proto.pq_ratchet.v1_state.chunked.EkSentCt1Received := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 243:35-243:37 -/
-def
-  proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.chunked.EkSentCt1Received) :
-  Result Unit
-  := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 243:35-243:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.EkSentCt1Received := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpPartialEqEkSentCt1Received
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.chunked.EkSentCt1Received.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::EkSentCt1Received}]
@@ -5082,26 +4694,6 @@ def
   proto.pq_ratchet.v1_state.chunked.NoHeaderReceived := {
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 251:35-251:37 -/
-def
-  proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.chunked.NoHeaderReceived) :
-  Result Unit
-  := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 251:35-251:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.NoHeaderReceived := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpPartialEqNoHeaderReceived
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.chunked.NoHeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::NoHeaderReceived}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 251:45-251:61 -/
 @[reducible]
@@ -5164,24 +4756,6 @@ def
   proto.pq_ratchet.v1_state.chunked.HeaderReceived := {
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 258:35-258:37 -/
-def
-  proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.chunked.HeaderReceived) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 258:35-258:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.HeaderReceived := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpPartialEqHeaderReceived
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.chunked.HeaderReceived.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::HeaderReceived}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 258:45-258:61 -/
 @[reducible]
@@ -5239,24 +4813,6 @@ def
   proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq
   proto.pq_ratchet.v1_state.chunked.Ct1Sampled := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 265:35-265:37 -/
-def
-  proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.chunked.Ct1Sampled) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 265:35-265:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_state.chunked.Ct1Sampled := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpPartialEqCt1Sampled
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.chunked.Ct1Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Sampled}]
@@ -5322,26 +4878,6 @@ def
   proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled := {
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 274:35-274:37 -/
-def
-  proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled) :
-  Result Unit
-  := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 274:35-274:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpPartialEqEkReceivedCt1Sampled
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.chunked.EkReceivedCt1Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::EkReceivedCt1Sampled}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 274:45-274:61 -/
 @[reducible]
@@ -5405,26 +4941,6 @@ def
   proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged := {
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 281:35-281:37 -/
-def
-  proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged) :
-  Result Unit
-  := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 281:35-281:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpEq :
-  core.cmp.Eq proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpPartialEqCt1Acknowledged
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.chunked.Ct1Acknowledged.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::Ct1Acknowledged}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 281:45-281:61 -/
 @[reducible]
@@ -5485,24 +5001,6 @@ def
   proto.pq_ratchet.v1_state.chunked.Ct2Sampled := {
 }
 
-/-- [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 288:35-288:37 -/
-def
-  proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.chunked.Ct2Sampled) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 288:35-288:37 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_state.chunked.Ct2Sampled := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpPartialEqCt2Sampled
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::chunked::{prost::message::Message for spqr::proto::pq_ratchet::v1_state::chunked::Ct2Sampled}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 288:45-288:61 -/
 @[reducible]
@@ -5549,24 +5047,6 @@ def proto.pq_ratchet.v1_state.chunked.Ct2Sampled.Insts.CoreDefaultDefault :
 @[reducible]
 def proto.pq_ratchet.v1_state.InnerState.Insts.CoreMarkerStructuralPartialEq :
   core.marker.StructuralPartialEq proto.pq_ratchet.v1_state.InnerState := {
-}
-
-/-- [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::InnerState}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 296:31-296:33 -/
-def
-  proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.v1_state.InnerState) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::v1_state::{core::cmp::Eq for spqr::proto::pq_ratchet::v1_state::InnerState}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 296:31-296:33 -/
-@[reducible]
-def proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.v1_state.InnerState := {
-  partialEqInst :=
-    proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpPartialEqInnerState
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.v1_state.InnerState.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- [spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::{core::ops::function::FnOnce<(()), ()> for spqr::proto::pq_ratchet::v1_state::{spqr::proto::pq_ratchet::v1_state::InnerState}::merge::closure<0, T0>[TraitClause@0]}::call_once]:
@@ -7772,22 +7252,6 @@ def proto.pq_ratchet.chain.Epoch.Insts.CoreMarkerStructuralPartialEq :
   core.marker.StructuralPartialEq proto.pq_ratchet.chain.Epoch := {
 }
 
-/-- [spqr::proto::pq_ratchet::chain::{core::cmp::Eq for spqr::proto::pq_ratchet::chain::Epoch}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 341:31-341:33 -/
-def proto.pq_ratchet.chain.Epoch.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.chain.Epoch) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::chain::{core::cmp::Eq for spqr::proto::pq_ratchet::chain::Epoch}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 341:31-341:33 -/
-@[reducible]
-def proto.pq_ratchet.chain.Epoch.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.chain.Epoch := {
-  partialEqInst := proto.pq_ratchet.chain.Epoch.Insts.CoreCmpPartialEqEpoch
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.chain.Epoch.Insts.CoreCmpEq.assert_receiver_is_total_eq
-}
-
 /-- Trait implementation: [spqr::proto::pq_ratchet::chain::{prost::message::Message for spqr::proto::pq_ratchet::chain::Epoch}]
     Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 341:41-341:57 -/
 @[reducible]
@@ -7830,24 +7294,6 @@ def
   proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreMarkerStructuralPartialEq
   : core.marker.StructuralPartialEq proto.pq_ratchet.chain.epoch.EpochDirection
   := {
-}
-
-/-- [spqr::proto::pq_ratchet::chain::epoch::{core::cmp::Eq for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}::assert_receiver_is_total_eq]:
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 350:35-350:37 -/
-def
-  proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpEq.assert_receiver_is_total_eq
-  (self : proto.pq_ratchet.chain.epoch.EpochDirection) : Result Unit := do
-  ok ()
-
-/-- Trait implementation: [spqr::proto::pq_ratchet::chain::epoch::{core::cmp::Eq for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}]
-    Source: '/home/oliver/Projects/Verify/SparsePostQuantumRatchet/target/x86_64-unknown-linux-gnu/debug/build/spqr-3bc69fd6185dfe2e/out/signal.proto.pq_ratchet.rs', lines 350:35-350:37 -/
-@[reducible]
-def proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpEq : core.cmp.Eq
-  proto.pq_ratchet.chain.epoch.EpochDirection := {
-  partialEqInst :=
-    proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpPartialEqEpochDirection
-  assert_receiver_is_total_eq :=
-    proto.pq_ratchet.chain.epoch.EpochDirection.Insts.CoreCmpEq.assert_receiver_is_total_eq
 }
 
 /-- Trait implementation: [spqr::proto::pq_ratchet::chain::epoch::{prost::message::Message for spqr::proto::pq_ratchet::chain::epoch::EpochDirection}]
