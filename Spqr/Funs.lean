@@ -6689,7 +6689,8 @@ def encoding.gf.GF16.div_impl_loop.body
   match o with
   | none => ok (done out)
   | some _ =>
-    let out1 ← encoding.gf.GF16.Insts.CoreOpsArithMulGF16GF16.mul out square
+    let out1 ←
+      encoding.gf.GF16.Insts.CoreOpsArithMulAssignGF16.mul_assign out square
     let square1 ←
       encoding.gf.GF16.Insts.CoreOpsArithMulGF16GF16.mul square square
     ok (cont (iter1, square1, out1))
@@ -7762,7 +7763,7 @@ def encoding.polynomial.Poly.compute_at_loop0
     (iter, xs)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::compute_at]: loop body 1:
-    Source: 'src/encoding/polynomial.rs', lines 268:8-270:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 269:8-271:9 -/
 @[rust_loop_body]
 def encoding.polynomial.Poly.compute_at_loop1.body
   (v : alloc.vec.Vec encoding.gf.GF16) (xs : alloc.vec.Vec encoding.gf.GF16)
@@ -7787,7 +7788,7 @@ def encoding.polynomial.Poly.compute_at_loop1.body
     ok (cont (iter1, out1))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::compute_at]: loop 1:
-    Source: 'src/encoding/polynomial.rs', lines 268:8-270:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 269:8-271:9 -/
 @[rust_loop]
 def encoding.polynomial.Poly.compute_at_loop1
   (iter : core.ops.range.Range Std.Usize) (v : alloc.vec.Vec encoding.gf.GF16)
@@ -7800,7 +7801,7 @@ def encoding.polynomial.Poly.compute_at_loop1
     (iter, out)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::compute_at]:
-    Source: 'src/encoding/polynomial.rs', lines 255:4-272:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 255:4-273:5 -/
 def encoding.polynomial.Poly.compute_at
   (self : encoding.polynomial.Poly) (x : encoding.gf.GF16) :
   Result encoding.gf.GF16
@@ -7818,7 +7819,7 @@ def encoding.polynomial.Poly.compute_at
     self.coefficients xs3 encoding.gf.GF16.ZERO
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::lagrange_sum]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 278:8-282:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 279:8-283:9 -/
 @[rust_loop_body]
 def encoding.polynomial.Poly.lagrange_sum_loop.body
   (pts : Slice encoding.polynomial.Pt) (polys : Slice encoding.polynomial.Poly)
@@ -7839,7 +7840,7 @@ def encoding.polynomial.Poly.lagrange_sum_loop.body
     ok (cont (iter1, out1))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::lagrange_sum]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 278:8-282:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 279:8-283:9 -/
 @[rust_loop]
 def encoding.polynomial.Poly.lagrange_sum_loop
   (iter : core.ops.range.Range Std.Usize) (pts : Slice encoding.polynomial.Pt)
@@ -7852,7 +7853,7 @@ def encoding.polynomial.Poly.lagrange_sum_loop
     (iter, out)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::lagrange_sum]:
-    Source: 'src/encoding/polynomial.rs', lines 276:4-284:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 277:4-285:5 -/
 def encoding.polynomial.Poly.lagrange_sum
   (pts : Slice encoding.polynomial.Pt) (polys : Slice encoding.polynomial.Poly)
   :
@@ -7865,7 +7866,7 @@ def encoding.polynomial.Poly.lagrange_sum
     { start := 0#usize, «end» := i1 } pts polys out
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::mult_xdiff]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 429:12-439:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 431:12-441:13 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyConst.mult_xdiff_loop0.body
   {N : Std.Usize} (i : Std.Usize) (a : Array encoding.gf.GF16 N)
@@ -7891,7 +7892,7 @@ def encoding.polynomial.PolyConst.mult_xdiff_loop0.body
   else ok (done (xp, dp))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::mult_xdiff]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 429:12-439:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 431:12-441:13 -/
 @[rust_loop]
 def encoding.polynomial.PolyConst.mult_xdiff_loop0
   {N : Std.Usize} (i : Std.Usize) (a : Array encoding.gf.GF16 N)
@@ -7905,7 +7906,7 @@ def encoding.polynomial.PolyConst.mult_xdiff_loop0
     (xp, dp, i1)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::mult_xdiff]: loop body 1:
-    Source: 'src/encoding/polynomial.rs', lines 445:12-450:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 447:12-452:13 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyConst.mult_xdiff_loop1.body
   {N : Std.Usize} (dp : Array encoding.gf.GF16 N)
@@ -7924,7 +7925,7 @@ def encoding.polynomial.PolyConst.mult_xdiff_loop1.body
   else ok (done xp)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::mult_xdiff]: loop 1:
-    Source: 'src/encoding/polynomial.rs', lines 445:12-450:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 447:12-452:13 -/
 @[rust_loop]
 def encoding.polynomial.PolyConst.mult_xdiff_loop1
   {N : Std.Usize} (xp : Array encoding.gf.GF16 N)
@@ -7937,7 +7938,7 @@ def encoding.polynomial.PolyConst.mult_xdiff_loop1
     (xp, i)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::mult_xdiff]:
-    Source: 'src/encoding/polynomial.rs', lines 414:4-453:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 416:4-455:5 -/
 def encoding.polynomial.PolyConst.mult_xdiff
   {N : Std.Usize} (self : encoding.polynomial.PolyConst N)
   (difference : encoding.gf.GF16) :
@@ -7955,7 +7956,7 @@ def encoding.polynomial.PolyConst.mult_xdiff
   ok { coefficients := xp2 }
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::mult]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 402:8-407:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 404:8-409:9 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyConst.mult_loop.body
   {N : Std.Usize} (m : encoding.gf.GF16) (i : Std.Usize)
@@ -7973,7 +7974,7 @@ def encoding.polynomial.PolyConst.mult_loop.body
   else ok (done a)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::mult]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 402:8-407:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 404:8-409:9 -/
 @[rust_loop]
 def encoding.polynomial.PolyConst.mult_loop
   {N : Std.Usize} (m : encoding.gf.GF16) (i : Std.Usize)
@@ -7985,7 +7986,7 @@ def encoding.polynomial.PolyConst.mult_loop
     (i, a)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::mult]:
-    Source: 'src/encoding/polynomial.rs', lines 397:4-409:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 399:4-411:5 -/
 def encoding.polynomial.PolyConst.mult
   {N : Std.Usize} (self : encoding.polynomial.PolyConst N)
   (m : encoding.gf.GF16) :
@@ -7995,7 +7996,7 @@ def encoding.polynomial.PolyConst.mult
   ok { coefficients := a }
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::lagrange_interpolate_pt]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 379:12-390:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 381:12-392:13 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyConst.lagrange_interpolate_pt_loop.body
   {N : Std.Usize} (pts : Slice encoding.polynomial.Pt)
@@ -8019,7 +8020,7 @@ def encoding.polynomial.PolyConst.lagrange_interpolate_pt_loop.body
   else ok (done (pi, p, denominator))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::lagrange_interpolate_pt]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 379:12-390:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 381:12-392:13 -/
 @[rust_loop]
 def encoding.polynomial.PolyConst.lagrange_interpolate_pt_loop
   {N : Std.Usize} (pts : Slice encoding.polynomial.Pt)
@@ -8035,7 +8036,7 @@ def encoding.polynomial.PolyConst.lagrange_interpolate_pt_loop
     (p, denominator, j)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::lagrange_interpolate_pt]:
-    Source: 'src/encoding/polynomial.rs', lines 369:4-394:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 371:4-396:5 -/
 def encoding.polynomial.PolyConst.lagrange_interpolate_pt
   (N : Std.Usize) (pts : Slice encoding.polynomial.Pt) (i : Std.Usize) :
   Result (encoding.polynomial.PolyConst N)
@@ -8050,7 +8051,7 @@ def encoding.polynomial.PolyConst.lagrange_interpolate_pt
   encoding.polynomial.PolyConst.mult p g
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::ZEROS]
-    Source: 'src/encoding/polynomial.rs', lines 362:4-364:6 -/
+    Source: 'src/encoding/polynomial.rs', lines 364:4-366:6 -/
 @[global_simps, irreducible]
 def encoding.polynomial.PolyConst.ZEROS (N : Std.Usize)
   : encoding.polynomial.PolyConst N :=
@@ -8058,7 +8059,7 @@ def encoding.polynomial.PolyConst.ZEROS (N : Std.Usize)
   { coefficients := a }
 
 /-- [spqr::encoding::polynomial::lagrange_polys_for_complete_points]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 476:8-481:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 478:8-483:9 -/
 @[rust_loop_body]
 def encoding.polynomial.lagrange_polys_for_complete_points_loop0.body
   {N : Std.Usize} (ones : Array encoding.polynomial.Pt N) (i : Std.Usize) :
@@ -8066,7 +8067,7 @@ def encoding.polynomial.lagrange_polys_for_complete_points_loop0.body
     encoding.polynomial.Pt N))
   := sorry
 /-- [spqr::encoding::polynomial::lagrange_polys_for_complete_points]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 476:8-481:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 478:8-483:9 -/
 @[rust_loop]
 def encoding.polynomial.lagrange_polys_for_complete_points_loop0
   {N : Std.Usize} (ones : Array encoding.polynomial.Pt N) (i : Std.Usize) :
@@ -8079,7 +8080,7 @@ def encoding.polynomial.lagrange_polys_for_complete_points_loop0
     (ones, i)
 
 /-- [spqr::encoding::polynomial::lagrange_polys_for_complete_points]: loop body 1:
-    Source: 'src/encoding/polynomial.rs', lines 487:8-492:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 489:8-494:9 -/
 @[rust_loop_body]
 def encoding.polynomial.lagrange_polys_for_complete_points_loop1.body
   {N : Std.Usize} (ones : Array encoding.polynomial.Pt N)
@@ -8097,7 +8098,7 @@ def encoding.polynomial.lagrange_polys_for_complete_points_loop1.body
   else ok (done out)
 
 /-- [spqr::encoding::polynomial::lagrange_polys_for_complete_points]: loop 1:
-    Source: 'src/encoding/polynomial.rs', lines 487:8-492:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 489:8-494:9 -/
 @[rust_loop]
 def encoding.polynomial.lagrange_polys_for_complete_points_loop1
   {N : Std.Usize} (ones : Array encoding.polynomial.Pt N)
@@ -8111,7 +8112,7 @@ def encoding.polynomial.lagrange_polys_for_complete_points_loop1
     (out, i)
 
 /-- [spqr::encoding::polynomial::lagrange_polys_for_complete_points]:
-    Source: 'src/encoding/polynomial.rs', lines 468:0-495:1 -/
+    Source: 'src/encoding/polynomial.rs', lines 470:0-497:1 -/
 def encoding.polynomial.lagrange_polys_for_complete_points
   (N : Std.Usize) : Result (Array (encoding.polynomial.PolyConst N) N) := do
   let ones :=
@@ -8124,49 +8125,49 @@ def encoding.polynomial.lagrange_polys_for_complete_points
     0#usize
 
 /-- [spqr::encoding::polynomial::COMPLETE_POINTS_POLYS_36]
-    Source: 'src/encoding/polynomial.rs', lines 504:0-504:97 -/
+    Source: 'src/encoding/polynomial.rs', lines 506:0-506:97 -/
 @[global_simps, irreducible]
 def encoding.polynomial.COMPLETE_POINTS_POLYS_36
   : Result (Array (encoding.polynomial.PolyConst 36#usize) 36#usize) :=
   encoding.polynomial.lagrange_polys_for_complete_points 36#usize
 
 /-- [spqr::encoding::polynomial::COMPLETE_POINTS_POLYS_34]
-    Source: 'src/encoding/polynomial.rs', lines 503:0-503:97 -/
+    Source: 'src/encoding/polynomial.rs', lines 505:0-505:97 -/
 @[global_simps, irreducible]
 def encoding.polynomial.COMPLETE_POINTS_POLYS_34
   : Result (Array (encoding.polynomial.PolyConst 34#usize) 34#usize) :=
   encoding.polynomial.lagrange_polys_for_complete_points 34#usize
 
 /-- [spqr::encoding::polynomial::COMPLETE_POINTS_POLYS_30]
-    Source: 'src/encoding/polynomial.rs', lines 502:0-502:97 -/
+    Source: 'src/encoding/polynomial.rs', lines 504:0-504:97 -/
 @[global_simps, irreducible]
 def encoding.polynomial.COMPLETE_POINTS_POLYS_30
   : Result (Array (encoding.polynomial.PolyConst 30#usize) 30#usize) :=
   encoding.polynomial.lagrange_polys_for_complete_points 30#usize
 
 /-- [spqr::encoding::polynomial::COMPLETE_POINTS_POLYS_5]
-    Source: 'src/encoding/polynomial.rs', lines 501:0-501:93 -/
+    Source: 'src/encoding/polynomial.rs', lines 503:0-503:93 -/
 @[global_simps, irreducible]
 def encoding.polynomial.COMPLETE_POINTS_POLYS_5
   : Result (Array (encoding.polynomial.PolyConst 5#usize) 5#usize) :=
   encoding.polynomial.lagrange_polys_for_complete_points 5#usize
 
 /-- [spqr::encoding::polynomial::COMPLETE_POINTS_POLYS_3]
-    Source: 'src/encoding/polynomial.rs', lines 500:0-500:93 -/
+    Source: 'src/encoding/polynomial.rs', lines 502:0-502:93 -/
 @[global_simps, irreducible]
 def encoding.polynomial.COMPLETE_POINTS_POLYS_3
   : Result (Array (encoding.polynomial.PolyConst 3#usize) 3#usize) :=
   encoding.polynomial.lagrange_polys_for_complete_points 3#usize
 
 /-- [spqr::encoding::polynomial::COMPLETE_POINTS_POLYS_1]
-    Source: 'src/encoding/polynomial.rs', lines 499:0-499:93 -/
+    Source: 'src/encoding/polynomial.rs', lines 501:0-501:93 -/
 @[global_simps, irreducible]
 def encoding.polynomial.COMPLETE_POINTS_POLYS_1
   : Result (Array (encoding.polynomial.PolyConst 1#usize) 1#usize) :=
   encoding.polynomial.lagrange_polys_for_complete_points 1#usize
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyConst<N>}::to_poly]:
-    Source: 'src/encoding/polynomial.rs', lines 455:4-460:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 457:4-462:5 -/
 def encoding.polynomial.PolyConst.to_poly
   {N : Std.Usize} (self : encoding.polynomial.PolyConst N) :
   Result encoding.polynomial.Poly
@@ -8176,7 +8177,7 @@ def encoding.polynomial.PolyConst.to_poly
   ok { coefficients := v }
 
 /-- [spqr::encoding::polynomial::const_polys_to_polys::{core::ops::function::FnMut<(&'_ (spqr::encoding::polynomial::PolyConst<N>)), spqr::encoding::polynomial::Poly> for spqr::encoding::polynomial::const_polys_to_polys::closure<N>}::call_mut]:
-    Source: 'src/encoding/polynomial.rs', lines 465:19-465:34 -/
+    Source: 'src/encoding/polynomial.rs', lines 467:19-467:34 -/
 def
   encoding.polynomial.const_polys_to_polys.closure.Insts.CoreOpsFunctionFnMutTupleSharedPolyConstPoly.call_mut
   {N : Std.Usize} (c : encoding.polynomial.const_polys_to_polys.closure N)
@@ -8188,7 +8189,7 @@ def
   ok (p, c)
 
 /-- [spqr::encoding::polynomial::const_polys_to_polys::{core::ops::function::FnOnce<(&'_ (spqr::encoding::polynomial::PolyConst<N>)), spqr::encoding::polynomial::Poly> for spqr::encoding::polynomial::const_polys_to_polys::closure<N>}::call_once]:
-    Source: 'src/encoding/polynomial.rs', lines 465:19-465:34 -/
+    Source: 'src/encoding/polynomial.rs', lines 467:19-467:34 -/
 def
   encoding.polynomial.const_polys_to_polys.closure.Insts.CoreOpsFunctionFnOnceTupleSharedPolyConstPoly.call_once
   {N : Std.Usize} (c : encoding.polynomial.const_polys_to_polys.closure N)
@@ -8201,7 +8202,7 @@ def
   ok p
 
 /-- Trait implementation: [spqr::encoding::polynomial::const_polys_to_polys::{core::ops::function::FnOnce<(&'_ (spqr::encoding::polynomial::PolyConst<N>)), spqr::encoding::polynomial::Poly> for spqr::encoding::polynomial::const_polys_to_polys::closure<N>}]
-    Source: 'src/encoding/polynomial.rs', lines 465:19-465:34 -/
+    Source: 'src/encoding/polynomial.rs', lines 467:19-467:34 -/
 @[reducible]
 def
   encoding.polynomial.const_polys_to_polys.closure.Insts.CoreOpsFunctionFnOnceTupleSharedPolyConstPoly
@@ -8213,7 +8214,7 @@ def
 }
 
 /-- Trait implementation: [spqr::encoding::polynomial::const_polys_to_polys::{core::ops::function::FnMut<(&'_ (spqr::encoding::polynomial::PolyConst<N>)), spqr::encoding::polynomial::Poly> for spqr::encoding::polynomial::const_polys_to_polys::closure<N>}]
-    Source: 'src/encoding/polynomial.rs', lines 465:19-465:34 -/
+    Source: 'src/encoding/polynomial.rs', lines 467:19-467:34 -/
 @[reducible]
 def
   encoding.polynomial.const_polys_to_polys.closure.Insts.CoreOpsFunctionFnMutTupleSharedPolyConstPoly
@@ -8228,7 +8229,7 @@ def
 }
 
 /-- [spqr::encoding::polynomial::const_polys_to_polys]:
-    Source: 'src/encoding/polynomial.rs', lines 464:0-466:1 -/
+    Source: 'src/encoding/polynomial.rs', lines 466:0-468:1 -/
 def encoding.polynomial.const_polys_to_polys
   {N : Std.Usize} (cps : Array (encoding.polynomial.PolyConst N) N) :
   Result (alloc.vec.Vec encoding.polynomial.Poly)
@@ -8246,7 +8247,7 @@ def encoding.polynomial.const_polys_to_polys
     N) (core.iter.traits.collect.FromIteratorVec encoding.polynomial.Poly) m
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::from_complete_points]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 292:8-325:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 293:8-327:5 -/
 @[rust_loop_body]
 def encoding.polynomial.Poly.from_complete_points_loop.body
   (pts : Slice encoding.polynomial.Pt)
@@ -8326,7 +8327,7 @@ def encoding.polynomial.Poly.from_complete_points_loop.body
     else ok (cont iter1)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::from_complete_points]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 292:8-325:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 293:8-327:5 -/
 @[rust_loop]
 def encoding.polynomial.Poly.from_complete_points_loop
   (iter : core.iter.adapters.enumerate.Enumerate (core.slice.iter.Iter
@@ -8339,7 +8340,7 @@ def encoding.polynomial.Poly.from_complete_points_loop
     iter
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::from_complete_points]:
-    Source: 'src/encoding/polynomial.rs', lines 291:4-325:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 292:4-327:5 -/
 def encoding.polynomial.Poly.from_complete_points
   (pts : Slice encoding.polynomial.Pt) :
   Result (core.result.Result encoding.polynomial.Poly Unit)
@@ -8349,7 +8350,7 @@ def encoding.polynomial.Poly.from_complete_points
   encoding.polynomial.Poly.from_complete_points_loop iter pts
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::serialize]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 331:8-335:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 333:8-337:9 -/
 @[rust_loop_body]
 def encoding.polynomial.Poly.serialize_loop.body
   (v : alloc.vec.Vec encoding.gf.GF16) (iter : core.ops.range.Range Std.Usize)
@@ -8374,7 +8375,7 @@ def encoding.polynomial.Poly.serialize_loop.body
     ok (cont (iter1, out1))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::serialize]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 331:8-335:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 333:8-337:9 -/
 @[rust_loop]
 def encoding.polynomial.Poly.serialize_loop
   (iter : core.ops.range.Range Std.Usize) (v : alloc.vec.Vec encoding.gf.GF16)
@@ -8387,7 +8388,7 @@ def encoding.polynomial.Poly.serialize_loop
     (iter, out)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::serialize]:
-    Source: 'src/encoding/polynomial.rs', lines 327:4-338:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 329:4-340:5 -/
 def encoding.polynomial.Poly.serialize
   (self : encoding.polynomial.Poly) : Result (alloc.vec.Vec Std.U8) := do
   let i := alloc.vec.Vec.len self.coefficients
@@ -8398,7 +8399,7 @@ def encoding.polynomial.Poly.serialize
     self.coefficients out
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::deserialize]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 346:8-349:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 348:8-351:9 -/
 @[rust_loop_body]
 def encoding.polynomial.Poly.deserialize_loop.body
   (serialized : Slice Std.U8) (coefficients : alloc.vec.Vec encoding.gf.GF16)
@@ -8421,7 +8422,7 @@ def encoding.polynomial.Poly.deserialize_loop.body
   else ok (done coefficients)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::deserialize]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 346:8-349:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 348:8-351:9 -/
 @[rust_loop]
 def encoding.polynomial.Poly.deserialize_loop
   (serialized : Slice Std.U8) (coefficients : alloc.vec.Vec encoding.gf.GF16)
@@ -8434,7 +8435,7 @@ def encoding.polynomial.Poly.deserialize_loop
     (coefficients, j)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Poly}::deserialize]:
-    Source: 'src/encoding/polynomial.rs', lines 340:4-352:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 342:4-354:5 -/
 def encoding.polynomial.Poly.deserialize
   (serialized : Slice Std.U8) :
   Result (core.result.Result encoding.polynomial.Poly
@@ -8462,18 +8463,18 @@ def encoding.polynomial.Poly.deserialize
       ok (core.result.Result.Ok { coefficients := coefficients1 })
 
 /-- [spqr::encoding::polynomial::CHUNK_SIZE]
-    Source: 'src/encoding/polynomial.rs', lines 507:0-507:29 -/
+    Source: 'src/encoding/polynomial.rs', lines 509:0-509:29 -/
 @[global_simps, irreducible]
 def encoding.polynomial.CHUNK_SIZE : Std.Usize := 32#usize
 
 /-- [spqr::encoding::polynomial::NUM_POLYS]
-    Source: 'src/encoding/polynomial.rs', lines 509:0-509:44 -/
+    Source: 'src/encoding/polynomial.rs', lines 511:0-511:44 -/
 @[global_simps, irreducible]
 def encoding.polynomial.NUM_POLYS : Result Std.Usize :=
   encoding.polynomial.CHUNK_SIZE / 2#usize
 
 /-- [spqr::encoding::polynomial::{core::clone::Clone for spqr::encoding::polynomial::Point}::clone]:
-    Source: 'src/encoding/polynomial.rs', lines 511:9-511:14 -/
+    Source: 'src/encoding/polynomial.rs', lines 513:9-513:14 -/
 def encoding.polynomial.Point.Insts.CoreCloneClone.clone
   (self : encoding.polynomial.Point) : Result encoding.polynomial.Point := do
   let v ←
@@ -8481,7 +8482,7 @@ def encoding.polynomial.Point.Insts.CoreCloneClone.clone
   ok { value := v }
 
 /-- Trait implementation: [spqr::encoding::polynomial::{core::clone::Clone for spqr::encoding::polynomial::Point}]
-    Source: 'src/encoding/polynomial.rs', lines 511:9-511:14 -/
+    Source: 'src/encoding/polynomial.rs', lines 513:9-513:14 -/
 @[reducible]
 def encoding.polynomial.Point.Insts.CoreCloneClone : core.clone.Clone
   encoding.polynomial.Point := {
@@ -8489,7 +8490,7 @@ def encoding.polynomial.Point.Insts.CoreCloneClone : core.clone.Clone
 }
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::get_encoder_state]:
-    Source: 'src/encoding/polynomial.rs', lines 536:4-538:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 538:4-540:5 -/
 def encoding.polynomial.PolyEncoder.get_encoder_state
   (self : encoding.polynomial.PolyEncoder) :
   Result encoding.polynomial.EncoderState
@@ -8497,7 +8498,7 @@ def encoding.polynomial.PolyEncoder.get_encoder_state
   ok self.s
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::into_pb]: loop body 1:
-    Source: 'src/encoding/polynomial.rs', lines 555:20-559:21 -/
+    Source: 'src/encoding/polynomial.rs', lines 557:20-561:21 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyEncoder.into_pb_loop0_loop0.body
   (pts : alloc.vec.Vec encoding.gf.GF16)
@@ -8522,7 +8523,7 @@ def encoding.polynomial.PolyEncoder.into_pb_loop0_loop0.body
     ok (cont (iter1, v1))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::into_pb]: loop 1:
-    Source: 'src/encoding/polynomial.rs', lines 555:20-559:21 -/
+    Source: 'src/encoding/polynomial.rs', lines 557:20-561:21 -/
 @[rust_loop]
 def encoding.polynomial.PolyEncoder.into_pb_loop0_loop0
   (iter : core.ops.range.Range Std.Usize)
@@ -8535,7 +8536,7 @@ def encoding.polynomial.PolyEncoder.into_pb_loop0_loop0
     (iter, v)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::into_pb]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 550:16-561:17 -/
+    Source: 'src/encoding/polynomial.rs', lines 552:16-563:17 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyEncoder.into_pb_loop0.body
   (points : Array encoding.polynomial.Point 16#usize)
@@ -8561,7 +8562,7 @@ def encoding.polynomial.PolyEncoder.into_pb_loop0.body
     ok (cont (iter1, v3))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::into_pb]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 550:16-561:17 -/
+    Source: 'src/encoding/polynomial.rs', lines 552:16-563:17 -/
 @[rust_loop]
 def encoding.polynomial.PolyEncoder.into_pb_loop0
   (iter : core.ops.range.Range Std.Usize)
@@ -8575,7 +8576,7 @@ def encoding.polynomial.PolyEncoder.into_pb_loop0
     (iter, v)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::into_pb]: loop body 2:
-    Source: 'src/encoding/polynomial.rs', lines 564:16-566:17 -/
+    Source: 'src/encoding/polynomial.rs', lines 566:16-568:17 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyEncoder.into_pb_loop1.body
   (iter : core.slice.iter.Iter encoding.polynomial.Poly)
@@ -8593,7 +8594,7 @@ def encoding.polynomial.PolyEncoder.into_pb_loop1.body
     ok (cont (iter1, v2))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::into_pb]: loop 2:
-    Source: 'src/encoding/polynomial.rs', lines 564:16-566:17 -/
+    Source: 'src/encoding/polynomial.rs', lines 566:16-568:17 -/
 @[rust_loop]
 def encoding.polynomial.PolyEncoder.into_pb_loop1
   (iter : core.slice.iter.Iter encoding.polynomial.Poly)
@@ -8606,7 +8607,7 @@ def encoding.polynomial.PolyEncoder.into_pb_loop1
     (iter, v)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::into_pb]:
-    Source: 'src/encoding/polynomial.rs', lines 540:4-570:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 542:4-572:5 -/
 def encoding.polynomial.PolyEncoder.into_pb
   (self : encoding.polynomial.PolyEncoder) :
   Result proto.pq_ratchet.PolynomialEncoder
@@ -8628,7 +8629,7 @@ def encoding.polynomial.PolyEncoder.into_pb
     ok { idx := self.idx, pts := v, polys := v2 }
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::from_pb]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 613:12-616:72 -/
+    Source: 'src/encoding/polynomial.rs', lines 616:12-619:72 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyEncoder.from_pb_loop0.body
   (i : Std.U32) (v : alloc.vec.Vec (alloc.vec.Vec Std.U8))
@@ -8667,7 +8668,7 @@ def encoding.polynomial.PolyEncoder.from_pb_loop0.body
       ok (done r1)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::from_pb]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 613:12-616:72 -/
+    Source: 'src/encoding/polynomial.rs', lines 616:12-619:72 -/
 @[rust_loop]
 def encoding.polynomial.PolyEncoder.from_pb_loop0
   (iter : core.ops.range.Range Std.Usize) (i : Std.U32)
@@ -8682,7 +8683,7 @@ def encoding.polynomial.PolyEncoder.from_pb_loop0
     (iter, out)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::from_pb]: loop body 2:
-    Source: 'src/encoding/polynomial.rs', lines 599:16-602:17 -/
+    Source: 'src/encoding/polynomial.rs', lines 601:16-604:17 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyEncoder.from_pb_loop1_loop0.body
   (pts : alloc.vec.Vec Std.U8) (v : alloc.vec.Vec encoding.gf.GF16)
@@ -8706,7 +8707,7 @@ def encoding.polynomial.PolyEncoder.from_pb_loop1_loop0.body
   else ok (done ())
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::from_pb]: loop 2:
-    Source: 'src/encoding/polynomial.rs', lines 599:16-602:17 -/
+    Source: 'src/encoding/polynomial.rs', lines 601:16-604:17 -/
 @[rust_loop]
 def encoding.polynomial.PolyEncoder.from_pb_loop1_loop0
   (pts : alloc.vec.Vec Std.U8) (v : alloc.vec.Vec encoding.gf.GF16)
@@ -8719,7 +8720,7 @@ def encoding.polynomial.PolyEncoder.from_pb_loop1_loop0
     (v, j)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::from_pb]: loop body 1:
-    Source: 'src/encoding/polynomial.rs', lines 592:12-606:73 -/
+    Source: 'src/encoding/polynomial.rs', lines 594:12-608:73 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyEncoder.from_pb_loop1.body
   (i : Std.U32) (v : alloc.vec.Vec (alloc.vec.Vec Std.U8))
@@ -8730,7 +8731,7 @@ def encoding.polynomial.PolyEncoder.from_pb_loop1.body
     encoding.polynomial.PolyEncoder encoding.polynomial.PolynomialError))
   := sorry
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::from_pb]: loop 1:
-    Source: 'src/encoding/polynomial.rs', lines 592:12-606:73 -/
+    Source: 'src/encoding/polynomial.rs', lines 594:12-608:73 -/
 @[rust_loop]
 def encoding.polynomial.PolyEncoder.from_pb_loop1
   (iter : core.ops.range.Range Std.Usize) (i : Std.U32)
@@ -8745,7 +8746,7 @@ def encoding.polynomial.PolyEncoder.from_pb_loop1
     (iter, out)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::from_pb]:
-    Source: 'src/encoding/polynomial.rs', lines 572:4-619:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 574:4-622:5 -/
 def encoding.polynomial.PolyEncoder.from_pb
   (pb : proto.pq_ratchet.PolynomialEncoder) :
   Result (core.result.Result encoding.polynomial.PolyEncoder
@@ -8803,7 +8804,7 @@ def encoding.polynomial.PolyEncoder.from_pb
         encoding.polynomial.PolynomialError.SerializationInvalid)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::{core::ops::function::FnMut<((usize, &'_ (spqr::encoding::gf::GF16))), spqr::encoding::polynomial::Pt> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::closure#1}::call_mut]:
-    Source: 'src/encoding/polynomial.rs', lines 640:25-643:21 -/
+    Source: 'src/encoding/polynomial.rs', lines 643:25-646:21 -/
 def
   encoding.polynomial.PolyEncoder.point_at.closure_1.Insts.CoreOpsFunctionFnMutTuplePairUsizeSharedGF16Pt.call_mut
   (c : encoding.polynomial.PolyEncoder.point_at.closure_1)
@@ -8817,7 +8818,7 @@ def
   ok ({ x := g, y }, c)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::{core::ops::function::FnOnce<((usize, &'_ (spqr::encoding::gf::GF16))), spqr::encoding::polynomial::Pt> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::closure#1}::call_once]:
-    Source: 'src/encoding/polynomial.rs', lines 640:25-643:21 -/
+    Source: 'src/encoding/polynomial.rs', lines 643:25-646:21 -/
 def
   encoding.polynomial.PolyEncoder.point_at.closure_1.Insts.CoreOpsFunctionFnOnceTuplePairUsizeSharedGF16Pt.call_once
   (c : encoding.polynomial.PolyEncoder.point_at.closure_1)
@@ -8830,7 +8831,7 @@ def
   ok p1
 
 /-- Trait implementation: [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::{core::ops::function::FnOnce<((usize, &'_ (spqr::encoding::gf::GF16))), spqr::encoding::polynomial::Pt> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::closure#1}]
-    Source: 'src/encoding/polynomial.rs', lines 640:25-643:21 -/
+    Source: 'src/encoding/polynomial.rs', lines 643:25-646:21 -/
 @[reducible]
 def
   encoding.polynomial.PolyEncoder.point_at.closure_1.Insts.CoreOpsFunctionFnOnceTuplePairUsizeSharedGF16Pt
@@ -8841,7 +8842,7 @@ def
 }
 
 /-- Trait implementation: [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::{core::ops::function::FnMut<((usize, &'_ (spqr::encoding::gf::GF16))), spqr::encoding::polynomial::Pt> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::closure#1}]
-    Source: 'src/encoding/polynomial.rs', lines 640:25-643:21 -/
+    Source: 'src/encoding/polynomial.rs', lines 643:25-646:21 -/
 @[reducible]
 def
   encoding.polynomial.PolyEncoder.point_at.closure_1.Insts.CoreOpsFunctionFnMutTuplePairUsizeSharedGF16Pt
@@ -8854,7 +8855,7 @@ def
 }
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::{core::ops::function::FnMut<(usize), spqr::encoding::polynomial::Poly> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::closure}::call_mut]:
-    Source: 'src/encoding/polynomial.rs', lines 634:68-634:85 -/
+    Source: 'src/encoding/polynomial.rs', lines 637:68-637:85 -/
 def
   encoding.polynomial.PolyEncoder.point_at.closure.Insts.CoreOpsFunctionFnMutTupleUsizePoly.call_mut
   (c : encoding.polynomial.PolyEncoder.point_at.closure)
@@ -8866,7 +8867,7 @@ def
   ok (p, c)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::{core::ops::function::FnOnce<(usize), spqr::encoding::polynomial::Poly> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::closure}::call_once]:
-    Source: 'src/encoding/polynomial.rs', lines 634:68-634:85 -/
+    Source: 'src/encoding/polynomial.rs', lines 637:68-637:85 -/
 def
   encoding.polynomial.PolyEncoder.point_at.closure.Insts.CoreOpsFunctionFnOnceTupleUsizePoly.call_once
   (c : encoding.polynomial.PolyEncoder.point_at.closure) (i : Std.Usize) :
@@ -8878,7 +8879,7 @@ def
   ok p
 
 /-- Trait implementation: [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::{core::ops::function::FnOnce<(usize), spqr::encoding::polynomial::Poly> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::closure}]
-    Source: 'src/encoding/polynomial.rs', lines 634:68-634:85 -/
+    Source: 'src/encoding/polynomial.rs', lines 637:68-637:85 -/
 @[reducible]
 def
   encoding.polynomial.PolyEncoder.point_at.closure.Insts.CoreOpsFunctionFnOnceTupleUsizePoly
@@ -8889,7 +8890,7 @@ def
 }
 
 /-- Trait implementation: [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::{core::ops::function::FnMut<(usize), spqr::encoding::polynomial::Poly> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at::closure}]
-    Source: 'src/encoding/polynomial.rs', lines 634:68-634:85 -/
+    Source: 'src/encoding/polynomial.rs', lines 637:68-637:85 -/
 @[reducible]
 def
   encoding.polynomial.PolyEncoder.point_at.closure.Insts.CoreOpsFunctionFnMutTupleUsizePoly
@@ -8902,7 +8903,7 @@ def
 }
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 635:12-657:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 638:12-660:13 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyEncoder.point_at_loop.body
   (pts : Array encoding.polynomial.Point 16#usize)
@@ -8944,7 +8945,7 @@ def encoding.polynomial.PolyEncoder.point_at_loop.body
     ok (cont (iter1, a))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 635:12-657:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 638:12-660:13 -/
 @[rust_loop]
 def encoding.polynomial.PolyEncoder.point_at_loop
   (iter : core.ops.range.Range Std.Usize)
@@ -8958,7 +8959,7 @@ def encoding.polynomial.PolyEncoder.point_at_loop
     (iter, polys)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::point_at]:
-    Source: 'src/encoding/polynomial.rs', lines 623:4-666:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 626:4-669:5 -/
 def encoding.polynomial.PolyEncoder.point_at
   (self : encoding.polynomial.PolyEncoder) (poly : Std.Usize) (idx : Std.Usize)
   :
@@ -9014,7 +9015,7 @@ def encoding.EncodingError.Insts.CoreConvertFromPolynomialError :
 }
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::encode_bytes_base::{core::ops::function::FnMut<(usize), spqr::encoding::polynomial::Point> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::encode_bytes_base::closure<0>}::call_mut]:
-    Source: 'src/encoding/polynomial.rs', lines 675:63-677:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 678:63-680:9 -/
 def
   encoding.polynomial.PolyEncoder.encode_bytes_base.closure.Insts.CoreOpsFunctionFnMutTupleUsizePoint.call_mut
   (c : encoding.polynomial.PolyEncoder.encode_bytes_base.closure)
@@ -9028,7 +9029,7 @@ def
   ok ({ value := v }, c)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::encode_bytes_base::{core::ops::function::FnOnce<(usize), spqr::encoding::polynomial::Point> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::encode_bytes_base::closure<0>}::call_once]:
-    Source: 'src/encoding/polynomial.rs', lines 675:63-677:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 678:63-680:9 -/
 def
   encoding.polynomial.PolyEncoder.encode_bytes_base.closure.Insts.CoreOpsFunctionFnOnceTupleUsizePoint.call_once
   (c : encoding.polynomial.PolyEncoder.encode_bytes_base.closure)
@@ -9041,7 +9042,7 @@ def
   ok p
 
 /-- Trait implementation: [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::encode_bytes_base::{core::ops::function::FnOnce<(usize), spqr::encoding::polynomial::Point> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::encode_bytes_base::closure<0>}]
-    Source: 'src/encoding/polynomial.rs', lines 675:63-677:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 678:63-680:9 -/
 @[reducible]
 def
   encoding.polynomial.PolyEncoder.encode_bytes_base.closure.Insts.CoreOpsFunctionFnOnceTupleUsizePoint
@@ -9053,7 +9054,7 @@ def
 }
 
 /-- Trait implementation: [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::encode_bytes_base::{core::ops::function::FnMut<(usize), spqr::encoding::polynomial::Point> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::encode_bytes_base::closure<0>}]
-    Source: 'src/encoding/polynomial.rs', lines 675:63-677:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 678:63-680:9 -/
 @[reducible]
 def
   encoding.polynomial.PolyEncoder.encode_bytes_base.closure.Insts.CoreOpsFunctionFnMutTupleUsizePoint
@@ -9067,7 +9068,7 @@ def
 }
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::encode_bytes_base]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 678:8-685:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 681:8-688:9 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyEncoder.encode_bytes_base_loop.body
   (iter : core.iter.adapters.enumerate.Enumerate (core.slice.iter.ChunksExact
@@ -9077,7 +9078,7 @@ def encoding.polynomial.PolyEncoder.encode_bytes_base_loop.body
     16#usize)) (Array encoding.polynomial.Point 16#usize))
   := sorry
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::encode_bytes_base]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 678:8-685:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 681:8-688:9 -/
 @[rust_loop]
 def encoding.polynomial.PolyEncoder.encode_bytes_base_loop
   (iter : core.iter.adapters.enumerate.Enumerate (core.slice.iter.ChunksExact
@@ -9090,7 +9091,7 @@ def encoding.polynomial.PolyEncoder.encode_bytes_base_loop
     (iter, pts)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::encode_bytes_base]:
-    Source: 'src/encoding/polynomial.rs', lines 669:4-690:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 672:4-693:5 -/
 def encoding.polynomial.PolyEncoder.encode_bytes_base
   (msg : Slice Std.U8) :
   Result (core.result.Result encoding.polynomial.PolyEncoder
@@ -9130,7 +9131,7 @@ def encoding.polynomial.PolyEncoder.encode_bytes_base
         { idx := 0#u32, s := (encoding.polynomial.EncoderState.Points pts1) })
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::chunk_at]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 696:8-704:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 699:8-707:9 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyEncoder.chunk_at_loop.body
   (idx : Std.U16) (iter : core.ops.range.Range Std.Usize)
@@ -9159,7 +9160,7 @@ def encoding.polynomial.PolyEncoder.chunk_at_loop.body
     ok (cont (iter1, self1, out2))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::chunk_at]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 696:8-704:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 699:8-707:9 -/
 @[rust_loop]
 def encoding.polynomial.PolyEncoder.chunk_at_loop
   (iter : core.ops.range.Range Std.Usize)
@@ -9173,7 +9174,7 @@ def encoding.polynomial.PolyEncoder.chunk_at_loop
     (iter, self, out)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyEncoder}::chunk_at]:
-    Source: 'src/encoding/polynomial.rs', lines 693:4-709:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 696:4-712:5 -/
 def encoding.polynomial.PolyEncoder.chunk_at
   (self : encoding.polynomial.PolyEncoder) (idx : Std.U16) :
   Result (encoding.Chunk × encoding.polynomial.PolyEncoder)
@@ -9194,7 +9195,7 @@ def encoding.polynomial.PolyEncoder.chunk_at
   ok ({ index := idx, data := a }, self1)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::Encoder for spqr::encoding::polynomial::PolyEncoder}::next_chunk]:
-    Source: 'src/encoding/polynomial.rs', lines 733:4-737:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 736:4-740:5 -/
 def encoding.polynomial.PolyEncoder.Insts.SpqrEncodingEncoder.next_chunk
   (self : encoding.polynomial.PolyEncoder) :
   Result (encoding.Chunk × encoding.polynomial.PolyEncoder)
@@ -9205,7 +9206,7 @@ def encoding.polynomial.PolyEncoder.Insts.SpqrEncodingEncoder.next_chunk
   ok (out, { self1 with idx := i1 })
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::Encoder for spqr::encoding::polynomial::PolyEncoder}::encode_bytes]:
-    Source: 'src/encoding/polynomial.rs', lines 729:4-731:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 732:4-734:5 -/
 def encoding.polynomial.PolyEncoder.Insts.SpqrEncodingEncoder.encode_bytes
   (msg : Slice Std.U8) :
   Result (core.result.Result encoding.polynomial.PolyEncoder
@@ -9214,7 +9215,7 @@ def encoding.polynomial.PolyEncoder.Insts.SpqrEncodingEncoder.encode_bytes
   encoding.polynomial.PolyEncoder.encode_bytes_base msg
 
 /-- Trait implementation: [spqr::encoding::polynomial::{spqr::encoding::Encoder for spqr::encoding::polynomial::PolyEncoder}]
-    Source: 'src/encoding/polynomial.rs', lines 727:0-738:1 -/
+    Source: 'src/encoding/polynomial.rs', lines 730:0-741:1 -/
 @[reducible]
 def encoding.polynomial.PolyEncoder.Insts.SpqrEncodingEncoder :
   encoding.Encoder encoding.polynomial.PolyEncoder := {
@@ -9225,7 +9226,7 @@ def encoding.polynomial.PolyEncoder.Insts.SpqrEncodingEncoder :
 }
 
 /-- [spqr::encoding::polynomial::{core::clone::Clone for spqr::encoding::polynomial::PolyDecoder}::clone]:
-    Source: 'src/encoding/polynomial.rs', lines 740:9-740:14 -/
+    Source: 'src/encoding/polynomial.rs', lines 743:9-743:14 -/
 def encoding.polynomial.PolyDecoder.Insts.CoreCloneClone.clone
   (self : encoding.polynomial.PolyDecoder) :
   Result encoding.polynomial.PolyDecoder
@@ -9239,7 +9240,7 @@ def encoding.polynomial.PolyDecoder.Insts.CoreCloneClone.clone
   ok { pts_needed := i, pts := a, is_complete := b }
 
 /-- Trait implementation: [spqr::encoding::polynomial::{core::clone::Clone for spqr::encoding::polynomial::PolyDecoder}]
-    Source: 'src/encoding/polynomial.rs', lines 740:9-740:14 -/
+    Source: 'src/encoding/polynomial.rs', lines 743:9-743:14 -/
 @[reducible]
 def encoding.polynomial.PolyDecoder.Insts.CoreCloneClone : core.clone.Clone
   encoding.polynomial.PolyDecoder := {
@@ -9247,13 +9248,13 @@ def encoding.polynomial.PolyDecoder.Insts.CoreCloneClone : core.clone.Clone
 }
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::get_pts_needed]:
-    Source: 'src/encoding/polynomial.rs', lines 766:4-768:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 769:4-771:5 -/
 def encoding.polynomial.PolyDecoder.get_pts_needed
   (self : encoding.polynomial.PolyDecoder) : Result Std.Usize := do
   ok self.pts_needed
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::necessary_points]:
-    Source: 'src/encoding/polynomial.rs', lines 770:4-778:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 773:4-781:5 -/
 def encoding.polynomial.PolyDecoder.necessary_points
   (self : encoding.polynomial.PolyDecoder) (poly : Std.Usize) :
   Result Std.Usize
@@ -9265,7 +9266,7 @@ def encoding.polynomial.PolyDecoder.necessary_points
   else ok points_per_poly
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::new_with_poly_count::{core::ops::function::FnMut<(usize), sorted_vec::SortedSet<spqr::encoding::polynomial::Pt>[spqr::encoding::polynomial::{core::cmp::Ord for spqr::encoding::polynomial::Pt}]> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::new_with_poly_count::closure}::call_mut]:
-    Source: 'src/encoding/polynomial.rs', lines 787:38-787:58 -/
+    Source: 'src/encoding/polynomial.rs', lines 790:38-790:58 -/
 def
   encoding.polynomial.PolyDecoder.new_with_poly_count.closure.Insts.CoreOpsFunctionFnMutTupleUsizeSortedSetPt.call_mut
   (c : encoding.polynomial.PolyDecoder.new_with_poly_count.closure)
@@ -9277,7 +9278,7 @@ def
   ok (ss, c)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::new_with_poly_count::{core::ops::function::FnOnce<(usize), sorted_vec::SortedSet<spqr::encoding::polynomial::Pt>[spqr::encoding::polynomial::{core::cmp::Ord for spqr::encoding::polynomial::Pt}]> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::new_with_poly_count::closure}::call_once]:
-    Source: 'src/encoding/polynomial.rs', lines 787:38-787:58 -/
+    Source: 'src/encoding/polynomial.rs', lines 790:38-790:58 -/
 def
   encoding.polynomial.PolyDecoder.new_with_poly_count.closure.Insts.CoreOpsFunctionFnOnceTupleUsizeSortedSetPt.call_once
   (c : encoding.polynomial.PolyDecoder.new_with_poly_count.closure)
@@ -9290,7 +9291,7 @@ def
   ok ss
 
 /-- Trait implementation: [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::new_with_poly_count::{core::ops::function::FnOnce<(usize), sorted_vec::SortedSet<spqr::encoding::polynomial::Pt>[spqr::encoding::polynomial::{core::cmp::Ord for spqr::encoding::polynomial::Pt}]> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::new_with_poly_count::closure}]
-    Source: 'src/encoding/polynomial.rs', lines 787:38-787:58 -/
+    Source: 'src/encoding/polynomial.rs', lines 790:38-790:58 -/
 @[reducible]
 def
   encoding.polynomial.PolyDecoder.new_with_poly_count.closure.Insts.CoreOpsFunctionFnOnceTupleUsizeSortedSetPt
@@ -9302,7 +9303,7 @@ def
 }
 
 /-- Trait implementation: [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::new_with_poly_count::{core::ops::function::FnMut<(usize), sorted_vec::SortedSet<spqr::encoding::polynomial::Pt>[spqr::encoding::polynomial::{core::cmp::Ord for spqr::encoding::polynomial::Pt}]> for spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::new_with_poly_count::closure}]
-    Source: 'src/encoding/polynomial.rs', lines 787:38-787:58 -/
+    Source: 'src/encoding/polynomial.rs', lines 790:38-790:58 -/
 @[reducible]
 def
   encoding.polynomial.PolyDecoder.new_with_poly_count.closure.Insts.CoreOpsFunctionFnMutTupleUsizeSortedSetPt
@@ -9316,7 +9317,7 @@ def
 }
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::new_with_poly_count]:
-    Source: 'src/encoding/polynomial.rs', lines 781:4-790:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 784:4-793:5 -/
 def encoding.polynomial.PolyDecoder.new_with_poly_count
   (len_bytes : Std.Usize) (_polys : Std.Usize) :
   Result (core.result.Result encoding.polynomial.PolyDecoder
@@ -9340,7 +9341,7 @@ def encoding.polynomial.PolyDecoder.new_with_poly_count
       { pts_needed := i1, pts := a, is_complete := false })
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::into_pb]: loop body 1:
-    Source: 'src/encoding/polynomial.rs', lines 802:12-806:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 805:12-809:13 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyDecoder.into_pb_loop0_loop0.body
   (pts : sorted_vec.SortedSet encoding.polynomial.Pt.Insts.CoreCmpOrd)
@@ -9371,7 +9372,7 @@ def encoding.polynomial.PolyDecoder.into_pb_loop0_loop0.body
     ok (cont (iter1, v2))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::into_pb]: loop 1:
-    Source: 'src/encoding/polynomial.rs', lines 802:12-806:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 805:12-809:13 -/
 @[rust_loop]
 def encoding.polynomial.PolyDecoder.into_pb_loop0_loop0
   (iter : core.ops.range.Range Std.Usize)
@@ -9385,7 +9386,7 @@ def encoding.polynomial.PolyDecoder.into_pb_loop0_loop0
     (iter, v)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::into_pb]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 799:8-808:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 802:8-811:9 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyDecoder.into_pb_loop0.body
   (iter : core.slice.iter.Iter (sorted_vec.SortedSet
@@ -9419,7 +9420,7 @@ def encoding.polynomial.PolyDecoder.into_pb_loop0.body
     ok (cont (iter1, v5))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::into_pb]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 799:8-808:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 802:8-811:9 -/
 @[rust_loop]
 def encoding.polynomial.PolyDecoder.into_pb_loop0
   (iter : core.slice.iter.Iter (sorted_vec.SortedSet
@@ -9433,7 +9434,7 @@ def encoding.polynomial.PolyDecoder.into_pb_loop0
     (iter, v)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::into_pb]:
-    Source: 'src/encoding/polynomial.rs', lines 792:4-810:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 795:4-813:5 -/
 def encoding.polynomial.PolyDecoder.into_pb
   (self : encoding.polynomial.PolyDecoder) :
   Result proto.pq_ratchet.PolynomialDecoder
@@ -9454,7 +9455,7 @@ def encoding.polynomial.PolyDecoder.into_pb
     }
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::from_pb]: loop body 1:
-    Source: 'src/encoding/polynomial.rs', lines 840:12-844:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 843:12-847:13 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyDecoder.from_pb_loop0_loop0.body
   (pts : alloc.vec.Vec Std.U8)
@@ -9488,7 +9489,7 @@ def encoding.polynomial.PolyDecoder.from_pb_loop0_loop0.body
   else ok (done v)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::from_pb]: loop 1:
-    Source: 'src/encoding/polynomial.rs', lines 840:12-844:13 -/
+    Source: 'src/encoding/polynomial.rs', lines 843:12-847:13 -/
 @[rust_loop]
 def encoding.polynomial.PolyDecoder.from_pb_loop0_loop0
   (pts : alloc.vec.Vec Std.U8)
@@ -9502,7 +9503,7 @@ def encoding.polynomial.PolyDecoder.from_pb_loop0_loop0
     (v, j)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::from_pb]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 836:8-846:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 839:8-849:9 -/
 @[rust_loop_body]
 def encoding.polynomial.PolyDecoder.from_pb_loop0.body
   (v : alloc.vec.Vec (alloc.vec.Vec Std.U8))
@@ -9536,7 +9537,7 @@ def encoding.polynomial.PolyDecoder.from_pb_loop0.body
     ok (cont (iter1, a))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::from_pb]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 836:8-846:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 839:8-849:9 -/
 @[rust_loop]
 def encoding.polynomial.PolyDecoder.from_pb_loop0
   (iter : core.ops.range.Range Std.Usize)
@@ -9552,7 +9553,7 @@ def encoding.polynomial.PolyDecoder.from_pb_loop0
     (iter, out_pts)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::PolyDecoder}::from_pb]:
-    Source: 'src/encoding/polynomial.rs', lines 813:4-852:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 816:4-855:5 -/
 def encoding.polynomial.PolyDecoder.from_pb
   (pb : proto.pq_ratchet.PolynomialDecoder) :
   Result (core.result.Result encoding.polynomial.PolyDecoder
@@ -9753,7 +9754,7 @@ def encoding.polynomial.PolyDecoder.from_pb
                                       })
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::Decoder for spqr::encoding::polynomial::PolyDecoder}::add_chunk]: loop body 0:
-    Source: 'src/encoding/polynomial.rs', lines 880:8-901:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 883:8-904:9 -/
 @[rust_loop_body]
 def
   encoding.polynomial.PolyDecoder.Insts.SpqrEncodingDecoder.add_chunk_loop.body
@@ -9813,7 +9814,7 @@ def
       else ok (cont (iter1, self))
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::Decoder for spqr::encoding::polynomial::PolyDecoder}::add_chunk]: loop 0:
-    Source: 'src/encoding/polynomial.rs', lines 880:8-901:9 -/
+    Source: 'src/encoding/polynomial.rs', lines 883:8-904:9 -/
 @[rust_loop]
 def encoding.polynomial.PolyDecoder.Insts.SpqrEncodingDecoder.add_chunk_loop
   (iter : core.ops.range.Range Std.Usize)
@@ -9827,7 +9828,7 @@ def encoding.polynomial.PolyDecoder.Insts.SpqrEncodingDecoder.add_chunk_loop
     (iter, self)
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::Decoder for spqr::encoding::polynomial::PolyDecoder}::add_chunk]:
-    Source: 'src/encoding/polynomial.rs', lines 877:4-902:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 880:4-905:5 -/
 @[reducible]
 def encoding.polynomial.PolyDecoder.Insts.SpqrEncodingDecoder.add_chunk
   (self : encoding.polynomial.PolyDecoder) (chunk : encoding.Chunk) :
@@ -9837,7 +9838,7 @@ def encoding.polynomial.PolyDecoder.Insts.SpqrEncodingDecoder.add_chunk
     { start := 0#usize, «end» := 16#usize } self chunk
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::Decoder for spqr::encoding::polynomial::PolyDecoder}::new]:
-    Source: 'src/encoding/polynomial.rs', lines 872:4-874:5 -/
+    Source: 'src/encoding/polynomial.rs', lines 875:4-877:5 -/
 def encoding.polynomial.PolyDecoder.Insts.SpqrEncodingDecoder.new
   (len_bytes : Std.Usize) :
   Result (core.result.Result encoding.polynomial.PolyDecoder
@@ -9846,7 +9847,7 @@ def encoding.polynomial.PolyDecoder.Insts.SpqrEncodingDecoder.new
   encoding.polynomial.PolyDecoder.new_with_poly_count len_bytes 16#usize
 
 /-- Trait implementation: [spqr::encoding::polynomial::{spqr::encoding::Decoder for spqr::encoding::polynomial::PolyDecoder}]
-    Source: 'src/encoding/polynomial.rs', lines 870:0-962:1 -/
+    Source: 'src/encoding/polynomial.rs', lines 873:0-965:1 -/
 @[reducible]
 def encoding.polynomial.PolyDecoder.Insts.SpqrEncodingDecoder :
   encoding.Decoder encoding.polynomial.PolyDecoder := {
