@@ -608,9 +608,9 @@ mod test {
                         kh.gc(ctr, &params);
                     }
                 }
-                let mut fell_off = vec![];
-                (fell_off, stored) = stored.into_iter().partition(
+                let (fell_off, stored_new): (Vec<_>, _) = stored.into_iter().partition(
                     |n| n + params.max_ooo_keys < ctr);
+                stored = stored_new;
                 if !fell_off.is_empty() {
                     log::debug!("fell off: {:?}", fell_off);
                 }
@@ -693,9 +693,9 @@ mod test {
                         ced.key(high, &params).unwrap_err();
                     }
                 }
-                let mut fell_off = vec![];
-                (fell_off, stored) = stored.into_iter().partition(
+                let (fell_off, stored_new): (Vec<_>, _) = stored.into_iter().partition(
                     |n| n + params.max_ooo_keys < ctr);
+                stored = stored_new;
                 if !fell_off.is_empty() {
                     log::debug!("fell off: {:?}", fell_off);
                 }

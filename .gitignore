@@ -3,3 +3,11 @@ tarpaulin-report.html
 rust-toolchain.toml
 /.fstar-cache
 proptest-regressions
+*.llbc
+.logs/
+.aeneas/
+
+# Lean & Aeneas
+.lake/
+FunsExternal_Template.lean
+TypesExternal_Template.lean

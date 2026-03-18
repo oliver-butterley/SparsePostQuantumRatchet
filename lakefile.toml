@@ -1,0 +1,21 @@
+name = "Spqr"
+version = "0.1.0"
+defaultTargets = ["Spqr"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxRecDepth = 10000
+
+[[require]]
+name = "aeneas"
+git = "https://github.com/AeneasVerif/aeneas.git"
+subDir = "backends/lean"
+rev = "f4b3593e"
+
+[[lean_lib]]
+name = "Extraction"
+
+[[lean_lib]]
+name = "Spqr"

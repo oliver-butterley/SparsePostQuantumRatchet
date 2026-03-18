@@ -1,0 +1,1018 @@
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::expressions::Place
+         charon_lib::ast::expressions::Operand
+         alloc::vec::Vec<charon_lib::ast::expressions::Operand>
+         charon_lib::ast::gast::Call
+         charon_lib::ast::llbc_ast::StatementKind
+         charon_lib::ast::llbc_ast::Statement
+         alloc::vec::Vec<charon_lib::ast::llbc_ast::Statement>
+         charon_lib::ast::llbc_ast::Block
+         charon_lib::ast::gast::GExprBody<charon_lib::ast::llbc_ast::Block>
+         charon_lib::ast::gast::Body
+         charon_lib::ast::gast::FunDecl
+       Binding stack (depth 4):
+         0: 
+         1: 
+         2: 
+         3: <'_0, '_1, '_2, '_3>
+  --> src/kdf.rs:15:5
+   |
+15 | /     hkdf::Hkdf::<sha2::Sha256>::new(Some(salt), ikm)
+16 | |         .expand(info, okm)
+   | |__________________________^
+
+error: Type error after transformations:
+       Mismatched type generics:
+       target: PrivateCmp
+       expected: [Self, Rhs, SoFar, Self_Output]
+            got: [UInt<UTerm, B1>, UInt<UInt<UInt<UTerm, B1>, B0>, B0>, Equal, Less, Less]
+       Visitor stack:
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::expressions::Place
+         charon_lib::ast::expressions::Operand
+         alloc::vec::Vec<charon_lib::ast::expressions::Operand>
+         charon_lib::ast::gast::Call
+         charon_lib::ast::llbc_ast::StatementKind
+         charon_lib::ast::llbc_ast::Statement
+         alloc::vec::Vec<charon_lib::ast::llbc_ast::Statement>
+         charon_lib::ast::llbc_ast::Block
+         charon_lib::ast::gast::GExprBody<charon_lib::ast::llbc_ast::Block>
+         charon_lib::ast::gast::Body
+         charon_lib::ast::gast::FunDecl
+       Binding stack (depth 4):
+         0: 
+         1: 
+         2: 
+         3: <'_0, '_1, '_2, '_3>
+  --> src/kdf.rs:15:5
+   |
+15 | /     hkdf::Hkdf::<sha2::Sha256>::new(Some(salt), ikm)
+16 | |         .expand(info, okm)
+   | |__________________________^
+
+error: Type error after transformations:
+       Mismatched type generics:
+       target: PrivateCmp
+       expected: [Self, Rhs, SoFar, Self_Output]
+            got: [UInt<UInt<UTerm, B1>, B0>, UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, Equal, Less, Less]
+       Visitor stack:
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::expressions::Place
+         charon_lib::ast::expressions::Operand
+         alloc::vec::Vec<charon_lib::ast::expressions::Operand>
+         charon_lib::ast::gast::Call
+         charon_lib::ast::llbc_ast::StatementKind
+         charon_lib::ast::llbc_ast::Statement
+         alloc::vec::Vec<charon_lib::ast::llbc_ast::Statement>
+         charon_lib::ast::llbc_ast::Block
+         charon_lib::ast::gast::GExprBody<charon_lib::ast::llbc_ast::Block>
+         charon_lib::ast::gast::Body
+         charon_lib::ast::gast::FunDecl
+       Binding stack (depth 4):
+         0: 
+         1: 
+         2: 
+         3: <'_0, '_1, '_2, '_3>
+  --> src/kdf.rs:15:5
+   |
+15 | /     hkdf::Hkdf::<sha2::Sha256>::new(Some(salt), ikm)
+16 | |         .expand(info, okm)
+   | |__________________________^
+
+error: Type error after transformations:
+       Mismatched type generics:
+       target: PrivateCmp
+       expected: [Self, Rhs, SoFar, Self_Output]
+            got: [UInt<UInt<UInt<UTerm, B1>, B0>, B0>, UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, Equal, Less, Less]
+       Visitor stack:
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::expressions::Place
+         charon_lib::ast::expressions::Operand
+         alloc::vec::Vec<charon_lib::ast::expressions::Operand>
+         charon_lib::ast::gast::Call
+         charon_lib::ast::llbc_ast::StatementKind
+         charon_lib::ast::llbc_ast::Statement
+         alloc::vec::Vec<charon_lib::ast::llbc_ast::Statement>
+         charon_lib::ast::llbc_ast::Block
+         charon_lib::ast::gast::GExprBody<charon_lib::ast::llbc_ast::Block>
+         charon_lib::ast::gast::Body
+         charon_lib::ast::gast::FunDecl
+       Binding stack (depth 4):
+         0: 
+         1: 
+         2: 
+         3: <'_0, '_1, '_2, '_3>
+  --> src/kdf.rs:15:5
+   |
+15 | /     hkdf::Hkdf::<sha2::Sha256>::new(Some(salt), ikm)
+16 | |         .expand(info, okm)
+   | |__________________________^
+
+error: Type error after transformations:
+       Mismatched type generics:
+       target: PrivateCmp
+       expected: [Self, Rhs, SoFar, Self_Output]
+            got: [UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, UInt<UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, B0>, Equal, Less, Less]
+       Visitor stack:
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::expressions::Place
+         charon_lib::ast::expressions::Operand
+         alloc::vec::Vec<charon_lib::ast::expressions::Operand>
+         charon_lib::ast::gast::Call
+         charon_lib::ast::llbc_ast::StatementKind
+         charon_lib::ast::llbc_ast::Statement
+         alloc::vec::Vec<charon_lib::ast::llbc_ast::Statement>
+         charon_lib::ast::llbc_ast::Block
+         charon_lib::ast::gast::GExprBody<charon_lib::ast::llbc_ast::Block>
+         charon_lib::ast::gast::Body
+         charon_lib::ast::gast::FunDecl
+       Binding stack (depth 4):
+         0: 
+         1: 
+         2: 
+         3: <'_0, '_1, '_2, '_3>
+  --> src/kdf.rs:15:5
+   |
+15 | /     hkdf::Hkdf::<sha2::Sha256>::new(Some(salt), ikm)
+16 | |         .expand(info, okm)
+   | |__________________________^
+
+error: Type error after transformations:
+       Mismatched type generics:
+       target: PrivateCmp
+       expected: [Self, Rhs, SoFar, Self_Output]
+            got: [UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, UInt<UInt<UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, B0>, B0>, Equal, Less, Less]
+       Visitor stack:
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::expressions::Place
+         charon_lib::ast::expressions::Operand
+         alloc::vec::Vec<charon_lib::ast::expressions::Operand>
+         charon_lib::ast::gast::Call
+         charon_lib::ast::llbc_ast::StatementKind
+         charon_lib::ast::llbc_ast::Statement
+         alloc::vec::Vec<charon_lib::ast::llbc_ast::Statement>
+         charon_lib::ast::llbc_ast::Block
+         charon_lib::ast::gast::GExprBody<charon_lib::ast::llbc_ast::Block>
+         charon_lib::ast::gast::Body
+         charon_lib::ast::gast::FunDecl
+       Binding stack (depth 4):
+         0: 
+         1: 
+         2: 
+         3: <'_0, '_1, '_2, '_3>
+  --> src/kdf.rs:15:5
+   |
+15 | /     hkdf::Hkdf::<sha2::Sha256>::new(Some(salt), ikm)
+16 | |         .expand(info, okm)
+   | |__________________________^
+
+error: Type error after transformations:
+       Mismatched type generics:
+       target: PrivateCmp
+       expected: [Self, Rhs, SoFar, Self_Output]
+            got: [UInt<UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, B0>, UInt<UInt<UInt<UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, B0>, B0>, B0>, Equal, Less, Less]
+       Visitor stack:
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::expressions::Place
+         charon_lib::ast::expressions::Operand
+         alloc::vec::Vec<charon_lib::ast::expressions::Operand>
+         charon_lib::ast::gast::Call
+         charon_lib::ast::llbc_ast::StatementKind
+         charon_lib::ast::llbc_ast::Statement
+         alloc::vec::Vec<charon_lib::ast::llbc_ast::Statement>
+         charon_lib::ast::llbc_ast::Block
+         charon_lib::ast::gast::GExprBody<charon_lib::ast::llbc_ast::Block>
+         charon_lib::ast::gast::Body
+         charon_lib::ast::gast::FunDecl
+       Binding stack (depth 4):
+         0: 
+         1: 
+         2: 
+         3: <'_0, '_1, '_2, '_3>
+  --> src/kdf.rs:15:5
+   |
+15 | /     hkdf::Hkdf::<sha2::Sha256>::new(Some(salt), ikm)
+16 | |         .expand(info, okm)
+   | |__________________________^
+
+error: Type error after transformations:
+       Mismatched type generics:
+       target: Cmp
+       expected: [Self, Rhs, Self_Output]
+            got: [UInt<UInt<UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, B0>, B0>, UInt<UInt<UInt<UInt<UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, B0>, B0>, B0>, B0>, Less, Less]
+       Visitor stack:
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::expressions::Place
+         charon_lib::ast::expressions::Operand
+         alloc::vec::Vec<charon_lib::ast::expressions::Operand>
+         charon_lib::ast::gast::Call
+         charon_lib::ast::llbc_ast::StatementKind
+         charon_lib::ast::llbc_ast::Statement
+         alloc::vec::Vec<charon_lib::ast::llbc_ast::Statement>
+         charon_lib::ast::llbc_ast::Block
+         charon_lib::ast::gast::GExprBody<charon_lib::ast::llbc_ast::Block>
+         charon_lib::ast::gast::Body
+         charon_lib::ast::gast::FunDecl
+       Binding stack (depth 4):
+         0: 
+         1: 
+         2: 
+         3: <'_0, '_1, '_2, '_3>
+  --> src/kdf.rs:15:5
+   |
+15 | /     hkdf::Hkdf::<sha2::Sha256>::new(Some(salt), ikm)
+16 | |         .expand(info, okm)
+   | |__________________________^
+
+error: Type error after transformations:
+       Mismatched type generics:
+       target: IsLessPrivate
+       expected: [Self, Rhs, Cmp, Self_Output]
+            got: [UInt<UInt<UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, B0>, B0>, UInt<UInt<UInt<UInt<UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, B0>, B0>, B0>, B0>, Less, B1, B1]
+       Visitor stack:
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::expressions::Place
+         charon_lib::ast::expressions::Operand
+         alloc::vec::Vec<charon_lib::ast::expressions::Operand>
+         charon_lib::ast::gast::Call
+         charon_lib::ast::llbc_ast::StatementKind
+         charon_lib::ast::llbc_ast::Statement
+         alloc::vec::Vec<charon_lib::ast::llbc_ast::Statement>
+         charon_lib::ast::llbc_ast::Block
+         charon_lib::ast::gast::GExprBody<charon_lib::ast::llbc_ast::Block>
+         charon_lib::ast::gast::Body
+         charon_lib::ast::gast::FunDecl
+       Binding stack (depth 4):
+         0: 
+         1: 
+         2: 
+         3: <'_0, '_1, '_2, '_3>
+  --> src/kdf.rs:15:5
+   |
+15 | /     hkdf::Hkdf::<sha2::Sha256>::new(Some(salt), ikm)
+16 | |         .expand(info, okm)
+   | |__________________________^
+
+error: Type error after transformations:
+       Mismatched type generics:
+       target: IsLess
+       expected: [Self, Rhs, Self_Output]
+            got: [UInt<UInt<UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, B0>, B0>, UInt<UInt<UInt<UInt<UInt<UInt<UInt<UInt<UInt<UTerm, B1>, B0>, B0>, B0>, B0>, B0>, B0>, B0>, B0>, B1, B1]
+       Visitor stack:
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TypeVarId, charon_lib::ast::types::Ty>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitDeclRef
+         charon_lib::ast::types::RegionBinder<charon_lib::ast::types::TraitDeclRef>
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TraitImplRef
+         charon_lib::ast::types::TraitRefKind
+         charon_lib::ast::types::TraitRefContents
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TraitRefContents>
+         charon_lib::ast::types::TraitRef
+         charon_lib::ids::index_map::IndexMap<charon_lib::ast::types::vars::TraitClauseId, charon_lib::ast::types::TraitRef>
+         charon_lib::ast::types::GenericArgs
+         alloc::boxed::Box<charon_lib::ast::types::GenericArgs>
+         charon_lib::ast::types::TypeDeclRef
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::types::TyKind
+         charon_lib::ast::hash_cons::HashConsed<charon_lib::ast::types::TyKind>
+         charon_lib::ast::types::Ty
+         charon_lib::ast::expressions::Place
+         charon_lib::ast::expressions::Operand
+         alloc::vec::Vec<charon_lib::ast::expressions::Operand>
+         charon_lib::ast::gast::Call
+         charon_lib::ast::llbc_ast::StatementKind
+         charon_lib::ast::llbc_ast::Statement
+         alloc::vec::Vec<charon_lib::ast::llbc_ast::Statement>
+         charon_lib::ast::llbc_ast::Block
+         charon_lib::ast::gast::GExprBody<charon_lib::ast::llbc_ast::Block>
+         charon_lib::ast::gast::Body
+         charon_lib::ast::gast::FunDecl
+       Binding stack (depth 4):
+         0: 
+         1: 
+         2: 
+         3: <'_0, '_1, '_2, '_3>
+  --> src/kdf.rs:15:5
+   |
+15 | /     hkdf::Hkdf::<sha2::Sha256>::new(Some(salt), ikm)
+16 | |         .expand(info, okm)
+   | |__________________________^
+
+warning: The extraction generated 6767 warnings
+warning: `spqr` (lib) generated 6 warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 28m 11s
+oliver@xps9340:~/Projects/Verification/SparsePostQuantumRatchet$ .aeneas/aeneas/charon/bin/charon cargo --preset=aeneas --hide-marker-traits --start-from "spqr::kdf" --exclude "log" --dest-file spqr.llbc -- --features extraction
