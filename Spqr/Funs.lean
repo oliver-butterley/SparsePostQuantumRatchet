@@ -7171,7 +7171,7 @@ def encoding.polynomial.Pt.Insts.CoreMarkerCopy : core.marker.Copy
   cloneInst := encoding.polynomial.Pt.Insts.CoreCloneClone
 }
 
--- Pt PartialEq and Eq instances moved to Types.lean (needed by PolyDecoder type signature)
+-- Pt PartialEq and Eq instances moved to Types.lean
 
 /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Pt}::serialize]:
     Source: 'src/encoding/polynomial.rs', lines 32:4-37:5 -/
@@ -7225,7 +7225,7 @@ def encoding.polynomial.Pt.deserialize
   let g1 ← encoding.gf.GF16.new i1
   ok { x := g, y := g1 }
 
--- Pt PartialOrd and Ord instances moved to Types.lean (needed by PolyDecoder type signature)
+-- Pt PartialOrd and Ord instances moved to Types.lean
 
 /-- [spqr::encoding::polynomial::MAX_STORED_POLYNOMIAL_DEGREE_V1]
     Source: 'src/encoding/polynomial.rs', lines 69:0-69:54 -/

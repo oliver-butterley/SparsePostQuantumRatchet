@@ -152,138 +152,21 @@ tweaks:
 
         /-- [spqr::encoding::polynomial::Poly]
 
-    # Remove Pt PartialEq + Eq from Funs.lean (before serialize)
-    - find: |
-        /-- [spqr::encoding::polynomial::{core::cmp::PartialEq<spqr::encoding::polynomial::Pt> for spqr::encoding::polynomial::Pt}::eq]:
-            Source: 'src/encoding/polynomial.rs', lines 61:4-63:5 -/
-        def encoding.polynomial.Pt.Insts.CoreCmpPartialEqPt.eq
-          (self : encoding.polynomial.Pt) (other : encoding.polynomial.Pt) :
-          Result Bool
-          := do
-          ok (self.x.value = other.x.value)
+    # Remove Pt PartialEq + Eq from Funs.lean
+    - regex: "/-- \\[spqr::encoding::polynomial::\\{core::cmp::PartialEq<spqr::encoding::polynomial::Pt>[\\s\\S]*?encoding\\.polynomial\\.Pt\\.Insts\\.CoreCmpEq\\.assert_receiver_is_total_eq\\n\\}\\n"
+      replace: "-- Pt PartialEq and Eq instances moved to Types.lean\n"
 
-        /-- Trait implementation: [spqr::encoding::polynomial::{core::cmp::PartialEq<spqr::encoding::polynomial::Pt> for spqr::encoding::polynomial::Pt}]
-            Source: 'src/encoding/polynomial.rs', lines 60:0-64:1 -/
-        @[reducible]
-        def encoding.polynomial.Pt.Insts.CoreCmpPartialEqPt : core.cmp.PartialEq
-          encoding.polynomial.Pt encoding.polynomial.Pt := {
-          eq := encoding.polynomial.Pt.Insts.CoreCmpPartialEqPt.eq
-        }
+    # Remove Pt PartialOrd + Ord from Funs.lean
+    - regex: "/-- \\[spqr::encoding::polynomial::\\{core::cmp::PartialOrd<spqr::encoding::polynomial::Pt>[\\s\\S]*?cmp := encoding\\.polynomial\\.Pt\\.Insts\\.CoreCmpOrd\\.cmp\\n\\}\\n"
+      replace: "-- Pt PartialOrd and Ord instances moved to Types.lean\n"
 
-        /-- [spqr::encoding::polynomial::{core::cmp::Eq for spqr::encoding::polynomial::Pt}::assert_receiver_is_total_eq]:
-            Source: 'src/encoding/polynomial.rs', lines 22:22-22:24 -/
-        def encoding.polynomial.Pt.Insts.CoreCmpEq.assert_receiver_is_total_eq
-          (self : encoding.polynomial.Pt) : Result Unit := do
-          ok ()
+    # Strip map field from Iterator instances (Aeneas generates it but Lean backend doesn't have it)
+    - regex: "\\n  map := fun \\{B : Type\\} \\{F : Type\\}[\\s\\S]*?(?=\\n  enumerate)"
+      replace: ""
 
-        /-- Trait implementation: [spqr::encoding::polynomial::{core::cmp::Eq for spqr::encoding::polynomial::Pt}]
-            Source: 'src/encoding/polynomial.rs', lines 22:22-22:24 -/
-        @[reducible]
-        def encoding.polynomial.Pt.Insts.CoreCmpEq : core.cmp.Eq encoding.polynomial.Pt
-          := {
-          partialEqInst := encoding.polynomial.Pt.Insts.CoreCmpPartialEqPt
-          assert_receiver_is_total_eq :=
-            encoding.polynomial.Pt.Insts.CoreCmpEq.assert_receiver_is_total_eq
-        }
-
-        /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Pt}::serialize]:
-      replace: |
-        -- Pt PartialEq and Eq instances moved to Types.lean (needed by PolyDecoder type signature)
-
-        /-- [spqr::encoding::polynomial::{spqr::encoding::polynomial::Pt}::serialize]:
-
-    # Remove Pt PartialOrd + Ord from Funs.lean (before MAX_STORED_POLYNOMIAL_DEGREE_V1)
-    - find: |
-        /-- [spqr::encoding::polynomial::{core::cmp::PartialOrd<spqr::encoding::polynomial::Pt> for spqr::encoding::polynomial::Pt}::partial_cmp]:
-            Source: 'src/encoding/polynomial.rs', lines 55:4-57:5 -/
-        def encoding.polynomial.Pt.Insts.CoreCmpPartialOrdPt.partial_cmp
-          (self : encoding.polynomial.Pt) (other : encoding.polynomial.Pt) :
-          Result (Option Ordering)
-          := do
-          let o ← lift (core.cmp.impls.OrdU16.cmp self.x.value other.x.value)
-          ok (some o)
-
-        /-- Trait implementation: [spqr::encoding::polynomial::{core::cmp::PartialOrd<spqr::encoding::polynomial::Pt> for spqr::encoding::polynomial::Pt}]
-            Source: 'src/encoding/polynomial.rs', lines 54:0-58:1 -/
-        @[reducible]
-        def encoding.polynomial.Pt.Insts.CoreCmpPartialOrdPt : core.cmp.PartialOrd
-          encoding.polynomial.Pt encoding.polynomial.Pt := {
-          partialEqInst := encoding.polynomial.Pt.Insts.CoreCmpPartialEqPt
-          partial_cmp := encoding.polynomial.Pt.Insts.CoreCmpPartialOrdPt.partial_cmp
-        }
-
-        /-- [spqr::encoding::polynomial::{core::cmp::Ord for spqr::encoding::polynomial::Pt}::cmp]:
-            Source: 'src/encoding/polynomial.rs', lines 47:4-49:5 -/
-        def encoding.polynomial.Pt.Insts.CoreCmpOrd.cmp
-          (self : encoding.polynomial.Pt) (other : encoding.polynomial.Pt) :
-          Result Ordering
-          := do
-          let o ←
-            encoding.polynomial.Pt.Insts.CoreCmpPartialOrdPt.partial_cmp self other
-          core.option.Option.unwrap o
-
-        /-- Trait implementation: [spqr::encoding::polynomial::{core::cmp::Ord for spqr::encoding::polynomial::Pt}]
-            Source: 'src/encoding/polynomial.rs', lines 46:0-50:1 -/
-        @[reducible]
-        def encoding.polynomial.Pt.Insts.CoreCmpOrd : core.cmp.Ord
-          encoding.polynomial.Pt := {
-          eqInst := encoding.polynomial.Pt.Insts.CoreCmpEq
-          partialOrdInst := encoding.polynomial.Pt.Insts.CoreCmpPartialOrdPt
-          cmp := encoding.polynomial.Pt.Insts.CoreCmpOrd.cmp
-        }
-
-        /-- [spqr::encoding::polynomial::MAX_STORED_POLYNOMIAL_DEGREE_V1]
-      replace: |
-        -- Pt PartialOrd and Ord instances moved to Types.lean (needed by PolyDecoder type signature)
-
-        /-- [spqr::encoding::polynomial::MAX_STORED_POLYNOMIAL_DEGREE_V1]
-
-    # Strip `map` and `collect` fields from Enumerate Iterator instance
-    # (Aeneas extractor generates these but the Lean backend struct doesn't have them)
-    - find: |
-        step_by :=
-            core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.step_by
-            traitsiteratorIteratorInst
-          map := fun {B : Type} {F : Type} (opsfunctionFnMutPTuplePairUsizeFPInst :
-            core.ops.function.FnMut F (Std.Usize × Clause0_Item) B) =>
-            core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.map
-            traitsiteratorIteratorInst opsfunctionFnMutPTuplePairUsizeFPInst
-          enumerate :=
-            core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.enumerate
-            traitsiteratorIteratorInst
-          collect := fun {B : Type} (traitscollectFromIteratorPPairUsizePInst :
-            core.iter.traits.collect.FromIterator B (Std.Usize × Clause0_Item)) =>
-            core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.collect
-            traitsiteratorIteratorInst traitscollectFromIteratorPPairUsizePInst
-      replace: |
-        step_by :=
-            core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.step_by
-            traitsiteratorIteratorInst
-          enumerate :=
-            core.iter.adapters.enumerate.Enumerate.Insts.CoreIterTraitsIteratorIteratorPairUsizeClause0_Item.enumerate
-            traitsiteratorIteratorInst
-          take := sorry
-
-    # Strip `map` and `collect` fields from VecDeque IntoIter Iterator instance
-    - find: |
-        step_by :=
-            alloc.collections.vec_deque.into_iter.IntoIter.Insts.CoreIterTraitsIteratorIterator.step_by
-          map := fun {B : Type} {F : Type} (coreopsfunctionFnMutPTupleBPInst :
-            core.ops.function.FnMut F T B) =>
-            alloc.collections.vec_deque.into_iter.IntoIter.Insts.CoreIterTraitsIteratorIterator.map
-            coreopsfunctionFnMutPTupleBPInst
-          enumerate :=
-            alloc.collections.vec_deque.into_iter.IntoIter.Insts.CoreIterTraitsIteratorIterator.enumerate
-          collect := fun {B : Type} (coreitertraitscollectFromIteratorInst :
-            core.iter.traits.collect.FromIterator B T) =>
-            alloc.collections.vec_deque.into_iter.IntoIter.Insts.CoreIterTraitsIteratorIterator.collect
-            coreitertraitscollectFromIteratorInst
-      replace: |
-        step_by :=
-            alloc.collections.vec_deque.into_iter.IntoIter.Insts.CoreIterTraitsIteratorIterator.step_by
-          enumerate :=
-            alloc.collections.vec_deque.into_iter.IntoIter.Insts.CoreIterTraitsIteratorIterator.enumerate
-          take := sorry
+    # Replace collect field with take := sorry in Iterator instances
+    - regex: "\\n  collect := fun \\{B : Type\\}[\\s\\S]*?(?=\\n\\})"
+      replace: "\n  take := sorry"
 
     # Sorry proto enum partial_cmp bodies (PartialCmpI32 doesn't exist in Aeneas stdlib)
     - find: "ok (core.cmp.impls.PartialCmpI32.partial_cmp self1 other1)"
