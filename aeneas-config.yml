@@ -57,9 +57,6 @@ crate:
   name: "spqr" # package name
 
 # Post-extraction find/replace applied to generated Lean files.
-# Aeneas places Pt's Ord instance in Funs.lean, but PolyDecoder (in Types.lean)
-# references it in its type signature. Since Types.lean is compiled before Funs.lean,
-# we move the Pt trait instances into Types.lean and remove them from Funs.lean.
 tweaks:
   files: ["Types.lean", "Funs.lean"]
   substitutions:
