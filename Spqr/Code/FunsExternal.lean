@@ -2,7 +2,7 @@
 -- [spqr]: external functions.
 -- This is a template file: rename it to "FunsExternal.lean" and fill the holes.
 import Aeneas
-import Spqr.Types
+import Spqr.Code.Types
 open Aeneas Aeneas.Std Result ControlFlow Error
 set_option linter.dupNamespace false
 set_option linter.hashCommand false

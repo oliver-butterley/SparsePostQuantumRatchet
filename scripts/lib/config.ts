@@ -28,6 +28,7 @@ export interface AeneasConfig {
   aeneas_args: {
     options: string[];
     dest: string;
+    subdir?: string;
   };
   crate: {
     dir: string;

@@ -59,7 +59,8 @@ charon:
 aeneas_args:
   options:
     - split-files
-  dest: "Spqr/Code" # output directory for generated Lean files
+  dest: "." # output directory (project root)
+  subdir: "Spqr/Code" # sub-folder for files (sets import paths to Spqr.Code.*)
 
 # Post-extraction find/replace applied to generated Lean files.
 tweaks:

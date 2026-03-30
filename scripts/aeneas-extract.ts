@@ -31,7 +31,10 @@ async function main(): Promise<void> {
 
   const llbcFile = `${config.crate.name}.llbc`;
   const llbcPath = path.join(root, llbcFile);
-  const outputDir = path.join(root, config.aeneas_args.dest);
+  const destDir = path.join(root, config.aeneas_args.dest);
+  const outputDir = config.aeneas_args.subdir
+    ? path.join(destDir, config.aeneas_args.subdir)
+    : destDir;
   const logsDir = path.join(root, ".logs");
 
   // ── Step 1: Charon ──────────────────────────────────────────────────
@@ -83,9 +86,12 @@ async function main(): Promise<void> {
   const aeneasArgs: string[] = [
     "-backend", "lean",
     ...config.aeneas_args.options.map((o) => `-${o}`),
-    "-dest", outputDir,
-    llbcFile,
+    "-dest", destDir,
   ];
+  if (config.aeneas_args.subdir) {
+    aeneasArgs.push("-subdir", config.aeneas_args.subdir);
+  }
+  aeneasArgs.push(llbcFile);
 
   fs.mkdirSync(outputDir, { recursive: true });
 
