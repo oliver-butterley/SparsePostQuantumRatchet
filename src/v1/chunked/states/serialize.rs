@@ -137,8 +137,7 @@ impl MessageType {
 const MAX_VARINT_BYTES_LEN: usize = 10;
 
 fn encode_varint(mut a: u64, into: &mut SerializedMessage) {
-    let mut i = 0;
-    while i < MAX_VARINT_BYTES_LEN {
+    for _i in 0..MAX_VARINT_BYTES_LEN {
         let byte = (a & 0x7F) as u8;
         if a < 0x80 {
             into.push(byte);
@@ -146,7 +145,6 @@ fn encode_varint(mut a: u64, into: &mut SerializedMessage) {
         }
         into.push(0x80 | byte);
         a >>= 7;
-        i += 1;
     }
 }
 

@@ -6,8 +6,13 @@ proptest-regressions
 *.llbc
 .logs/
 .aeneas/
+.tmp/
 
 # Lean & Aeneas
 .lake/
 FunsExternal_Template.lean
 TypesExternal_Template.lean
+
+# Node
+node_modules/
+dist/

@@ -344,10 +344,9 @@ impl Poly {
             return Err(PolynomialError::SerializationInvalid);
         }
         let mut coefficients = Vec::<GF16>::with_capacity(serialized.len() / 2);
-        let mut j = 0;
-        while j + 2 <= serialized.len() {
+        for i in 0..(serialized.len() / 2) {
+            let j = i * 2;
             coefficients.push(GF16::new(u16::from_be_bytes([serialized[j], serialized[j + 1]])));
-            j += 2;
         }
         hax_lib::assume!(coefficients.len() <= MAX_INTERMEDIATE_POLYNOMIAL_DEGREE_V1 + 1);
         Ok(Self { coefficients })
@@ -597,10 +596,9 @@ impl PolyEncoder {
                     return Err(PolynomialError::SerializationInvalid);
                 }
                 let mut v = Vec::<GF16>::with_capacity(pts.len() / 2);
-                let mut j = 0;
-                while j + 2 <= pts.len() {
+                for k in 0..(pts.len() / 2) {
+                    let j = k * 2;
                     v.push(GF16::new(u16::from_be_bytes([pts[j], pts[j + 1]])));
-                    j += 2;
                 }
                 hax_lib::assume!(v.len() <= MAX_INTERMEDIATE_POLYNOMIAL_DEGREE_V1);
                 out[i] = Point { value: v };
@@ -813,6 +811,7 @@ impl PolyDecoder {
     }
 
     #[hax_lib::ensures(|res| hax_lib::implies(res.is_ok(), res.unwrap().pts_needed == pb.pts_needed as usize))]
+    #[hax_lib::opaque] // return in loop
     pub(crate) fn from_pb(
         pb: proto::pq_ratchet::PolynomialDecoder,
     ) -> Result<Self, PolynomialError> {

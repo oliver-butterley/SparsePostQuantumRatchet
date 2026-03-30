@@ -1,0 +1,474 @@
+# Modifications to SparsePostQuantumRatchet source code
+
+This file contains the diff between the original upstream source
+and the modified version used in this verification project.
+
+Upstream Repository: https://github.com/signalapp/SparsePostQuantumRatchet
+Upstream Commit: f2589fef855c10f39d72634dab3d14654dd410bf
+
+---
+
+diff -Naur --no-dereference a/src/chain.rs b/src/chain.rs
+--- a/src/chain.rs
++++ b/src/chain.rs
+@@ -608,9 +608,9 @@
+                         kh.gc(ctr, &params);
+                     }
+                 }
+-                let mut fell_off = vec![];
+-                (fell_off, stored) = stored.into_iter().partition(
++                let (fell_off, stored_new): (Vec<_>, _) = stored.into_iter().partition(
+                     |n| n + params.max_ooo_keys < ctr);
++                stored = stored_new;
+                 if !fell_off.is_empty() {
+                     log::debug!("fell off: {:?}", fell_off);
+                 }
+@@ -693,9 +693,9 @@
+                         ced.key(high, &params).unwrap_err();
+                     }
+                 }
+-                let mut fell_off = vec![];
+-                (fell_off, stored) = stored.into_iter().partition(
++                let (fell_off, stored_new): (Vec<_>, _) = stored.into_iter().partition(
+                     |n| n + params.max_ooo_keys < ctr);
++                stored = stored_new;
+                 if !fell_off.is_empty() {
+                     log::debug!("fell off: {:?}", fell_off);
+                 }
+diff -Naur --no-dereference a/src/encoding/gf.rs b/src/encoding/gf.rs
+--- a/src/encoding/gf.rs
++++ b/src/encoding/gf.rs
+@@ -551,7 +551,8 @@
+         let mut square = *other * *other;
+         let mut out = *self;
+         for _i in 1..16 {
+-            (square.value, out.value) = mul2_u16(square.value, square.value, out.value);
++            out *= square;
++            square = square * square;
+         }
+         out
+     }
+diff -Naur --no-dereference a/src/encoding/polynomial.rs b/src/encoding/polynomial.rs
+--- a/src/encoding/polynomial.rs
++++ b/src/encoding/polynomial.rs
+@@ -265,8 +265,9 @@
+         }
+         // Multiply and sum
+         let mut out = GF16::ZERO;
+-        for (a, b) in self.coefficients.iter().zip(xs.iter()) {
+-            out += *a * *b;
++        #[allow(clippy::needless_range_loop)]
++        for i in 0..self.coefficients.len() {
++            out += self.coefficients[i] * xs[i];
+         }
+         out
+     }
+@@ -275,9 +276,9 @@
+     #[hax_lib::opaque] // zip
+     fn lagrange_sum(pts: &[Pt], polys: &[Poly]) -> Poly {
+         let mut out = Poly::zero(pts.len());
+-        for (pt, poly) in pts.iter().zip(polys.iter()) {
+-            let mut p = poly.clone();
+-            p.mult_assign(pt.y);
++        for i in 0..pts.len() {
++            let mut p = polys[i].clone();
++            p.mult_assign(pts[i].y);
+             out.add_assign(&p);
+         }
+         out
+@@ -307,17 +308,19 @@
+             36 => const_polys_to_polys(&COMPLETE_POINTS_POLYS_36),
+             _ => {
+                 debug_assert!(false, "missing precomputed poly of size {}", pts.len());
+-                let ones = pts
+-                    .iter()
+-                    .map(|pt| Pt {
+-                        x: pt.x,
++                let mut ones = Vec::with_capacity(pts.len());
++                #[allow(clippy::needless_range_loop)]
++                for i in 0..pts.len() {
++                    ones.push(Pt {
++                        x: pts[i].x,
+                         y: GF16::ONE,
+-                    })
+-                    .collect::<Vec<_>>();
+-                pts.iter()
+-                    .enumerate()
+-                    .map(|(i, _pt)| Self::lagrange_interpolate_pt(&ones, i))
+-                    .collect::<Vec<_>>()
++                    });
++                }
++                let mut polys = Vec::with_capacity(pts.len());
++                for i in 0..pts.len() {
++                    polys.push(Self::lagrange_interpolate_pt(&ones, i));
++                }
++                polys
+             }
+         };
+         Ok(Self::lagrange_sum(pts, &polys))
+@@ -341,8 +344,9 @@
+             return Err(PolynomialError::SerializationInvalid);
+         }
+         let mut coefficients = Vec::<GF16>::with_capacity(serialized.len() / 2);
+-        for coeff in serialized.chunks_exact(2) {
+-            coefficients.push(GF16::new(u16::from_be_bytes(coeff.try_into().unwrap())));
++        for i in 0..(serialized.len() / 2) {
++            let j = i * 2;
++            coefficients.push(GF16::new(u16::from_be_bytes([serialized[j], serialized[j + 1]])));
+         }
+         hax_lib::assume!(coefficients.len() <= MAX_INTERMEDIATE_POLYNOMIAL_DEGREE_V1 + 1);
+         Ok(Self { coefficients })
+@@ -569,16 +573,21 @@
+     pub(crate) fn from_pb(
+         pb: proto::pq_ratchet::PolynomialEncoder,
+     ) -> Result<Self, PolynomialError> {
+-        let s = if !pb.pts.is_empty() {
++        if !pb.pts.is_empty() {
+             if !pb.polys.is_empty() {
+                 return Err(PolynomialError::SerializationInvalid);
+             }
+             if pb.pts.len() != NUM_POLYS {
+                 return Err(PolynomialError::SerializationInvalid);
+             }
+-            let mut out = core::array::from_fn(|_| Point {
+-                value: Vec::<GF16>::new(),
+-            });
++            let mut out = [Point { value: Vec::<GF16>::new() }, Point { value: Vec::<GF16>::new() },
++                          Point { value: Vec::<GF16>::new() }, Point { value: Vec::<GF16>::new() },
++                          Point { value: Vec::<GF16>::new() }, Point { value: Vec::<GF16>::new() },
++                          Point { value: Vec::<GF16>::new() }, Point { value: Vec::<GF16>::new() },
++                          Point { value: Vec::<GF16>::new() }, Point { value: Vec::<GF16>::new() },
++                          Point { value: Vec::<GF16>::new() }, Point { value: Vec::<GF16>::new() },
++                          Point { value: Vec::<GF16>::new() }, Point { value: Vec::<GF16>::new() },
++                          Point { value: Vec::<GF16>::new() }, Point { value: Vec::<GF16>::new() }];
+ 
+             #[allow(clippy::needless_range_loop)]
+             for i in 0..NUM_POLYS {
+@@ -586,24 +595,28 @@
+                 if pts.len() % 2 != 0 {
+                     return Err(PolynomialError::SerializationInvalid);
+                 }
+-                let mut v = Vec::<GF16>::with_capacity(pts.len());
+-                for pt in pts.chunks_exact(2) {
+-                    v.push(GF16::new(u16::from_be_bytes(pt.try_into().unwrap())));
++                let mut v = Vec::<GF16>::with_capacity(pts.len() / 2);
++                for k in 0..(pts.len() / 2) {
++                    let j = k * 2;
++                    v.push(GF16::new(u16::from_be_bytes([pts[j], pts[j + 1]])));
+                 }
+                 hax_lib::assume!(v.len() <= MAX_INTERMEDIATE_POLYNOMIAL_DEGREE_V1);
+                 out[i] = Point { value: v };
+             }
+-            EncoderState::Points(out)
+-        } else if pb.polys.len() == NUM_POLYS {
+-            let mut out: [Poly; NUM_POLYS] = core::array::from_fn(|_| Poly::zero(1));
+-            for (i, poly) in pb.polys.iter().enumerate() {
+-                out[i] = Poly::deserialize(poly)?;
++            return Ok(Self { idx: pb.idx, s: EncoderState::Points(out) });
++        }
++        if pb.polys.len() == NUM_POLYS {
++            let mut out = [Poly::zero(1), Poly::zero(1), Poly::zero(1), Poly::zero(1),
++                          Poly::zero(1), Poly::zero(1), Poly::zero(1), Poly::zero(1),
++                          Poly::zero(1), Poly::zero(1), Poly::zero(1), Poly::zero(1),
++                          Poly::zero(1), Poly::zero(1), Poly::zero(1), Poly::zero(1)];
++            #[allow(clippy::needless_range_loop)]
++            for i in 0..NUM_POLYS {
++                out[i] = Poly::deserialize(&pb.polys[i])?;
+             }
+-            EncoderState::Polys(out)
+-        } else {
+-            return Err(PolynomialError::SerializationInvalid);
+-        };
+-        Ok(Self { idx: pb.idx, s })
++            return Ok(Self { idx: pb.idx, s: EncoderState::Polys(out) });
++        }
++        Err(PolynomialError::SerializationInvalid)
+     }
+ 
+     #[requires(poly < 16)]
+@@ -805,16 +818,31 @@
+         if pb.pts.len() != 16 {
+             return Err(PolynomialError::SerializationInvalid);
+         }
+-        let mut out_pts = core::array::from_fn(|_| SortedSet::new());
++        // Validate all lengths up front (Aeneas cannot handle early return inside loops)
++        if pb.pts[0].len() % 4 != 0 || pb.pts[1].len() % 4 != 0
++            || pb.pts[2].len() % 4 != 0 || pb.pts[3].len() % 4 != 0
++            || pb.pts[4].len() % 4 != 0 || pb.pts[5].len() % 4 != 0
++            || pb.pts[6].len() % 4 != 0 || pb.pts[7].len() % 4 != 0
++            || pb.pts[8].len() % 4 != 0 || pb.pts[9].len() % 4 != 0
++            || pb.pts[10].len() % 4 != 0 || pb.pts[11].len() % 4 != 0
++            || pb.pts[12].len() % 4 != 0 || pb.pts[13].len() % 4 != 0
++            || pb.pts[14].len() % 4 != 0 || pb.pts[15].len() % 4 != 0
++        {
++            return Err(PolynomialError::SerializationInvalid);
++        }
++        let mut out_pts = [SortedSet::new(), SortedSet::new(), SortedSet::new(), SortedSet::new(),
++                          SortedSet::new(), SortedSet::new(), SortedSet::new(), SortedSet::new(),
++                          SortedSet::new(), SortedSet::new(), SortedSet::new(), SortedSet::new(),
++                          SortedSet::new(), SortedSet::new(), SortedSet::new(), SortedSet::new()];
+         #[allow(clippy::needless_range_loop)]
+         for i in 0..16 {
+             let pts = &pb.pts[i];
+-            if pts.len() % 4 != 0 {
+-                return Err(PolynomialError::SerializationInvalid);
+-            }
+             let mut v = SortedSet::with_capacity(pts.len() / 4);
+-            for pt in pts.chunks_exact(4) {
+-                v.push(Pt::deserialize(pt.try_into().unwrap()));
++            let mut j = 0;
++            while j + 4 <= pts.len() {
++                let chunk: [u8; 4] = [pts[j], pts[j + 1], pts[j + 2], pts[j + 3]];
++                v.push(Pt::deserialize(chunk));
++                j += 4;
+             }
+             out_pts[i] = v;
+         }
+diff -Naur --no-dereference a/src/lib.rs b/src/lib.rs
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -1,6 +1,8 @@
+ // Copyright 2025 Signal Messenger, LLC
+ // SPDX-License-Identifier: AGPL-3.0-only
+ 
++#![cfg_attr(feature = "extraction", allow(dead_code))]
++
+ pub(crate) mod authenticator;
+ #[cfg(feature = "test-utils")]
+ pub mod chain;
+diff -Naur --no-dereference a/src/v1/chunked/states/serialize.rs b/src/v1/chunked/states/serialize.rs
+--- a/src/v1/chunked/states/serialize.rs
++++ b/src/v1/chunked/states/serialize.rs
+@@ -141,11 +141,10 @@
+         let byte = (a & 0x7F) as u8;
+         if a < 0x80 {
+             into.push(byte);
+-            break;
+-        } else {
+-            into.push(0x80 | byte);
+-            a >>= 7;
++            return;
+         }
++        into.push(0x80 | byte);
++        a >>= 7;
+     }
+ }
+ 
+diff -Naur --no-dereference a/src/v1/chunked/states.rs b/src/v1/chunked/states.rs
+--- a/src/v1/chunked/states.rs
++++ b/src/v1/chunked/states.rs
+@@ -121,11 +121,11 @@
+                 let epoch = state.epoch();
+                 let (state, chunk) = state.send_hdr_chunk(rng);
+ 
+-                #[cfg(not(hax))]
+-                log::info!(
+-                    "spqr v1.send_ek.send epoch {}: KeysUnsampled -> KeysSampled",
+-                    epoch
+-                );
++                // #[cfg(not(hax))]
++                // log::info!(
++                //     "spqr v1.send_ek.send epoch {}: KeysUnsampled -> KeysSampled",
++                //     epoch
++                // );
+                 Ok(Send {
+                     state: Self::KeysSampled(state),
+                     msg: Message {
+@@ -204,11 +204,11 @@
+                 let epoch = state.epoch();
+                 let (state, chunk, epoch_secret) = state.send_ct1_chunk(rng);
+ 
+-                #[cfg(not(hax))]
+-                log::info!(
+-                    "spqr v1.send_ct.send epoch {}: HeaderReceived -> Ct1Sampled",
+-                    epoch
+-                );
++                // #[cfg(not(hax))]
++                // log::info!(
++                //     "spqr v1.send_ct.send epoch {}: HeaderReceived -> Ct1Sampled",
++                //     epoch
++                // );
+                 Ok(Send {
+                     state: Self::Ct1Sampled(state),
+                     msg: Message {
+@@ -293,11 +293,11 @@
+                 Ordering::Less => Self::KeysSampled(state),
+                 Ordering::Equal => {
+                     if let MessagePayload::Ct1(ref chunk) = msg.payload {
+-                        #[cfg(not(hax))]
+-                        log::info!(
+-                            "spqr v1.send_ek.recv epoch {}: KeysSampled -> HeaderSent",
+-                            msg.epoch
+-                        );
++                        // #[cfg(not(hax))]
++                        // log::info!(
++                        //     "spqr v1.send_ek.recv epoch {}: KeysSampled -> HeaderSent",
++                        //     msg.epoch
++                        // );
+                         Self::HeaderSent(state.recv_ct1_chunk(msg.epoch, chunk))
+                     } else {
+                         Self::KeysSampled(state)
+@@ -316,11 +316,11 @@
+                                 Self::HeaderSent(state)
+                             }
+                             send_ek::HeaderSentRecvChunk::Done(state) => {
+-                                #[cfg(not(hax))]
+-                                log::info!(
+-                                    "spqr v1.send_ek.recv epoch {}: HeaderSent -> Ct1Received",
+-                                    msg.epoch
+-                                );
++                                // #[cfg(not(hax))]
++                                // log::info!(
++                                //     "spqr v1.send_ek.recv epoch {}: HeaderSent -> Ct1Received",
++                                //     msg.epoch
++                                // );
+                                 Self::Ct1Received(state)
+                             }
+                         }
+@@ -336,11 +336,11 @@
+                 Ordering::Less => Self::Ct1Received(state),
+                 Ordering::Equal => {
+                     if let MessagePayload::Ct2(ref chunk) = msg.payload {
+-                        #[cfg(not(hax))]
+-                        log::info!(
+-                            "spqr v1.send_ek.recv epoch {}: Ct1Received -> EkSentCt1Received",
+-                            msg.epoch
+-                        );
++                        // #[cfg(not(hax))]
++                        // log::info!(
++                        //     "spqr v1.send_ek.recv epoch {}: Ct1Received -> EkSentCt1Received",
++                        //     msg.epoch
++                        // );
+                         Self::EkSentCt1Received(state.recv_ct2_chunk(msg.epoch, chunk))
+                     } else {
+                         Self::Ct1Received(state)
+@@ -359,11 +359,11 @@
+                                 Self::EkSentCt1Received(state)
+                             }
+                             send_ek::EkSentCt1ReceivedRecvChunk::Done((state, sec)) => {
+-                                #[cfg(not(hax))]
+-                                log::info!(
+-                                    "spqr v1.send_ek.recv epoch {}->{}: EkSentCt1Received -> NoHeaderReceived",
+-                                    msg.epoch, msg.epoch+1
+-                                );
++                                // #[cfg(not(hax))]
++                                // log::info!(
++                                //     "spqr v1.send_ek.recv epoch {}->{}: EkSentCt1Received -> NoHeaderReceived",
++                                //     msg.epoch, msg.epoch+1
++                                // );
+                                 key = Some(sec);
+                                 Self::NoHeaderReceived(state)
+                             }
+@@ -389,11 +389,11 @@
+                                 Self::NoHeaderReceived(state)
+                             }
+                             send_ct::NoHeaderReceivedRecvChunk::Done(state) => {
+-                                #[cfg(not(hax))]
+-                                log::info!(
+-                                    "spqr v1.send_ct.recv epoch {}: NoHeaderReceived -> HeaderReceived",
+-                                    msg.epoch
+-                                );
++                                // #[cfg(not(hax))]
++                                // log::info!(
++                                //     "spqr v1.send_ct.recv epoch {}: NoHeaderReceived -> HeaderReceived",
++                                //     msg.epoch
++                                // );
+                                 Self::HeaderReceived(state)
+                             }
+                         }
+@@ -426,27 +426,27 @@
+                                 Self::Ct1Sampled(state)
+                             }
+                             send_ct::Ct1SampledRecvChunk::StillReceiving(state) => {
+-                                #[cfg(not(hax))]
+-                                log::info!(
+-                                    "spqr v1.send_ct.recv epoch {}: Ct1Sampled -> Ct1Acknowledged",
+-                                    msg.epoch
+-                                );
++                                // #[cfg(not(hax))]
++                                // log::info!(
++                                //     "spqr v1.send_ct.recv epoch {}: Ct1Sampled -> Ct1Acknowledged",
++                                //     msg.epoch
++                                // );
+                                 Self::Ct1Acknowledged(state)
+                             }
+                             send_ct::Ct1SampledRecvChunk::StillSending(state) => {
+-                                #[cfg(not(hax))]
+-                                log::info!(
+-                                    "spqr v1.send_ct.recv epoch {}: Ct1Sampled -> EkReceivedCt1Sampled",
+-                                    msg.epoch
+-                                );
++                                // #[cfg(not(hax))]
++                                // log::info!(
++                                //     "spqr v1.send_ct.recv epoch {}: Ct1Sampled -> EkReceivedCt1Sampled",
++                                //     msg.epoch
++                                // );
+                                 Self::EkReceivedCt1Sampled(state)
+                             }
+                             send_ct::Ct1SampledRecvChunk::Done(state) => {
+-                                #[cfg(not(hax))]
+-                                log::info!(
+-                                    "spqr v1.send_ct.recv epoch {}: Ct1Sampled -> Ct2Sampled",
+-                                    msg.epoch
+-                                );
++                                // #[cfg(not(hax))]
++                                // log::info!(
++                                //     "spqr v1.send_ct.recv epoch {}: Ct1Sampled -> Ct2Sampled",
++                                //     msg.epoch
++                                // );
+                                 Self::Ct2Sampled(state)
+                             }
+                         }
+@@ -465,11 +465,11 @@
+                         msg.payload,
+                         MessagePayload::Ct1Ack(true) | MessagePayload::EkCt1Ack(_)
+                     ) {
+-                        #[cfg(not(hax))]
+-                        log::info!(
+-                            "spqr v1.send_ct.recv epoch {}: EkReceivedCt1Sampled -> Ct2Sampled",
+-                            msg.epoch
+-                        );
++                        // #[cfg(not(hax))]
++                        // log::info!(
++                        //     "spqr v1.send_ct.recv epoch {}: EkReceivedCt1Sampled -> Ct2Sampled",
++                        //     msg.epoch
++                        // );
+                         Self::Ct2Sampled(state.recv_ct1_ack(msg.epoch))
+                     } else {
+                         Self::EkReceivedCt1Sampled(state)
+@@ -497,11 +497,11 @@
+                                 Self::Ct1Acknowledged(state)
+                             }
+                             send_ct::Ct1AcknowledgedRecvChunk::Done(state) => {
+-                                #[cfg(not(hax))]
+-                                log::info!(
+-                                    "spqr v1.send_ct.recv epoch {}: Ct1Acknowledged -> Ct2Sampled",
+-                                    msg.epoch
+-                                );
++                                // #[cfg(not(hax))]
++                                // log::info!(
++                                //     "spqr v1.send_ct.recv epoch {}: Ct1Acknowledged -> Ct2Sampled",
++                                //     msg.epoch
++                                // );
+                                 Self::Ct2Sampled(state)
+                             }
+                         }
+@@ -513,12 +513,12 @@
+             Self::Ct2Sampled(state) => match msg.epoch.cmp(&state.epoch()) {
+                 Ordering::Greater => {
+                     if msg.epoch == state.epoch() + 1 {
+-                        #[cfg(not(hax))]
+-                        log::info!(
+-                            "spqr v1.send_ct.recv epoch {}->{}: Ct2Sampled -> KeysSampled",
+-                            msg.epoch - 1,
+-                            msg.epoch
+-                        );
++                        // #[cfg(not(hax))]
++                        // log::info!(
++                        //     "spqr v1.send_ct.recv epoch {}->{}: Ct2Sampled -> KeysSampled",
++                        //     msg.epoch - 1,
++                        //     msg.epoch
++                        // );
+                         Self::KeysUnsampled(state.recv_next_epoch(msg.epoch))
+                     } else {
+                         return Err(Error::EpochOutOfRange(msg.epoch));
